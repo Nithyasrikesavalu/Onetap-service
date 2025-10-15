@@ -2,10 +2,10 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import OurServices from "../components/Services";
-import PrivacySection from "../components/Security";
+// import PrivacySection from "../components/Security";
 import Footer from "../components/Footer";
 import NearbyXerox from "../components/Shops";
-import Login from "./Login";
+// import Login from "./Login";
 
 const Landingpage =()=>{
 

@@ -95,6 +95,7 @@
 // }
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function About() {
   return (
@@ -106,7 +107,7 @@ export default function About() {
             <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
             Streamlined Process
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             How It Works
           </h2>
           <p className="text-xl font-semibold text-gray-800 mb-3">இது எப்படி வேலை செய்கிறது</p>
@@ -248,9 +249,9 @@ export default function About() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+          <Link to="/login" className="bg-gradient-to-r from-blue-300 to-purple-400 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
             Get Started Today
-          </button>
+          </Link>
           <p className="text-gray-600 text-sm mt-4">
             Join thousands of satisfied customers using our document services
           </p>
@@ -259,3 +260,6 @@ export default function About() {
     </section>
   );
 }
+
+
+

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Banner = () => {
   // const floatingIcons = [
   //   { icon: "📄", position: "top-20 left-10", delay: "delay-0" },
@@ -244,7 +246,7 @@ return (
             </p>
 
             {/* Button */}
-            <button className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 flex items-center gap-3 mx-auto backdrop-blur-sm border border-cyan-400/30">
+            <Link to="/login" className="px-10 w-60 py-4 bg-gradient-to-r from-cyan-300 to-blue-400 hover:from-cyan-500 hover:to-blue-500 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 flex items-center gap-3 mx-auto backdrop-blur-sm border border-cyan-400/30">
               Explore More!
               <svg
                 className="w-5 h-5"
@@ -259,7 +261,7 @@ return (
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

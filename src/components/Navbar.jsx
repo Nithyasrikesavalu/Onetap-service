@@ -3,6 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import SearchButton from "./SearchButton";
+import { Link } from "react-router-dom";
 
 // const Navbar = () => {
 //   const [darkMode, setDarkMode] = useState(false);
@@ -278,7 +279,7 @@ export default function OneClickGovNavbar() {
           </div>
 
           {/* CENTER: Links with modern hover effects */}
-          <nav className="hidden lg:flex items-center space-x-8 text-sm">
+          {/* <nav className="hidden lg:flex items-center space-x-8 text-sm">
             <a href="#" className="group flex items-center gap-2 text-gray-700 hover:text-blue-600 font-medium transition-all duration-300">
               <div className="p-2 rounded-xl bg-blue-50 group-hover:bg-blue-100 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -303,12 +304,12 @@ export default function OneClickGovNavbar() {
               </div>
               <span className="group-hover:font-semibold transition-all duration-300">Upload Document</span>
             </a>
-          </nav>
+          </nav> */}
 
           {/* RIGHT: Modern controls with depth */}
           <div className="flex items-center gap-4">
             {/* Primary CTA with modern styling */}
-            <SearchButton />
+            {/* <SearchButton /> */}
             {/* AI Assistant with glowing effect */}
             <button className="hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transform hover:scale-105  transition-all duration-300 border border-green-300 relative overflow-hidden group">
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
@@ -388,16 +389,16 @@ export default function OneClickGovNavbar() {
                   </div>
 
                   {/* Login Button */}
-                  <button className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 transition-all duration-300 group">
+                  <Link to={"/login"} className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 transition-all duration-300 group">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                     </svg>
                     <span className="flex-1 text-left">Login to Your Account</span>
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  </button>
+                  </Link>
 
                   {/* Signup Button */}
-                  <button className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 transition-all duration-300 group mt-1">
+                  <Link to={"/Account"} className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 transition-all duration-300 group mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                     </svg>
@@ -407,7 +408,7 @@ export default function OneClickGovNavbar() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
-                  </button>
+                  </Link>
 
                   {/* Divider */}
                   <div className="px-4 py-2">
