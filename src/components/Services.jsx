@@ -1685,7 +1685,7 @@ export default function OurServices() {
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 py-24 overflow-hidden">
       {/* Enhanced Background */}
-      <FloatingParticles />
+      {/* <FloatingParticles /> */}
 
       {/* Additional Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -1786,21 +1786,17 @@ export default function OurServices() {
                   className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
                 ></div>
 
-                {/* Floating Elements */}
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transform group-hover:scale-150 transition-all duration-500"></div>
-                <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transform group-hover:scale-150 transition-all duration-500 animation-delay-200"></div>
-
                 {/* Header with Icon and Category */}
                 <div className="relative p-6 border-b border-slate-100/60 group-hover:border-slate-200/30 transition-colors duration-300">
                   <div className="flex items-center justify-between mb-4">
                     <div
-                      className={`p-3 rounded-xl bg-gradient-to-br ${service.color} text-white shadow-lg transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 relative overflow-hidden`}
+                      className={`p-3 rounded-xl bg-gradient-to-br ${service.color} text-white shadow-lg transform group-hover:scale-110 transition-all duration-500 relative overflow-hidden`}
                     >
                       <Icon
                         name={service.icon}
                         className="w-5 h-5 relative z-10"
                       />
-                      <div className="absolute inset-0 bg-white/20 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                      {/* <div className="absolute inset-0 bg-white/20 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div> */}
                     </div>
                     <span className="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100/80 text-slate-600 backdrop-blur-sm group-hover:bg-white/90 transition-colors duration-300">
                       {service.category}
