@@ -403,7 +403,6 @@
 //   );
 // }
 
-
 // import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 
@@ -544,14 +543,14 @@
 
 //   return (
 //     <section className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 py-12 relative overflow-hidden">
-      
+
 //       {/* Unique Background Patterns */}
 //       <div className="absolute inset-0">
 //         {/* Abstract Blob Shapes */}
 //         <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-r from-amber-200/40 to-orange-200/30 rounded-full blur-3xl animate-pulse-slow"></div>
 //         <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-r from-rose-200/40 to-pink-200/30 rounded-full blur-3xl animate-pulse-slower"></div>
 //         <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-yellow-200/30 to-amber-200/20 rounded-full blur-2xl animate-float"></div>
-        
+
 //         {/* Geometric Grid Pattern */}
 //         <div className="absolute inset-0 opacity-10">
 //           <div className="absolute inset-0" style={{
@@ -579,7 +578,7 @@
 //       </div>
 
 //       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
+
 //         {/* Unique Header */}
 //         <div className="text-center mb-16">
 //           {/* Animated Logo */}
@@ -605,7 +604,7 @@
 //             <div className="flex flex-wrap gap-4">
 //               {/* Location Filter */}
 //               <div className="bg-white rounded-2xl px-6 py-3 shadow-sm border border-amber-200">
-//                 <select 
+//                 <select
 //                   className="bg-transparent border-0 text-amber-800 text-sm focus:outline-none focus:ring-0 cursor-pointer font-medium"
 //                   value={filterPlace}
 //                   onChange={(e) => setFilterPlace(e.target.value)}
@@ -617,10 +616,10 @@
 //                   <option className="text-amber-800">Velachery</option>
 //                 </select>
 //               </div>
-              
+
 //               {/* Sort Filter */}
 //               <div className="bg-white rounded-2xl px-6 py-3 shadow-sm border border-amber-200">
-//                 <select 
+//                 <select
 //                   className="bg-transparent border-0 text-amber-800 text-sm focus:outline-none focus:ring-0 cursor-pointer font-medium"
 //                   value={sortBy}
 //                   onChange={(e) => setSortBy(e.target.value)}
@@ -650,9 +649,9 @@
 //             <div className="bg-white rounded-2xl px-6 py-3 shadow-sm border border-amber-200 min-w-80">
 //               <div className="flex items-center gap-3">
 //                 <span className="text-amber-600">🔍</span>
-//                 <input 
-//                   type="text" 
-//                   placeholder="Search shops, services..." 
+//                 <input
+//                   type="text"
+//                   placeholder="Search shops, services..."
 //                   className="bg-transparent border-0 text-amber-800 placeholder-amber-400 focus:outline-none focus:ring-0 w-full"
 //                 />
 //               </div>
@@ -671,7 +670,7 @@
 //             >
 //               {/* Main Card */}
 //               <div className="relative bg-white/90 backdrop-blur-sm rounded-3xl p-6 border-2 border-amber-100 shadow-soft hover:shadow-xl transition-all duration-500 hover:scale-105 hover:border-amber-200 overflow-hidden">
-                
+
 //                 {/* Trend Badge */}
 //                 <div className={`absolute top-4 left-4 bg-gradient-to-r ${getTrendColor(shop.trend)} text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg z-10`}>
 //                   {getTrendText(shop.trend)}
@@ -697,8 +696,8 @@
 //                     </div>
 //                     <div className="text-right">
 //                       <span className={`text-xs px-3 py-1.5 rounded-full font-bold ${
-//                         shop.open 
-//                           ? 'bg-green-100 text-green-700 border border-green-200' 
+//                         shop.open
+//                           ? 'bg-green-100 text-green-700 border border-green-200'
 //                           : 'bg-red-100 text-red-700 border border-red-200'
 //                       }`}>
 //                         {shop.open ? '🟢 OPEN' : '🔴 CLOSED'}
@@ -710,7 +709,7 @@
 //                   <h3 className="text-xl font-bold text-amber-900 mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors duration-300">
 //                     {shop.name}
 //                   </h3>
-                  
+
 //                   <div className="flex items-center justify-between">
 //                     <span className="text-amber-600 font-semibold bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">
 //                       📍 {shop.distance}
@@ -730,7 +729,7 @@
 //                       {shop.address}
 //                     </p>
 //                   </div>
-                  
+
 //                   <div>
 //                     <p className="text-amber-600 text-xs font-bold mb-2 uppercase tracking-wide">Services Available</p>
 //                     <p className="text-amber-800 text-sm leading-relaxed font-medium">
@@ -842,7 +841,6 @@
 //     </section>
 //   );
 // }
-
 
 // import React, { useState } from "react";
 // import { Link } from "react-router-dom";
@@ -963,7 +961,6 @@
 
 //   return (
 //     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8">
-      
 
 //       <div className="max-w-7xl mx-auto px-6 py-8">
 //         {/* Page Header */}
@@ -975,7 +972,7 @@
 //             Professional Printing Partners
 //           </h2>
 //           <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
-//             Connect with certified business printing centers offering enterprise-grade solutions 
+//             Connect with certified business printing centers offering enterprise-grade solutions
 //             for all your corporate document needs.
 //           </p>
 //         </div>
@@ -987,11 +984,11 @@
 //               <h3 className="text-lg font-semibold text-gray-900 mb-2">Filter Partners</h3>
 //               <p className="text-gray-600 text-sm">Find the perfect printing solution for your business needs</p>
 //             </div>
-            
+
 //             <div className="flex flex-wrap gap-4">
 //               {/* Location Filter */}
 //               <div className="bg-gray-50 rounded-xl px-4 py-3 border border-gray-200">
-//                 <select 
+//                 <select
 //                   className="bg-transparent border-0 text-gray-700 text-sm focus:outline-none focus:ring-0 cursor-pointer font-medium"
 //                   value={filterPlace}
 //                   onChange={(e) => setFilterPlace(e.target.value)}
@@ -1003,10 +1000,10 @@
 //                   <option className="text-gray-700">Velachery</option>
 //                 </select>
 //               </div>
-              
+
 //               {/* Sort Filter */}
 //               <div className="bg-gray-50 rounded-xl px-4 py-3 border border-gray-200">
-//                 <select 
+//                 <select
 //                   className="bg-transparent border-0 text-gray-700 text-sm focus:outline-none focus:ring-0 cursor-pointer font-medium"
 //                   value={sortBy}
 //                   onChange={(e) => setSortBy(e.target.value)}
@@ -1100,7 +1097,7 @@
 //                           <p className="text-gray-900 text-sm">{shop.address}</p>
 //                         </div>
 //                       </div>
-                      
+
 //                       <div className="flex items-start">
 //                         <span className="text-gray-500 text-sm mr-3 mt-0.5">🏢</span>
 //                         <div>
@@ -1118,7 +1115,7 @@
 //                           <p className="text-gray-900 text-sm">{shop.clients}</p>
 //                         </div>
 //                       </div>
-                      
+
 //                       <div className="flex items-start">
 //                         <span className="text-gray-500 text-sm mr-3 mt-0.5">⚡</span>
 //                         <div>
@@ -1194,7 +1191,7 @@
 //   return (
 //     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 px-4">
 //       <div className="max-w-7xl mx-auto">
-        
+
 //         {/* Heading */}
 //         <div className="text-center mb-8">
 //           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -1256,7 +1253,7 @@
 //                     <div className="text-xs text-gray-500">Distance</div>
 //                     <div className="font-medium text-xs">{shop.distance}</div>
 //                   </div>
-                  
+
 //                   <div className="text-center">
 //                     <div className="text-xs text-gray-500">Rating</div>
 //                     <div className="font-medium text-blue-600 text-xs">{shop.rating}⭐</div>
@@ -1297,47 +1294,214 @@
 //   );
 // }
 
-
 import React from "react";
 import { Link } from "react-router-dom";
 
 // 🏪 15 Dummy Shops Data
 const shops = [
-  { id: 1, name: "Digital Print Solutions", address: "Tech Park, Velachery", services: "Digital Printing, Scanning", rating: 4.7, reviews: 128, distance: "1.5 km", waitTime: "6 min", open: true, image: "🖨", established: "2017", clientBase: "400+", efficiency: "96%", serviceLevel: "Enterprise", premiumPartner: true },
-  { id: 2, name: "Corporate Document Center", address: "Financial District, T Nagar", services: "Color Print, Lamination", rating: 4.6, reviews: 95, distance: "1.2 km", waitTime: "8 min", open: true, image: "📄", established: "2015", clientBase: "300+", efficiency: "95%", serviceLevel: "Enterprise", premiumPartner: true },
-  { id: 3, name: "Smart Xerox Center", address: "Anna Nagar", services: "Xerox, Printing", rating: 4.5, reviews: 87, distance: "0.8 km", waitTime: "5 min", open: true, image: "🖨", established: "2018", clientBase: "250+", efficiency: "94%", serviceLevel: "Standard", premiumPartner: false },
-  { id: 4, name: "Speed Print & Xerox", address: "T Nagar", services: "Color Print, Lamination", rating: 4.2, reviews: 76, distance: "1.2 km", waitTime: "10 min", open: true, image: "📄", established: "2016", clientBase: "200+", efficiency: "92%", serviceLevel: "Standard", premiumPartner: false },
-  { id: 5, name: "Copy World", address: "Adyar", services: "Xerox, Binding", rating: 4.7, reviews: 112, distance: "0.5 km", waitTime: "7 min", open: false, image: "📑", established: "2019", clientBase: "180+", efficiency: "93%", serviceLevel: "Standard", premiumPartner: false },
-  { id: 6, name: "Express Xerox Point", address: "Tambaram", services: "Online Applications", rating: 4.0, reviews: 64, distance: "2.1 km", waitTime: "12 min", open: true, image: "⚡", established: "2020", clientBase: "150+", efficiency: "90%", serviceLevel: "Standard", premiumPartner: false },
-  { id: 7, name: "Quick Print Hub", address: "Velachery", services: "Xerox, Color Print", rating: 4.6, reviews: 89, distance: "1.5 km", waitTime: "9 min", open: true, image: "🏪", established: "2019", clientBase: "220+", efficiency: "94%", serviceLevel: "Standard", premiumPartner: false },
-  { id: 8, name: "Bright Xerox Shop", address: "Porur", services: "Xerox, Photo Copy", rating: 4.1, reviews: 71, distance: "3.2 km", waitTime: "15 min", open: true, image: "✨", established: "2017", clientBase: "190+", efficiency: "91%", serviceLevel: "Standard", premiumPartner: false },
-  { id: 9, name: "Green Print & Copy", address: "Guindy", services: "Xerox, Online", rating: 4.4, reviews: 83, distance: "0.9 km", waitTime: "8 min", open: false, image: "🌿", established: "2021", clientBase: "160+", efficiency: "92%", serviceLevel: "Standard", premiumPartner: false },
-  { id: 10, name: "Digital Doc Center", address: "Mylapore", services: "Scanning, Lamination", rating: 4.8, reviews: 134, distance: "1.8 km", waitTime: "11 min", open: true, image: "💻", established: "2015", clientBase: "280+", efficiency: "96%", serviceLevel: "Enterprise", premiumPartner: true },
-]
+  {
+    id: 1,
+    name: "Digital Print Solutions",
+    address: "Tech Park, Velachery",
+    services: "Digital Printing, Scanning",
+    rating: 4.7,
+    reviews: 128,
+    distance: "1.5 km",
+    waitTime: "6 min",
+    open: true,
+    image: "🖨",
+    established: "2017",
+    clientBase: "400+",
+    efficiency: "96%",
+    serviceLevel: "Enterprise",
+    premiumPartner: true,
+  },
+  {
+    id: 2,
+    name: "Corporate Document Center",
+    address: "Financial District, T Nagar",
+    services: "Color Print, Lamination",
+    rating: 4.6,
+    reviews: 95,
+    distance: "1.2 km",
+    waitTime: "8 min",
+    open: true,
+    image: "📄",
+    established: "2015",
+    clientBase: "300+",
+    efficiency: "95%",
+    serviceLevel: "Enterprise",
+    premiumPartner: true,
+  },
+  {
+    id: 3,
+    name: "Smart Xerox Center",
+    address: "Anna Nagar",
+    services: "Xerox, Printing",
+    rating: 4.5,
+    reviews: 87,
+    distance: "0.8 km",
+    waitTime: "5 min",
+    open: true,
+    image: "🖨",
+    established: "2018",
+    clientBase: "250+",
+    efficiency: "94%",
+    serviceLevel: "Standard",
+    premiumPartner: false,
+  },
+  {
+    id: 4,
+    name: "Speed Print & Xerox",
+    address: "T Nagar",
+    services: "Color Print, Lamination",
+    rating: 4.2,
+    reviews: 76,
+    distance: "1.2 km",
+    waitTime: "10 min",
+    open: true,
+    image: "📄",
+    established: "2016",
+    clientBase: "200+",
+    efficiency: "92%",
+    serviceLevel: "Standard",
+    premiumPartner: false,
+  },
+  {
+    id: 5,
+    name: "Copy World",
+    address: "Adyar",
+    services: "Xerox, Binding",
+    rating: 4.7,
+    reviews: 112,
+    distance: "0.5 km",
+    waitTime: "7 min",
+    open: false,
+    image: "📑",
+    established: "2019",
+    clientBase: "180+",
+    efficiency: "93%",
+    serviceLevel: "Standard",
+    premiumPartner: false,
+  },
+  {
+    id: 6,
+    name: "Express Xerox Point",
+    address: "Tambaram",
+    services: "Online Applications",
+    rating: 4.0,
+    reviews: 64,
+    distance: "2.1 km",
+    waitTime: "12 min",
+    open: true,
+    image: "⚡",
+    established: "2020",
+    clientBase: "150+",
+    efficiency: "90%",
+    serviceLevel: "Standard",
+    premiumPartner: false,
+  },
+  {
+    id: 7,
+    name: "Quick Print Hub",
+    address: "Velachery",
+    services: "Xerox, Color Print",
+    rating: 4.6,
+    reviews: 89,
+    distance: "1.5 km",
+    waitTime: "9 min",
+    open: true,
+    image: "🏪",
+    established: "2019",
+    clientBase: "220+",
+    efficiency: "94%",
+    serviceLevel: "Standard",
+    premiumPartner: false,
+  },
+  {
+    id: 8,
+    name: "Bright Xerox Shop",
+    address: "Porur",
+    services: "Xerox, Photo Copy",
+    rating: 4.1,
+    reviews: 71,
+    distance: "3.2 km",
+    waitTime: "15 min",
+    open: true,
+    image: "✨",
+    established: "2017",
+    clientBase: "190+",
+    efficiency: "91%",
+    serviceLevel: "Standard",
+    premiumPartner: false,
+  },
+  {
+    id: 9,
+    name: "Green Print & Copy",
+    address: "Guindy",
+    services: "Xerox, Online",
+    rating: 4.4,
+    reviews: 83,
+    distance: "0.9 km",
+    waitTime: "8 min",
+    open: false,
+    image: "🌿",
+    established: "2021",
+    clientBase: "160+",
+    efficiency: "92%",
+    serviceLevel: "Standard",
+    premiumPartner: false,
+  },
+  {
+    id: 10,
+    name: "Digital Doc Center",
+    address: "Mylapore",
+    services: "Scanning, Lamination",
+    rating: 4.8,
+    reviews: 134,
+    distance: "1.8 km",
+    waitTime: "11 min",
+    open: true,
+    image: "💻",
+    established: "2015",
+    clientBase: "280+",
+    efficiency: "96%",
+    serviceLevel: "Enterprise",
+    premiumPartner: true,
+  },
+];
 
 export default function Shops() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-100 to-indigo-100 py-8 px-4 relative overflow-hidden">
-      
       {/* Unique Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Large Circles - Darker */}
         <div className="absolute -top-20 -left-20 w-80 h-80 bg-blue-200 rounded-full opacity-30 blur-xl"></div>
         <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-200 rounded-full opacity-40 blur-xl"></div>
-        
+
         {/* Medium Circles */}
         <div className="absolute top-1/3 right-10 w-60 h-60 bg-slate-200 rounded-full opacity-20 blur-xl"></div>
         <div className="absolute bottom-1/4 left-10 w-52 h-52 bg-blue-300 rounded-full opacity-25 blur-xl"></div>
-        
+
         {/* Small Floating Shapes */}
         <div className="absolute top-1/4 left-10 w-12 h-12 bg-blue-300 rounded-lg opacity-20 animate-float"></div>
-        <div className="absolute top-1/2 right-20 w-8 h-8 bg-indigo-300 rounded-full opacity-25 animate-float" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-1/3 left-1/4 w-10 h-10 bg-slate-300 rounded-lg opacity-20 animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-3/4 right-1/3 w-6 h-6 bg-blue-400 rounded-full opacity-30 animate-float" style={{animationDelay: '1.5s'}}></div>
-        
+        <div
+          className="absolute top-1/2 right-20 w-8 h-8 bg-indigo-300 rounded-full opacity-25 animate-float"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-1/3 left-1/4 w-10 h-10 bg-slate-300 rounded-lg opacity-20 animate-float"
+          style={{ animationDelay: "2s" }}
+        ></div>
+        <div
+          className="absolute top-3/4 right-1/3 w-6 h-6 bg-blue-400 rounded-full opacity-30 animate-float"
+          style={{ animationDelay: "1.5s" }}
+        ></div>
+
         {/* Grid Pattern Overlay - More Visible */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
-        
+
         {/* Subtle Scan Lines Effect */}
         <div className="absolute inset-0 bg-[repeating-linear-gradient(transparent_0px,transparent_1px,rgba(99,102,241,0.03)_1px,rgba(99,102,241,0.03)_2px)]"></div>
       </div>
@@ -1354,7 +1518,6 @@ export default function Shops() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
         {/* Enhanced Heading with Background */}
         <div className="text-center mb-12 relative">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-100/60 to-transparent rounded-2xl -m-4 transform rotate-1"></div>
@@ -1363,14 +1526,21 @@ export default function Shops() {
               Premium Printing Shops
             </h1>
             <p className="text-gray-700 text-lg max-w-2xl mx-auto leading-relaxed">
-              Discover the best printing services near you with our curated selection of premium partners
+              Discover the best printing services near you with our curated
+              selection of premium partners
             </p>
-            
+
             {/* Decorative Elements */}
             <div className="flex justify-center items-center space-x-2 mt-4">
               <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
-              <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-              <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+              <div
+                className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"
+                style={{ animationDelay: "0.2s" }}
+              ></div>
+              <div
+                className="w-3 h-3 bg-blue-600 rounded-full animate-pulse"
+                style={{ animationDelay: "0.4s" }}
+              ></div>
             </div>
           </div>
         </div>
@@ -1379,7 +1549,7 @@ export default function Shops() {
         <div className="relative mb-12">
           {/* Background Glow Effect - Darker */}
           <div className="absolute inset-0 bg-blue-300/30 rounded-3xl blur-3xl -z-10 transform scale-105"></div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {shops.map((shop) => (
               <div
@@ -1392,7 +1562,7 @@ export default function Shops() {
                     PREMIUM
                   </div>
                 )}
-                
+
                 {/* Hover Effect Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/8 group-hover:to-indigo-500/15 transition-all duration-500 rounded-2xl"></div>
 
@@ -1408,11 +1578,13 @@ export default function Shops() {
                           ⭐
                         </span>
                       )}
-                      <div className={`px-2 py-1 rounded-full text-xs font-semibold border ${
-                        shop.open 
-                          ? "bg-green-100 text-green-800 border-green-300" 
-                          : "bg-red-100 text-red-800 border-red-300"
-                      }`}>
+                      <div
+                        className={`px-2 py-1 rounded-full text-xs font-semibold border ${
+                          shop.open
+                            ? "bg-green-100 text-green-800 border-green-300"
+                            : "bg-red-100 text-red-800 border-red-300"
+                        }`}
+                      >
                         {shop.open ? "OPEN" : "CLOSED"}
                       </div>
                     </div>
@@ -1420,7 +1592,9 @@ export default function Shops() {
 
                   <div className="flex items-center space-x-2 text-gray-700 text-xs">
                     <span className="text-blue-600">📍</span>
-                    <span className="truncate">{shop.address.split(',')[0]}</span>
+                    <span className="truncate">
+                      {shop.address.split(",")[0]}
+                    </span>
                   </div>
                 </div>
 
@@ -1428,12 +1602,20 @@ export default function Shops() {
                 <div className="p-4 border-b border-gray-200/60 relative z-5">
                   <div className="grid grid-cols-2 gap-3 mb-3">
                     <div className="text-center p-2 bg-blue-100/60 rounded-lg border border-blue-200/50">
-                      <div className="text-xs text-gray-600 font-medium">Since</div>
-                      <div className="font-bold text-blue-800 text-sm">{shop.established}</div>
+                      <div className="text-xs text-gray-600 font-medium">
+                        Since
+                      </div>
+                      <div className="font-bold text-blue-800 text-sm">
+                        {shop.established}
+                      </div>
                     </div>
                     <div className="text-center p-2 bg-indigo-100/60 rounded-lg border border-indigo-200/50">
-                      <div className="text-xs text-gray-600 font-medium">Clients</div>
-                      <div className="font-bold text-indigo-800 text-sm">{shop.clientBase}</div>
+                      <div className="text-xs text-gray-600 font-medium">
+                        Clients
+                      </div>
+                      <div className="font-bold text-indigo-800 text-sm">
+                        {shop.clientBase}
+                      </div>
                     </div>
                   </div>
                   <div className="text-xs text-gray-800 font-medium bg-gray-100/60 rounded-lg px-3 py-2 border border-gray-200">
@@ -1445,29 +1627,23 @@ export default function Shops() {
                 <div className="p-4 relative z-5">
                   <div className="flex items-center justify-between">
                     <div className="text-center">
-                      <div className="text-xs text-gray-600 font-medium">Distance</div>
-                      <div className="font-bold text-gray-900 text-sm">{shop.distance}</div>
+                      <div className="text-xs text-gray-600 font-medium">
+                        Distance
+                      </div>
+                      <div className="font-bold text-gray-900 text-sm">
+                        {shop.distance}
+                      </div>
                     </div>
-                    
+
                     <div className="text-center">
-                      <div className="text-xs text-gray-600 font-medium">Rating</div>
+                      <div className="text-xs text-gray-600 font-medium">
+                        Rating
+                      </div>
                       <div className="font-bold text-yellow-700 text-sm flex items-center justify-center">
                         {shop.rating}
                         <span className="ml-1">⭐</span>
                       </div>
                     </div>
-
-                    <Link
-                      to=""
-                      state={{ shop: shop }}
-                      className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 transform group-hover:scale-105 ${
-                        shop.open
-                          ? "bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white shadow-lg hover:shadow-xl"
-                          : "bg-gray-500 text-gray-300 cursor-not-allowed"
-                      }`}
-                    >
-                      {shop.open ? "Open" : "Closed"}
-                    </Link>
                   </div>
                 </div>
               </div>
@@ -1481,20 +1657,30 @@ export default function Shops() {
           <div className="absolute inset-0 flex justify-center">
             <div className="w-64 h-64 bg-blue-500/20 rounded-full blur-3xl -mt-32"></div>
           </div>
-          
+
           <Link
             to="/shops"
             className="relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-1 group"
           >
             <span className="relative z-10">Explore More Shops</span>
-            <svg className="w-5 h-5 relative z-10 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <svg
+              className="w-5 h-5 relative z-10 transform group-hover:translate-x-1 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
             </svg>
-            
+
             {/* Button Shine Effect */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
           </Link>
-          
+
           {/* Decorative Dots - Darker */}
           <div className="flex justify-center space-x-2 mt-6">
             {[1, 2, 3].map((dot) => (
@@ -1506,14 +1692,18 @@ export default function Shops() {
             ))}
           </div>
         </div>
-
       </div>
 
       {/* Add custom animations */}
       <style jsx>{`
         @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-20px) rotate(5deg);
+          }
         }
         .animate-float {
           animation: float 6s ease-in-out infinite;
