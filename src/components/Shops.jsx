@@ -1466,7 +1466,7 @@ export default function Shops() {
                           : "bg-gray-500 text-gray-300 cursor-not-allowed"
                       }`}
                     >
-                      {shop.open ? "View Shop" : "Closed"}
+                      {shop.open ? "Open" : "Closed"}
                     </Link>
                   </div>
                 </div>
