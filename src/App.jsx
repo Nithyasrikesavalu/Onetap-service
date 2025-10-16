@@ -1,27 +1,26 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Landingpage from "./pages/Landingpage";
-import Navbar from "./components/Navbar";
 import AuthForm from "./pages/Login";
 import Shops from "./pages/Shops";
 import Services from "./pages/Services_page";
-import CreateAcc from "./pages/CreateAcc";
+import AuthLayout from "./layouts/AuthLayout";
+import MainLayout from "./layouts/MainLayout";
 
+const App = () => {
+  return (
+    <>
+      <Routes>
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<AuthForm />} />
+        </Route>
 
-
-
-const App =()=>{
-
- return(<>
-     <Navbar/>
-    <Routes>
-        <Route path="/" element={<Landingpage/>}/>
-        <Route path="/login" element={<AuthForm/>} />
-        <Route path="/shops" element={<Shops/>} />
-        <Route path="/service" element={<Services/>} />
-        <Route path="/Account" element={<CreateAcc/>} />
-    </Routes>
- 
- </>)
-
-}
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Landingpage />} />
+          <Route path="/shops" element={<Shops />} />
+          <Route path="/service" element={<Services />} />
+        </Route>
+      </Routes>
+    </>
+  );
+};
 export default App;

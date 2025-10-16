@@ -1,9 +1,11 @@
-
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AuthForm() {
-  const [isLogin, setIsLogin] = useState(true);
+  const location = useLocation();
+  const [isLogin, setIsLogin] = useState(location.state);
+  console.log(location);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -33,7 +35,7 @@ export default function AuthForm() {
     if (otp === generatedOtp) {
       setMessage("✅ Verification successful! Redirecting...");
       setTimeout(() => {
-        navigate("/shops"); 
+        navigate("/shops");
       }, 800);
     } else {
       setMessage("❌ Invalid OTP. Please try again.");
@@ -62,15 +64,15 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-100 flex items-center justify-center ">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        {/* <div className="text-center mb-8">
           <p className="text-gray-600 text-sm">
             {isLogin
               ? "Welcome back to your account"
               : "Join our community today"}
           </p>
-        </div>
+        </div> */}
 
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300">
           <div className="text-center mb-8">
@@ -83,7 +85,7 @@ export default function AuthForm() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {!isLogin && (
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                <label className=" text-sm font-semibold text-gray-700 flex items-center">
                   Full Name
                 </label>
                 <input
@@ -98,7 +100,7 @@ export default function AuthForm() {
             )}
 
             <div className="space-y-2">
-              <label className="block text-sm font-semibold text-gray-700 flex items-center">
+              <label className=" text-sm font-semibold text-gray-700 flex items-center">
                 Email Address
               </label>
               <input
@@ -112,7 +114,7 @@ export default function AuthForm() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-semibold text-gray-700 flex items-center">
+              <label className=" text-sm font-semibold text-gray-700 flex items-center">
                 Password
               </label>
               <input
@@ -127,7 +129,7 @@ export default function AuthForm() {
 
             {otpSent && (
               <div className="space-y-2 animate-fade-in">
-                <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                <label className=" text-sm font-semibold text-gray-700 flex items-center">
                   Verification Code
                   <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
                     Sent!
@@ -145,7 +147,9 @@ export default function AuthForm() {
               </div>
             )}
 
-            {message && <p className="text-sm text-center text-gray-700">{message}</p>}
+            {message && (
+              <p className="text-sm text-center text-gray-700">{message}</p>
+            )}
 
             <button
               type="submit"
@@ -181,22 +185,6 @@ export default function AuthForm() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
