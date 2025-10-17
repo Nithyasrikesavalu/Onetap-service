@@ -12,11 +12,14 @@ import Navbar from "./components/Navbar";
 import RequestService from "./components/RequestService";
 import TrackOrder from "./components/TrackOrder";
 import UploadDocuments from "./components/upload/About";
+import UserProfile from "./components/user/user";
 
 const App = () => {
   return (
     <>
-      <Routes>
+      <UserProfile />
+
+      {/* <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<AuthForm />} />
         </Route>
@@ -31,7 +34,7 @@ const App = () => {
           <Route path="/upload" element={<UploadDocuments />} />
           <Route path="/Allservice" element={<Services />} />
         </Route>
-      </Routes>
+      </Routes> */}
     </>
   );
 };
