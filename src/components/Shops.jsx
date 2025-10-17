@@ -9,7 +9,7 @@
 //     services: "Xerox, Printing, Scanning",
 //     rating: 4.5,
 //     distance: "0.8 km",
-//     open: true,
+//     schedule: true,
 //     image: "🖨",
 //   },
 //   {
@@ -18,7 +18,7 @@
 //     services: "Color Print, Lamination",
 //     rating: 4.2,
 //     distance: "1.2 km",
-//     open: true,
+//     schedule: true,
 //     image: "📄",
 //   },
 //   {
@@ -27,7 +27,7 @@
 //     services: "Xerox, Binding, Printout",
 //     rating: 4.7,
 //     distance: "0.5 km",
-//     open: false,
+//     schedule: false,
 //     image: "📑",
 //   },
 //   {
@@ -36,7 +36,7 @@
 //     services: "Online Applications, Printouts",
 //     rating: 4.0,
 //     distance: "2.1 km",
-//     open: true,
+//     schedule: true,
 //     image: "⚡",
 //   },
 //   {
@@ -45,7 +45,7 @@
 //     services: "Xerox, Color Print, Scan",
 //     rating: 4.6,
 //     distance: "1.5 km",
-//     open: true,
+//     schedule: true,
 //     image: "🏪",
 //   },
 //   {
@@ -54,7 +54,7 @@
 //     services: "Xerox, Photo Copy, Printing",
 //     rating: 4.1,
 //     distance: "3.2 km",
-//     open: true,
+//     schedule: true,
 //     image: "✨",
 //   },
 //   {
@@ -63,7 +63,7 @@
 //     services: "Xerox, Online Services",
 //     rating: 4.4,
 //     distance: "0.9 km",
-//     open: false,
+//     schedule: false,
 //     image: "🌿",
 //   },
 //   {
@@ -72,7 +72,7 @@
 //     services: "Scanning, Lamination, Printing",
 //     rating: 4.8,
 //     distance: "1.8 km",
-//     open: true,
+//     schedule: true,
 //     image: "💻",
 //   },
 //   {
@@ -81,7 +81,7 @@
 //     services: "Xerox, Printing",
 //     rating: 4.3,
 //     distance: "0.9 km",
-//     open: true,
+//     schedule: true,
 //     image: "📠",
 //   },
 //   {
@@ -90,7 +90,7 @@
 //     services: "Lamination, Binding",
 //     rating: 4.2,
 //     distance: "1.1 km",
-//     open: true,
+//     schedule: true,
 //     image: "📝",
 //   },
 //   {
@@ -99,7 +99,7 @@
 //     services: "Color Print, Scan",
 //     rating: 4.5,
 //     distance: "0.7 km",
-//     open: false,
+//     schedule: false,
 //     image: "📂",
 //   },
 //   {
@@ -108,7 +108,7 @@
 //     services: "Printing, Xerox",
 //     rating: 4.0,
 //     distance: "2.0 km",
-//     open: true,
+//     schedule: true,
 //     image: "✂",
 //   },
 //   {
@@ -117,7 +117,7 @@
 //     services: "Scanning, Xerox",
 //     rating: 4.6,
 //     distance: "1.6 km",
-//     open: true,
+//     schedule: true,
 //     image: "🖨",
 //   },
 //   {
@@ -126,7 +126,7 @@
 //     services: "Binding, Copy",
 //     rating: 4.1,
 //     distance: "3.3 km",
-//     open: true,
+//     schedule: true,
 //     image: "📑",
 //   },
 
@@ -136,7 +136,7 @@
 //     services: "Xerox, Laminating",
 //     rating: 4.0,
 //     distance: "2.2 km",
-//     open: true,
+//     schedule: true,
 //     image: "✂",
 //   },
 // ];
@@ -282,12 +282,12 @@
 //                                 </div>
 //                                 <span
 //                                   className={`text-xs px-2 py-1 rounded-full font-medium transition-all duration-300 ${
-//                                     shop.open
+//                                     shop.schedule
 //                                       ? "bg-green-100 text-green-700 group-hover/card:bg-green-200 group-hover/card:shadow-sm"
 //                                       : "bg-red-100 text-red-700 group-hover/card:bg-red-200 group-hover/card:shadow-sm"
 //                                   }`}
 //                                 >
-//                                   {shop.open ? "🟢 Open" : "🔴 Closed"}
+//                                   {shop.schedule ? "🟢 schedule" : "🔴 Unavailable"}
 //                                 </span>
 //                               </div>
 //                               <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 leading-tight mb-1 group-hover/card:text-blue-700 transition-colors duration-300">
@@ -414,7 +414,7 @@
 //     services: "Xerox, Printing, Scanning",
 //     rating: 4.5,
 //     distance: "0.8 km",
-//     open: true,
+//     schedule: true,
 //     image: "🖨",
 //     waitTime: "5 min",
 //     premium: true,
@@ -426,7 +426,7 @@
 //     services: "Color Print, Lamination",
 //     rating: 4.2,
 //     distance: "1.2 km",
-//     open: true,
+//     schedule: true,
 //     image: "📄",
 //     waitTime: "8 min",
 //     premium: false,
@@ -438,7 +438,7 @@
 //     services: "Xerox, Binding, Printout",
 //     rating: 4.7,
 //     distance: "0.5 km",
-//     open: false,
+//     schedule: false,
 //     image: "📑",
 //     waitTime: "3 min",
 //     premium: true,
@@ -450,7 +450,7 @@
 //     services: "Online Applications, Printouts",
 //     rating: 4.0,
 //     distance: "2.1 km",
-//     open: true,
+//     schedule: true,
 //     image: "⚡",
 //     waitTime: "12 min",
 //     premium: false,
@@ -462,7 +462,7 @@
 //     services: "Xerox, Color Print, Scan",
 //     rating: 4.6,
 //     distance: "1.5 km",
-//     open: true,
+//     schedule: true,
 //     image: "🏪",
 //     waitTime: "6 min",
 //     premium: true,
@@ -474,7 +474,7 @@
 //     services: "Scanning, Lamination, Printing",
 //     rating: 4.8,
 //     distance: "1.8 km",
-//     open: true,
+//     schedule: true,
 //     image: "💻",
 //     waitTime: "4 min",
 //     premium: true,
@@ -486,7 +486,7 @@
 //     services: "Eco-friendly Printing, Digital Copy",
 //     rating: 4.9,
 //     distance: "2.3 km",
-//     open: true,
+//     schedule: true,
 //     image: "🌿",
 //     waitTime: "7 min",
 //     premium: true,
@@ -498,7 +498,7 @@
 //     services: "24/7 Service, Bulk Orders",
 //     rating: 4.3,
 //     distance: "1.1 km",
-//     open: true,
+//     schedule: true,
 //     image: "🌙",
 //     waitTime: "10 min",
 //     premium: false,
@@ -638,9 +638,9 @@
 //                 </div>
 //                 <div className="bg-green-500/10 rounded-2xl px-4 py-3 border border-green-200">
 //                   <span className="text-green-700 font-semibold">
-//                     {filteredShops.filter(s => s.open).length}
+//                     {filteredShops.filter(s => s.schedule).length}
 //                   </span>
-//                   <span className="text-green-600 ml-2">Open Now</span>
+//                   <span className="text-green-600 ml-2">schedule Now</span>
 //                 </div>
 //               </div>
 //             </div>
@@ -696,11 +696,11 @@
 //                     </div>
 //                     <div className="text-right">
 //                       <span className={`text-xs px-3 py-1.5 rounded-full font-bold ${
-//                         shop.open
+//                         shop.schedule
 //                           ? 'bg-green-100 text-green-700 border border-green-200'
 //                           : 'bg-red-100 text-red-700 border border-red-200'
 //                       }`}>
-//                         {shop.open ? '🟢 OPEN' : '🔴 CLOSED'}
+//                         {shop.schedule ? '🟢 schedule' : '🔴 Unavailable'}
 //                       </span>
 //                       <p className="text-xs text-amber-600 mt-1 font-medium">{shop.waitTime} wait</p>
 //                     </div>
@@ -853,7 +853,7 @@
 //     services: "High-Quality Printing, Scanning, Document Services",
 //     rating: 4.8,
 //     distance: "0.8 km",
-//     open: true,
+//     schedule: true,
 //     image: "🏢",
 //     waitTime: "5 min",
 //     premium: true,
@@ -867,7 +867,7 @@
 //     services: "Color Printing, Lamination, Binding Services",
 //     rating: 4.6,
 //     distance: "1.2 km",
-//     open: true,
+//     schedule: true,
 //     image: "📊",
 //     waitTime: "8 min",
 //     premium: true,
@@ -881,7 +881,7 @@
 //     services: "Executive Printing, Document Binding, Digital Copies",
 //     rating: 4.9,
 //     distance: "0.5 km",
-//     open: true,
+//     schedule: true,
 //     image: "💼",
 //     waitTime: "3 min",
 //     premium: true,
@@ -895,7 +895,7 @@
 //     services: "Bulk Printing, Online Applications, Professional Copies",
 //     rating: 4.4,
 //     distance: "2.1 km",
-//     open: true,
+//     schedule: true,
 //     image: "🏪",
 //     waitTime: "12 min",
 //     premium: false,
@@ -909,7 +909,7 @@
 //     services: "Digital Printing, High-Res Scanning, Color Services",
 //     rating: 4.7,
 //     distance: "1.5 km",
-//     open: true,
+//     schedule: true,
 //     image: "💻",
 //     waitTime: "6 min",
 //     premium: true,
@@ -923,7 +923,7 @@
 //     services: "Professional Copies, Document Services, Printing",
 //     rating: 4.5,
 //     distance: "1.8 km",
-//     open: true,
+//     schedule: true,
 //     image: "📑",
 //     waitTime: "4 min",
 //     premium: true,
@@ -1075,7 +1075,7 @@
 //                             <span className="text-sm">⭐</span>
 //                           </div>
 //                           <span className="text-green-600 text-sm font-medium bg-green-50 px-2 py-1 rounded-full">
-//                             🟢 OPEN
+//                             🟢 schedule
 //                           </span>
 //                           {shop.premium && (
 //                             <span className="text-blue-600 text-sm font-medium bg-blue-50 px-2 py-1 rounded-full">
@@ -1175,16 +1175,16 @@
 
 // // 🏪 15 Dummy Shops Data
 // const shops = [
-//   { id: 1, name: "Digital Print Solutions", address: "Tech Park, Velachery", services: "Digital Printing, Scanning", rating: 4.7, reviews: 128, distance: "1.5 km", waitTime: "6 min", open: true, image: "🖨", established: "2017", clientBase: "400+", efficiency: "96%", serviceLevel: "Enterprise", premiumPartner: true },
-//   { id: 2, name: "Corporate Document Center", address: "Financial District, T Nagar", services: "Color Print, Lamination", rating: 4.6, reviews: 95, distance: "1.2 km", waitTime: "8 min", open: true, image: "📄", established: "2015", clientBase: "300+", efficiency: "95%", serviceLevel: "Enterprise", premiumPartner: true },
-//   { id: 3, name: "Smart Xerox Center", address: "Anna Nagar", services: "Xerox, Printing", rating: 4.5, reviews: 87, distance: "0.8 km", waitTime: "5 min", open: true, image: "🖨", established: "2018", clientBase: "250+", efficiency: "94%", serviceLevel: "Standard", premiumPartner: false },
-//   { id: 4, name: "Speed Print & Xerox", address: "T Nagar", services: "Color Print, Lamination", rating: 4.2, reviews: 76, distance: "1.2 km", waitTime: "10 min", open: true, image: "📄", established: "2016", clientBase: "200+", efficiency: "92%", serviceLevel: "Standard", premiumPartner: false },
-//   { id: 5, name: "Copy World", address: "Adyar", services: "Xerox, Binding", rating: 4.7, reviews: 112, distance: "0.5 km", waitTime: "7 min", open: false, image: "📑", established: "2019", clientBase: "180+", efficiency: "93%", serviceLevel: "Standard", premiumPartner: false },
-//   { id: 6, name: "Express Xerox Point", address: "Tambaram", services: "Online Applications", rating: 4.0, reviews: 64, distance: "2.1 km", waitTime: "12 min", open: true, image: "⚡", established: "2020", clientBase: "150+", efficiency: "90%", serviceLevel: "Standard", premiumPartner: false },
-//   { id: 7, name: "Quick Print Hub", address: "Velachery", services: "Xerox, Color Print", rating: 4.6, reviews: 89, distance: "1.5 km", waitTime: "9 min", open: true, image: "🏪", established: "2019", clientBase: "220+", efficiency: "94%", serviceLevel: "Standard", premiumPartner: false },
-//   { id: 8, name: "Bright Xerox Shop", address: "Porur", services: "Xerox, Photo Copy", rating: 4.1, reviews: 71, distance: "3.2 km", waitTime: "15 min", open: true, image: "✨", established: "2017", clientBase: "190+", efficiency: "91%", serviceLevel: "Standard", premiumPartner: false },
-//   { id: 9, name: "Green Print & Copy", address: "Guindy", services: "Xerox, Online", rating: 4.4, reviews: 83, distance: "0.9 km", waitTime: "8 min", open: false, image: "🌿", established: "2021", clientBase: "160+", efficiency: "92%", serviceLevel: "Standard", premiumPartner: false },
-//   { id: 10, name: "Digital Doc Center", address: "Mylapore", services: "Scanning, Lamination", rating: 4.8, reviews: 134, distance: "1.8 km", waitTime: "11 min", open: true, image: "💻", established: "2015", clientBase: "280+", efficiency: "96%", serviceLevel: "Enterprise", premiumPartner: true },
+//   { id: 1, name: "Digital Print Solutions", address: "Tech Park, Velachery", services: "Digital Printing, Scanning", rating: 4.7, reviews: 128, distance: "1.5 km", waitTime: "6 min", schedule: true, image: "🖨", established: "2017", clientBase: "400+", efficiency: "96%", serviceLevel: "Enterprise", premiumPartner: true },
+//   { id: 2, name: "Corporate Document Center", address: "Financial District, T Nagar", services: "Color Print, Lamination", rating: 4.6, reviews: 95, distance: "1.2 km", waitTime: "8 min", schedule: true, image: "📄", established: "2015", clientBase: "300+", efficiency: "95%", serviceLevel: "Enterprise", premiumPartner: true },
+//   { id: 3, name: "Smart Xerox Center", address: "Anna Nagar", services: "Xerox, Printing", rating: 4.5, reviews: 87, distance: "0.8 km", waitTime: "5 min", schedule: true, image: "🖨", established: "2018", clientBase: "250+", efficiency: "94%", serviceLevel: "Standard", premiumPartner: false },
+//   { id: 4, name: "Speed Print & Xerox", address: "T Nagar", services: "Color Print, Lamination", rating: 4.2, reviews: 76, distance: "1.2 km", waitTime: "10 min", schedule: true, image: "📄", established: "2016", clientBase: "200+", efficiency: "92%", serviceLevel: "Standard", premiumPartner: false },
+//   { id: 5, name: "Copy World", address: "Adyar", services: "Xerox, Binding", rating: 4.7, reviews: 112, distance: "0.5 km", waitTime: "7 min", schedule: false, image: "📑", established: "2019", clientBase: "180+", efficiency: "93%", serviceLevel: "Standard", premiumPartner: false },
+//   { id: 6, name: "Express Xerox Point", address: "Tambaram", services: "Online Applications", rating: 4.0, reviews: 64, distance: "2.1 km", waitTime: "12 min", schedule: true, image: "⚡", established: "2020", clientBase: "150+", efficiency: "90%", serviceLevel: "Standard", premiumPartner: false },
+//   { id: 7, name: "Quick Print Hub", address: "Velachery", services: "Xerox, Color Print", rating: 4.6, reviews: 89, distance: "1.5 km", waitTime: "9 min", schedule: true, image: "🏪", established: "2019", clientBase: "220+", efficiency: "94%", serviceLevel: "Standard", premiumPartner: false },
+//   { id: 8, name: "Bright Xerox Shop", address: "Porur", services: "Xerox, Photo Copy", rating: 4.1, reviews: 71, distance: "3.2 km", waitTime: "15 min", schedule: true, image: "✨", established: "2017", clientBase: "190+", efficiency: "91%", serviceLevel: "Standard", premiumPartner: false },
+//   { id: 9, name: "Green Print & Copy", address: "Guindy", services: "Xerox, Online", rating: 4.4, reviews: 83, distance: "0.9 km", waitTime: "8 min", schedule: false, image: "🌿", established: "2021", clientBase: "160+", efficiency: "92%", serviceLevel: "Standard", premiumPartner: false },
+//   { id: 10, name: "Digital Doc Center", address: "Mylapore", services: "Scanning, Lamination", rating: 4.8, reviews: 134, distance: "1.8 km", waitTime: "11 min", schedule: true, image: "💻", established: "2015", clientBase: "280+", efficiency: "96%", serviceLevel: "Enterprise", premiumPartner: true },
 // ]
 
 // export default function Shops() {
@@ -1218,9 +1218,9 @@
 //                       <span className="bg-blue-100 text-blue-800 text-xs px-1.5 py-0.5 rounded">⭐</span>
 //                     )}
 //                     <div className={`px-1.5 py-0.5 rounded text-xs ${
-//                       shop.open ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+//                       shop.schedule ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
 //                     }`}>
-//                       {shop.open ? "OPEN" : "CLOSED"}
+//                       {shop.schedule ? "schedule" : "Unavailable"}
 //                     </div>
 //                   </div>
 //                 </div>
@@ -1263,12 +1263,12 @@
 //                     to=""
 //                     state={{ shop: shop }}
 //                     className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
-//                       shop.open
+//                       shop.schedule
 //                         ? "bg-blue-600 hover:bg-blue-700 text-white"
 //                         : "bg-gray-400 text-gray-500 cursor-not-allowed"
 //                     }`}
 //                   >
-//                     {shop.open ? "Open" : "Closed"}
+//                     {shop.schedule ? "schedule" : "Unavailable"}
 //                   </Link>
 //                 </div>
 //               </div>
@@ -1308,7 +1308,7 @@ const shops = [
     reviews: 128,
     distance: "1.5 km",
     waitTime: "6 min",
-    open: true,
+    schedule: true,
     image: "🖨",
     established: "2017",
     clientBase: "400+",
@@ -1325,7 +1325,7 @@ const shops = [
     reviews: 95,
     distance: "1.2 km",
     waitTime: "8 min",
-    open: true,
+    schedule: true,
     image: "📄",
     established: "2015",
     clientBase: "300+",
@@ -1342,7 +1342,7 @@ const shops = [
     reviews: 87,
     distance: "0.8 km",
     waitTime: "5 min",
-    open: true,
+    schedule: true,
     image: "🖨",
     established: "2018",
     clientBase: "250+",
@@ -1359,7 +1359,7 @@ const shops = [
     reviews: 76,
     distance: "1.2 km",
     waitTime: "10 min",
-    open: true,
+    schedule: true,
     image: "📄",
     established: "2016",
     clientBase: "200+",
@@ -1376,7 +1376,7 @@ const shops = [
     reviews: 112,
     distance: "0.5 km",
     waitTime: "7 min",
-    open: false,
+    schedule: false,
     image: "📑",
     established: "2019",
     clientBase: "180+",
@@ -1393,7 +1393,7 @@ const shops = [
     reviews: 64,
     distance: "2.1 km",
     waitTime: "12 min",
-    open: true,
+    schedule: true,
     image: "⚡",
     established: "2020",
     clientBase: "150+",
@@ -1410,7 +1410,7 @@ const shops = [
     reviews: 89,
     distance: "1.5 km",
     waitTime: "9 min",
-    open: true,
+    schedule: true,
     image: "🏪",
     established: "2019",
     clientBase: "220+",
@@ -1427,7 +1427,7 @@ const shops = [
     reviews: 71,
     distance: "3.2 km",
     waitTime: "15 min",
-    open: true,
+    schedule: true,
     image: "✨",
     established: "2017",
     clientBase: "190+",
@@ -1444,7 +1444,7 @@ const shops = [
     reviews: 83,
     distance: "0.9 km",
     waitTime: "8 min",
-    open: false,
+    schedule: false,
     image: "🌿",
     established: "2021",
     clientBase: "160+",
@@ -1461,7 +1461,7 @@ const shops = [
     reviews: 134,
     distance: "1.8 km",
     waitTime: "11 min",
-    open: true,
+    schedule: true,
     image: "💻",
     established: "2015",
     clientBase: "280+",
@@ -1580,12 +1580,12 @@ export default function Shops() {
                       )}
                       <div
                         className={`px-2 py-1 rounded-full text-xs font-semibold border ${
-                          shop.open
+                          shop.schedule
                             ? "bg-green-100 text-green-800 border-green-300"
                             : "bg-red-100 text-red-800 border-red-300"
                         }`}
                       >
-                        {shop.open ? "OPEN" : "CLOSED"}
+                        {shop.schedule ? "Opened" : "Closed"}
                       </div>
                     </div>
                   </div>
@@ -1644,6 +1644,18 @@ export default function Shops() {
                         <span className="ml-1">⭐</span>
                       </div>
                     </div>
+
+                    <Link
+                      to={shop.schedule ? "/service" : ""}
+                      state={{ shop: shop }}
+                      className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 transform group-hover:scale-105 ${
+                        shop.schedule
+                          ? "bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white shadow-lg hover:shadow-xl"
+                          : "bg-gray-500 text-gray-300 cursor-not-allowed"
+                      }`}
+                    >
+                      {shop.schedule ? "schedule" : "Unavailable"}
+                    </Link>
                   </div>
                 </div>
               </div>

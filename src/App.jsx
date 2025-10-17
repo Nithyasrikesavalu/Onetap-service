@@ -1,7 +1,7 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Landingpage from "./pages/Landingpage";
 import AuthForm from "./pages/Login";
-import Shops from "./pages/Shops";
+import Shops from "./pages/ShopsPage";
 import Services from "./pages/Services_page";
 
 import AuthLayout from "./layouts/AuthLayout";

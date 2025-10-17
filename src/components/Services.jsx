@@ -1796,7 +1796,7 @@ export default function OurServices() {
                         name={service.icon}
                         className="w-5 h-5 relative z-10"
                       />
-                      {/* <div className="absolute inset-0 bg-white/20 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div> */}
+                      {/* < div className="absolute inset-0 bg-white/20 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div> */}
                     </div>
                     <span className="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100/80 text-slate-600 backdrop-blur-sm group-hover:bg-white/90 transition-colors duration-300">
                       {service.category}
