@@ -461,11 +461,11 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="w-full bg-gradient-to-r from-white to-blue-50 border-b-2 border-blue-100 fixed top-0 left-0 z-50 shadow-sm">
+    <header className="w-full bg-gradient-to-r from-white to-blue-50 border-b-2 border-blue-100 sticky top-0 left-0 z-50 shadow-sm">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* LEFT: Brand */}
-          <div className="flex items-center space-x-4">
+          <Link to={"/"} className="flex items-center space-x-4">
             <div className="flex items-center gap-3 group cursor-pointer">
               <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-xl shadow-lg transform group-hover:scale-105 transition-all duration-300">
                 1Ts
@@ -476,7 +476,7 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* CENTER: Links */}
           <nav className="hidden lg:flex items-center space-x-8 text-sm">
@@ -551,7 +551,7 @@ export default function Navbar() {
           {/* RIGHT: Controls */}
           <div className="flex items-center gap-4">
             {/* AI Assistant */}
-            <button className="hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-green-300 relative overflow-hidden group">
+            <button className="hidden md:inline-flex items-center gap-2 bg-gradient-to-r cursor-pointer from-green-500 to-emerald-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg transform hover:scale-100 transition-all duration-300 border border-green-300 relative overflow-hidden group">
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -571,7 +571,7 @@ export default function Navbar() {
             </button>
 
             {/* Language Selector */}
-            <div className="hidden md:flex items-center space-x-2 border-2 border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 bg-white hover:border-blue-300 transition-all duration-300 shadow-sm">
+            {/* <div className="hidden md:flex items-center space-x-2 border-2 border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 bg-white hover:border-blue-300 transition-all duration-300 shadow-sm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 text-blue-500"
@@ -586,7 +586,7 @@ export default function Navbar() {
                 <option value="ta">தமிழ்</option>
                 <option value="hi">हिन्दी</option>
               </select>
-            </div>
+            </div> */}
 
             {/* Notification Bell */}
             <button className="p-3 rounded-xl bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-200 transition-all duration-300 shadow-sm relative group">
@@ -608,7 +608,7 @@ export default function Navbar() {
             </button>
 
             {/* Profile Dropdown */}
-            <div className="relative" ref={dropdownRef}>
+            {/* <div className="relative" ref={dropdownRef}>
               <div
                 className="flex items-center gap-3 group cursor-pointer"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -629,15 +629,11 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Dropdown menu */}
               {isProfileOpen && (
                 <div className="absolute right-0 top-14 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-200 py-3 z-50">
                   <div className="px-4 py-3 border-b border-gray-100">
                     <p className="text-sm text-gray-500">
                       Welcome to OneTap Services
-                    </p>
-                    <p className="text-sm font-medium text-gray-900 mt-1">
-                      Sign in to access your account
                     </p>
                   </div>
 
@@ -660,7 +656,7 @@ export default function Navbar() {
                         d="M11 16l-4-4m0 0l4-4m-4 4h14"
                       />
                     </svg>
-                    <span>Login to Your Account</span>
+                    <span>Sign in</span>
                   </Link>
 
                   <Link
@@ -682,11 +678,53 @@ export default function Navbar() {
                         d="M18 9v3m0 0v3m0-3h3m-3 0h-3M9 5l7 7-7 7"
                       />
                     </svg>
-                    <span>Create New Account</span>
+                    <span>Sign up</span>
                   </Link>
                 </div>
               )}
-            </div>
+            </div> */}
+
+            {/* Sign in button */}
+
+            <Link
+              to={"/login"}
+              className="
+        relative
+        max-w-xs
+        bg-gradient-to-r
+        from-blue-600
+        to-purple-700
+        hover:from-blue-700
+        hover:to-purple-800
+        active:from-blue-800
+        active:to-purple-900
+        text-white
+        font-semibold
+        py-3
+        px-6
+        rounded-xl
+        shadow-lg
+        hover:shadow-xl
+        active:shadow-md
+        transform
+        hover:scale-105
+        active:scale-95
+        transition-all
+        duration-200
+        ease-out
+        border-0
+        focus:outline-none
+        focus:ring-4
+        focus:ring-blue-500/50
+        overflow-hidden
+      "
+            >
+              {/* Button content */}
+              <div className="relative flex items-center justify-center">
+                {/* Button text */}
+                <span className="text-sm tracking-wide">Sign In</span>
+              </div>
+            </Link>
 
             {/* Mobile Menu Toggle */}
             <button

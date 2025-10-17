@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from "react";
 
 // Document requirements mapping (same as before)
@@ -249,52 +246,147 @@ const services = [
 function Icon({ name, className = "w-6 h-6" }) {
   const icons = {
     print: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+        />
       </svg>
     ),
     id: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+        />
       </svg>
     ),
     card: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
         <rect x="2" y="5" width="20" height="14" rx="2" strokeWidth={1.5} />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2 10h20M6 14h4" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M2 10h20M6 14h4"
+        />
       </svg>
     ),
     car: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 13l1.5-4.5A2 2 0 016.4 7h11.2a2 2 0 011.9 1.5L21 13" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 19a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z" />
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M3 13l1.5-4.5A2 2 0 016.4 7h11.2a2 2 0 011.9 1.5L21 13"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M5 19a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z"
+        />
       </svg>
     ),
     plane: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2 16l20-8-8 8-4 4-2-4-6-4z" />
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M2 16l20-8-8 8-4 4-2-4-6-4z"
+        />
       </svg>
     ),
     heart: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+        />
       </svg>
     ),
     school: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
         <path d="M12 14l9-5-9-5-9 5 9 5z" />
         <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+        />
       </svg>
     ),
     doc: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+        />
       </svg>
     ),
     more: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v.01M12 12v.01M12 18v.01" />
+      <svg
+        className={className}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.5}
+          d="M12 6v.01M12 12v.01M12 18v.01"
+        />
       </svg>
     ),
   };
@@ -325,13 +417,13 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
-    
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
@@ -350,7 +442,12 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted:", { files, additionalInfo, service: service?.title, extraItem });
+    console.log("Submitted:", {
+      files,
+      additionalInfo,
+      service: service?.title,
+      extraItem,
+    });
     setFiles([]);
     setAdditionalInfo("");
     onClose();
@@ -363,15 +460,29 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
         <div className="sticky top-0 bg-white/95 backdrop-blur-sm p-6 border-b border-gray-200/50 rounded-t-3xl">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
-              <h3 className="text-xl font-bold text-gray-900 truncate">{extraItem}</h3>
-              <p className="text-sm text-gray-600 mt-1 truncate">{service?.title}</p>
+              <h3 className="text-xl font-bold text-gray-900 truncate">
+                {extraItem}
+              </h3>
+              <p className="text-sm text-gray-600 mt-1 truncate">
+                {service?.title}
+              </p>
             </div>
             <button
               onClick={onClose}
               className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-100 ml-4"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -394,7 +505,9 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
                       className="flex items-center space-x-3 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100/50"
                     >
                       <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
-                      <span className="text-gray-700 font-medium text-sm">{doc}</span>
+                      <span className="text-gray-700 font-medium text-sm">
+                        {doc}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -420,11 +533,25 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
                   accept=".png,.jpg,.jpeg,.pdf,.doc,.docx"
                 />
                 <label htmlFor="file-upload" className="cursor-pointer block">
-                  <svg className="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  <svg
+                    className="w-8 h-8 text-gray-400 mx-auto mb-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    />
                   </svg>
-                  <p className="text-sm text-gray-600 mb-1">Click to upload or drag and drop</p>
-                  <p className="text-xs text-gray-500">PNG, JPG, PDF, DOC up to 10MB each</p>
+                  <p className="text-sm text-gray-600 mb-1">
+                    Click to upload or drag and drop
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    PNG, JPG, PDF, DOC up to 10MB each
+                  </p>
                 </label>
               </div>
             </div>
@@ -432,12 +559,22 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
             {/* Selected Files */}
             {files.length > 0 && (
               <div className="space-y-2">
-                <h5 className="text-sm font-medium text-gray-700">Selected Files:</h5>
+                <h5 className="text-sm font-medium text-gray-700">
+                  Selected Files:
+                </h5>
                 {files.map((file, index) => (
-                  <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-3 border">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between bg-gray-50 rounded-lg p-3 border"
+                  >
                     <div className="flex items-center space-x-2 flex-1 min-w-0">
-                      <Icon name="doc" className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                      <span className="text-sm text-gray-700 truncate flex-1">{file.name}</span>
+                      <Icon
+                        name="doc"
+                        className="w-4 h-4 text-gray-400 flex-shrink-0"
+                      />
+                      <span className="text-sm text-gray-700 truncate flex-1">
+                        {file.name}
+                      </span>
                       <span className="text-xs text-gray-500 flex-shrink-0">
                         {(file.size / (1024 * 1024)).toFixed(2)} MB
                       </span>
@@ -447,8 +584,18 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
                       onClick={() => removeFile(index)}
                       className="text-red-500 hover:text-red-700 transition-colors p-1 rounded ml-2"
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -458,7 +605,10 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
 
             {/* Additional Information */}
             <div>
-              <label htmlFor="additionalInfo" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="additionalInfo"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Additional Information (Optional)
               </label>
               <textarea
@@ -474,13 +624,26 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
             {/* Warning Note */}
             <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-xl p-4">
               <div className="flex items-start space-x-3">
-                <svg className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                <svg
+                  className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+                  />
                 </svg>
                 <div>
-                  <p className="text-sm text-yellow-800 font-medium">Important</p>
+                  <p className="text-sm text-yellow-800 font-medium">
+                    Important
+                  </p>
                   <p className="text-sm text-yellow-700 mt-1">
-                    Please bring original documents for verification along with one photocopy of each.
+                    Please bring original documents for verification along with
+                    one photocopy of each.
                   </p>
                 </div>
               </div>
@@ -511,14 +674,16 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
 
 // Service Card Component
 function ServiceCard({ service, isExpanded, onToggle, onServiceClick }) {
-  const visibleExtras = isExpanded ? service.extras : service.extras.slice(0, 3);
+  const visibleExtras = isExpanded
+    ? service.extras
+    : service.extras.slice(0, 3);
   const hasMoreServices = service.extras.length > 3 && !isExpanded;
-  hasMoreServices
+  hasMoreServices;
   return (
     <div className="group relative bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-white/50 hover:border-white/80">
       <div className="h-full flex flex-col">
         {/* Card Header with Gradient */}
-        <div 
+        <div
           className="p-6 text-white relative overflow-hidden cursor-pointer"
           onClick={onToggle}
           style={{ background: service.gradient }}
@@ -536,13 +701,25 @@ function ServiceCard({ service, isExpanded, onToggle, onServiceClick }) {
             <h3 className="text-xl font-bold mb-2">{service.title}</h3>
             <p className="text-white/90 text-sm">{service.desc}</p>
           </div>
-          
+
           {/* Expand/Collapse Icon */}
-          <div className={`absolute bottom-4 right-4 transform transition-transform duration-300 ${
-            isExpanded ? 'rotate-180' : ''
-          }`}>
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <div
+            className={`absolute bottom-4 right-4 transform transition-transform duration-300 ${
+              isExpanded ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-5 h-5 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </div>
         </div>
@@ -579,7 +756,7 @@ function ServiceCard({ service, isExpanded, onToggle, onServiceClick }) {
                 </div>
               </button>
             ))}
-            
+
             {/* Show More/Less Button */}
             {service.extras.length > 3 && (
               <button
@@ -589,14 +766,25 @@ function ServiceCard({ service, isExpanded, onToggle, onServiceClick }) {
                 }}
                 className="w-full py-3 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 rounded-xl font-medium text-sm transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center space-x-2"
               >
-                <span>{isExpanded ? 'Show Less' : `View All ${service.extras.length} Services`}</span>
-                <svg 
-                  className={`w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
+                <span>
+                  {isExpanded
+                    ? "Show Less"
+                    : `View All ${service.extras.length} Services`}
+                </span>
+                <svg
+                  className={`w-4 h-4 transform transition-transform duration-300 ${
+                    isExpanded ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
             )}
@@ -623,14 +811,14 @@ export default function Services() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleCard = (index) => {
-    setExpandedCards(prev => ({
+    setExpandedCards((prev) => ({
       ...prev,
-      [index]: !prev[index]
+      [index]: !prev[index],
     }));
   };
 
@@ -647,10 +835,13 @@ export default function Services() {
   };
 
   // Filter services based on search term
-  const filteredServices = services.filter(service =>
-    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.sub.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.extras.some(extra => extra.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredServices = services.filter(
+    (service) =>
+      service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.sub.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.extras.some((extra) =>
+        extra.toLowerCase().includes(searchTerm.toLowerCase())
+      )
   );
 
   return (
@@ -717,13 +908,26 @@ export default function Services() {
             {filteredServices.length === 0 && (
               <div className="text-center py-16">
                 <div className="w-24 h-24 mx-auto mb-6 text-gray-400 bg-white/50 rounded-3xl flex items-center justify-center">
-                  <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-12 h-12"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1}
+                      d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No services found</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  No services found
+                </h3>
                 <p className="text-gray-600 max-w-md mx-auto">
-                  Try adjusting your search terms or browse through our service categories.
+                  Try adjusting your search terms or browse through our service
+                  categories.
                 </p>
               </div>
             )}
@@ -732,7 +936,7 @@ export default function Services() {
 
         {/* Floating Action Button */}
         <FloatingActionButton
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           icon="more"
           label="Back to Top"
         />

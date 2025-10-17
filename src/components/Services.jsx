@@ -1683,7 +1683,7 @@ export default function OurServices() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 py-24 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 pt-24 overflow-hidden">
       {/* Enhanced Background */}
       {/* <FloatingParticles /> */}
 
@@ -1713,7 +1713,7 @@ export default function OurServices() {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/80 backdrop-blur-sm border border-blue-200/50 shadow-lg mb-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-semibold text-blue-700 tracking-wider uppercase bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            <span className="text-sm font-semibold tracking-wider uppercase bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
               Premium Services
             </span>
             <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse"></div>
@@ -1906,51 +1906,41 @@ export default function OurServices() {
             ))}
           </div>
         </div>
+      </div>
+      {/* Enhanced CTA Section */}
+      <div className="text-center">
+        <div className="bg-gradient-to-r from-blue-600/90 to-purple-600/90  p-12 text-white relative overflow-hidden backdrop-blur-sm border border-white/20 hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-500 group">
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 group-hover:scale-105 transition-transform duration-300">
+              Ready to Get Started?
+            </h2>
+            <p className="text-blue-100 text-lg mb-8 leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+              Experience the difference with our premium services. Let's create
+              something amazing together.
+            </p>
 
-        {/* Enhanced CTA Section */}
-        <div className="text-center">
-          <div className="bg-gradient-to-r from-blue-600/90 to-purple-600/90 rounded-3xl p-12 text-white relative overflow-hidden backdrop-blur-sm border border-white/20 hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-500 group">
-            {/* Animated Background */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 transform scale-0 group-hover:scale-100 transition-transform duration-700"></div>
-            </div>
-
-            {/* Floating Elements */}
-            <div className="absolute top-4 left-4 w-3 h-3 bg-white/30 rounded-full animate-ping-slow"></div>
-            <div className="absolute bottom-4 right-4 w-2 h-2 bg-cyan-300/50 rounded-full animate-ping-slow animation-delay-1000"></div>
-
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold mb-4 group-hover:scale-105 transition-transform duration-300">
-                Ready to Get Started?
-              </h2>
-              <p className="text-blue-100 text-lg mb-8 leading-relaxed group-hover:text-white/90 transition-colors duration-300">
-                Experience the difference with our premium services. Let's
-                create something amazing together.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact"
-                  className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transition-all duration-300 hover:scale-105 transform inline-flex items-center gap-2 backdrop-blur-sm group/btn"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/contact"
+                className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transition-all duration-300 hover:scale-105 transform inline-flex items-center gap-2 backdrop-blur-sm group/btn"
+              >
+                <span className="group-hover/btn:scale-110 transition-transform duration-300">
+                  Contact Us
+                </span>
+                <svg
+                  className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <span className="group-hover/btn:scale-110 transition-transform duration-300">
-                    Contact Us
-                  </span>
-                  <svg
-                    className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                    />
-                  </svg>
-                </Link>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  />
+                </svg>
+              </Link>
             </div>
           </div>
         </div>

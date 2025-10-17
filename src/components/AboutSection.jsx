@@ -97,7 +97,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function About() {
+export default function AboutSection() {
   return (
     <section className="bg-gradient-to-br from-blue-50 to-indigo-50 py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -110,10 +110,13 @@ export default function About() {
           <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             How It Works
           </h2>
-          <p className="text-xl font-semibold text-gray-800 mb-3">இது எப்படி வேலை செய்கிறது</p>
+          <p className="text-xl font-semibold text-gray-800 mb-3">
+            இது எப்படி வேலை செய்கிறது
+          </p>
           <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Simple, secure, and fast – get your documents without stepping out. 
-            Our streamlined process ensures your documents are handled with care and delivered promptly.
+            Simple, secure, and fast – get your documents without stepping out.
+            Our streamlined process ensures your documents are handled with care
+            and delivered promptly.
           </p>
         </div>
 
@@ -129,10 +132,15 @@ export default function About() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-gray-900 text-lg mb-2">Find Nearby Shop</h3>
-                <p className="text-sm text-gray-700 font-medium mb-2">சமீபத்தில் உள்ள கடைகளை கண்டுபிடியுங்கள்</p>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">
+                  Find Nearby Shop
+                </h3>
+                <p className="text-sm text-gray-700 font-medium mb-2">
+                  சமீபத்தில் உள்ள கடைகளை கண்டுபிடியுங்கள்
+                </p>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Search and select from our network of trusted partner shops near you with real-time availability.
+                  Search and select from our network of trusted partner shops
+                  near you with real-time availability.
                 </p>
               </div>
             </div>
@@ -145,10 +153,15 @@ export default function About() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-gray-900 text-lg mb-2">Upload or Visit</h3>
-                <p className="text-sm text-gray-700 font-medium mb-2">பதிவேற்றம் அல்லது பார்வையிடவும்</p>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">
+                  Upload or Visit
+                </h3>
+                <p className="text-sm text-gray-700 font-medium mb-2">
+                  பதிவேற்றம் அல்லது பார்வையிடவும்
+                </p>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Upload documents securely online or visit the shop in person with your files. Multiple options for your convenience.
+                  Upload documents securely online or visit the shop in person
+                  with your files. Multiple options for your convenience.
                 </p>
               </div>
             </div>
@@ -161,10 +174,15 @@ export default function About() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-gray-900 text-lg mb-2">Get Secure Code</h3>
-                <p className="text-sm text-gray-700 font-medium mb-2">பாதுகாப்பான குறியீடு பெறுங்கள்</p>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">
+                  Get Secure Code
+                </h3>
+                <p className="text-sm text-gray-700 font-medium mb-2">
+                  பாதுகாப்பான குறியீடு பெறுங்கள்
+                </p>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Receive a unique encrypted code to protect your privacy and ensure document security throughout the process.
+                  Receive a unique encrypted code to protect your privacy and
+                  ensure document security throughout the process.
                 </p>
               </div>
             </div>
@@ -177,10 +195,15 @@ export default function About() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-gray-900 text-lg mb-2">Processing & Delivery</h3>
-                <p className="text-sm text-gray-700 font-medium mb-2">செயலாக்கம் மற்றும் விநியோகம்</p>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">
+                  Processing & Delivery
+                </h3>
+                <p className="text-sm text-gray-700 font-medium mb-2">
+                  செயலாக்கம் மற்றும் விநியோகம்
+                </p>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Expert processing at our partner shops followed by secure delivery to your address by verified agents.
+                  Expert processing at our partner shops followed by secure
+                  delivery to your address by verified agents.
                 </p>
               </div>
             </div>
@@ -193,10 +216,15 @@ export default function About() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-gray-900 text-lg mb-2">Track & Receive</h3>
-                <p className="text-sm text-gray-700 font-medium mb-2">கண்காணித்து பெறவும்</p>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">
+                  Track & Receive
+                </h3>
+                <p className="text-sm text-gray-700 font-medium mb-2">
+                  கண்காணித்து பெறவும்
+                </p>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Real-time tracking with status updates and secure document delivery with verification at your doorstep.
+                  Real-time tracking with status updates and secure document
+                  delivery with verification at your doorstep.
                 </p>
               </div>
             </div>
@@ -212,7 +240,7 @@ export default function About() {
                   alt="Delivery Service"
                   className="w-full max-w-md h-auto transform hover:scale-105 transition-transform duration-500"
                 />
-                
+
                 {/* Background Decoration */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
               </div>
@@ -224,7 +252,9 @@ export default function About() {
                 </div>
                 <div>
                   <div className="font-bold">30 min</div>
-                  <div className="text-xs text-gray-500 font-normal">Avg Delivery</div>
+                  <div className="text-xs text-gray-500 font-normal">
+                    Avg Delivery
+                  </div>
                 </div>
               </div>
 
@@ -235,7 +265,9 @@ export default function About() {
                 </div>
                 <div>
                   <div className="font-bold">100% Secure</div>
-                  <div className="text-xs text-gray-500 font-normal">Verified</div>
+                  <div className="text-xs text-gray-500 font-normal">
+                    Verified
+                  </div>
                 </div>
               </div>
 
@@ -249,17 +281,14 @@ export default function About() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <Link to="/login" className="bg-gradient-to-r from-blue-300 to-purple-400 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+          <Link
+            to="/login"
+            className="bg-gradient-to-r from-blue-300 to-purple-400 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+          >
             Get Started Today
           </Link>
-          <p className="text-gray-600 text-sm mt-4">
-            Join thousands of satisfied customers using our document services
-          </p>
         </div>
       </div>
     </section>
   );
 }
-
-
-

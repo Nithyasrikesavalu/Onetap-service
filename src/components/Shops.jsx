@@ -1522,7 +1522,7 @@ export default function Shops() {
         <div className="text-center mb-12 relative">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-100/60 to-transparent rounded-2xl -m-4 transform rotate-1"></div>
           <div className="relative">
-            <h1 className="text-4xl font-bold text-gray-900 mb-3 bg-gradient-to-r from-blue-700 to-indigo-700 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-blue-700 to-indigo-700 bg-clip-text text-transparent">
               Premium Printing Shops
             </h1>
             <p className="text-gray-700 text-lg max-w-2xl mx-auto leading-relaxed">

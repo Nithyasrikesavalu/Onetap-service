@@ -11,15 +11,15 @@ import ContactUs from "./components/ContactUs";
 import Navbar from "./components/Navbar";
 import RequestService from "./components/RequestService";
 import TrackOrder from "./components/TrackOrder";
-import UploadDocuments from "./components/upload/About";
+import AboutPage from "./pages/AboutPage";
 import UserProfile from "./components/user/user";
 
 const App = () => {
   return (
     <>
-      <UserProfile />
+      {/* <UserProfile /> */}
 
-      {/* <Routes>
+      <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<AuthForm />} />
         </Route>
@@ -31,10 +31,10 @@ const App = () => {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/request" element={<RequestService />} />
           <Route path="/track" element={<TrackOrder />} />
-          <Route path="/upload" element={<UploadDocuments />} />
+          <Route path="/upload" element={<AboutPage />} />
           <Route path="/Allservice" element={<Services />} />
         </Route>
-      </Routes> */}
+      </Routes>
     </>
   );
 };

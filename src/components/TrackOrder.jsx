@@ -11,42 +11,92 @@ const TrackOrder = () => {
 
     // Mock tracking data with detailed information including delivery agents
     const mockTrackingData = {
-      "ORD123": {
+      ORD123: {
         status: "Order Placed",
-        statusIcon: "✅",
+        statusIcon: "📝",
         progress: 25,
         steps: [
-          { stage: "Order Confirmed", completed: true, timestamp: "2024-01-15 10:30 AM", icon: "📝" },
-          { stage: "Processing", completed: true, timestamp: "2024-01-15 11:45 AM", icon: "⚙️" },
-          { stage: "Quality Check", completed: false, timestamp: "Expected: 2024-01-16", icon: "🔍" },
-          { stage: "Dispatched", completed: false, timestamp: "Expected: 2024-01-17", icon: "🚚" },
-          { stage: "Delivered", completed: false, timestamp: "Expected: 2024-01-18", icon: "📦" }
+          {
+            stage: "Order Confirmed",
+            completed: true,
+            timestamp: "2024-01-15 10:30 AM",
+            icon: "✅",
+          },
+          {
+            stage: "Processing",
+            completed: true,
+            timestamp: "2024-01-15 11:45 AM",
+            icon: "⚙️",
+          },
+          {
+            stage: "Quality Check",
+            completed: false,
+            timestamp: "Expected: 2024-01-16",
+            icon: "🔍",
+          },
+          {
+            stage: "Dispatched",
+            completed: false,
+            timestamp: "Expected: 2024-01-17",
+            icon: "🚚",
+          },
+          {
+            stage: "Delivered",
+            completed: false,
+            timestamp: "Expected: 2024-01-18",
+            icon: "📦",
+          },
         ],
         customer: {
           name: "John Doe",
           phone: "+91 98765 43210",
-          address: "123 Main Street, Chennai, Tamil Nadu - 600001"
+          address: "123 Main Street, Chennai, Tamil Nadu - 600001",
         },
         service: "Documentation - Bulk Xerox & Print",
         estimatedDelivery: "2024-01-18",
         orderDate: "2024-01-15",
-        deliveryAgent: null // No agent assigned yet
+        deliveryAgent: null,
       },
-      "ORD456": {
+      ORD456: {
         status: "In Transit",
         statusIcon: "🚚",
         progress: 60,
         steps: [
-          { stage: "Order Confirmed", completed: true, timestamp: "2024-01-14 09:15 AM", icon: "📝" },
-          { stage: "Processing", completed: true, timestamp: "2024-01-14 10:30 AM", icon: "⚙️" },
-          { stage: "Quality Check", completed: true, timestamp: "2024-01-14 02:15 PM", icon: "🔍" },
-          { stage: "Dispatched", completed: true, timestamp: "2024-01-15 11:00 AM", icon: "🚚" },
-          { stage: "Delivered", completed: false, timestamp: "Expected: 2024-01-16", icon: "📦" }
+          {
+            stage: "Order Confirmed",
+            completed: true,
+            timestamp: "2024-01-14 09:15 AM",
+            icon: "✅",
+          },
+          {
+            stage: "Processing",
+            completed: true,
+            timestamp: "2024-01-14 10:30 AM",
+            icon: "⚙️",
+          },
+          {
+            stage: "Quality Check",
+            completed: true,
+            timestamp: "2024-01-14 02:15 PM",
+            icon: "✅",
+          },
+          {
+            stage: "Dispatched",
+            completed: true,
+            timestamp: "2024-01-15 11:00 AM",
+            icon: "🚚",
+          },
+          {
+            stage: "Delivered",
+            completed: false,
+            timestamp: "Expected: 2024-01-16",
+            icon: "📦",
+          },
         ],
         customer: {
           name: "Sarah Wilson",
           phone: "+91 87654 32109",
-          address: "456 Park Avenue, Coimbatore, Tamil Nadu - 641001"
+          address: "456 Park Avenue, Coimbatore, Tamil Nadu - 641001",
         },
         service: "Government - Driving License",
         estimatedDelivery: "2024-01-16",
@@ -59,24 +109,49 @@ const TrackOrder = () => {
           photo: "👨‍💼",
           currentLocation: "Near Gandhipuram",
           eta: "30-45 mins",
-          liveTracking: true
-        }
+          liveTracking: true,
+        },
       },
-      "ORD789": {
+      ORD789: {
         status: "Delivered",
-        statusIcon: "📦",
+        statusIcon: "✅",
         progress: 100,
         steps: [
-          { stage: "Order Confirmed", completed: true, timestamp: "2024-01-12 03:20 PM", icon: "📝" },
-          { stage: "Processing", completed: true, timestamp: "2024-01-12 04:45 PM", icon: "⚙️" },
-          { stage: "Quality Check", completed: true, timestamp: "2024-01-13 10:30 AM", icon: "🔍" },
-          { stage: "Dispatched", completed: true, timestamp: "2024-01-13 02:15 PM", icon: "🚚" },
-          { stage: "Delivered", completed: true, timestamp: "2024-01-14 11:30 AM", icon: "📦" }
+          {
+            stage: "Order Confirmed",
+            completed: true,
+            timestamp: "2024-01-12 03:20 PM",
+            icon: "✅",
+          },
+          {
+            stage: "Processing",
+            completed: true,
+            timestamp: "2024-01-12 04:45 PM",
+            icon: "⚙️",
+          },
+          {
+            stage: "Quality Check",
+            completed: true,
+            timestamp: "2024-01-13 10:30 AM",
+            icon: "✅",
+          },
+          {
+            stage: "Dispatched",
+            completed: true,
+            timestamp: "2024-01-13 02:15 PM",
+            icon: "🚚",
+          },
+          {
+            stage: "Delivered",
+            completed: true,
+            timestamp: "2024-01-14 11:30 AM",
+            icon: "📦",
+          },
         ],
         customer: {
           name: "Michael Raj",
           phone: "+91 76543 21098",
-          address: "789 Gandhi Road, Madurai, Tamil Nadu - 625001"
+          address: "789 Gandhi Road, Madurai, Tamil Nadu - 625001",
         },
         service: "International - Passport Services",
         estimatedDelivery: "2024-01-14",
@@ -89,24 +164,49 @@ const TrackOrder = () => {
           photo: "👨‍💻",
           currentLocation: "Delivered",
           eta: "Delivered",
-          liveTracking: false
-        }
+          liveTracking: false,
+        },
       },
-      "ORD999": {
+      ORD999: {
         status: "Out for Delivery",
         statusIcon: "🛵",
         progress: 80,
         steps: [
-          { stage: "Order Confirmed", completed: true, timestamp: "2024-01-16 09:00 AM", icon: "📝" },
-          { stage: "Processing", completed: true, timestamp: "2024-01-16 10:15 AM", icon: "⚙️" },
-          { stage: "Quality Check", completed: true, timestamp: "2024-01-16 01:30 PM", icon: "🔍" },
-          { stage: "Dispatched", completed: true, timestamp: "2024-01-16 03:45 PM", icon: "🚚" },
-          { stage: "Delivered", completed: false, timestamp: "Expected: Today", icon: "📦" }
+          {
+            stage: "Order Confirmed",
+            completed: true,
+            timestamp: "2024-01-16 09:00 AM",
+            icon: "✅",
+          },
+          {
+            stage: "Processing",
+            completed: true,
+            timestamp: "2024-01-16 10:15 AM",
+            icon: "⚙️",
+          },
+          {
+            stage: "Quality Check",
+            completed: true,
+            timestamp: "2024-01-16 01:30 PM",
+            icon: "✅",
+          },
+          {
+            stage: "Dispatched",
+            completed: true,
+            timestamp: "2024-01-16 03:45 PM",
+            icon: "🚚",
+          },
+          {
+            stage: "Delivered",
+            completed: false,
+            timestamp: "Expected: Today",
+            icon: "📦",
+          },
         ],
         customer: {
           name: "Priya Sharma",
           phone: "+91 83456 78901",
-          address: "321 Lake View Road, Ooty, Tamil Nadu - 643001"
+          address: "321 Lake View Road, Ooty, Tamil Nadu - 643001",
         },
         service: "Healthcare - Health Insurance",
         estimatedDelivery: "2024-01-16",
@@ -119,9 +219,9 @@ const TrackOrder = () => {
           photo: "👨‍🚀",
           currentLocation: "2 km away",
           eta: "15-20 mins",
-          liveTracking: true
-        }
-      }
+          liveTracking: true,
+        },
+      },
     };
 
     const data = mockTrackingData[orderId];
@@ -136,381 +236,451 @@ const TrackOrder = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "Order Placed": return "from-blue-400 to-cyan-400";
-      case "In Transit": return "from-cyan-400 to-blue-500";
-      case "Out for Delivery": return "from-orange-400 to-amber-400";
-      case "Delivered": return "from-green-400 to-emerald-400";
-      default: return "from-gray-400 to-slate-400";
+      case "Order Placed":
+        return "from-blue-500 to-blue-600";
+      case "In Transit":
+        return "from-cyan-500 to-blue-500";
+      case "Out for Delivery":
+        return "from-orange-500 to-amber-500";
+      case "Delivered":
+        return "from-green-500 to-emerald-500";
+      default:
+        return "from-gray-500 to-slate-500";
     }
   };
 
   const getStatusBgColor = (status) => {
     switch (status) {
-      case "Order Placed": return "bg-blue-500/20";
-      case "In Transit": return "bg-cyan-500/20";
-      case "Out for Delivery": return "bg-orange-500/20";
-      case "Delivered": return "bg-green-500/20";
-      default: return "bg-gray-500/20";
+      case "Order Placed":
+        return "bg-blue-500/10 border-blue-500/20";
+      case "In Transit":
+        return "bg-cyan-500/10 border-cyan-500/20";
+      case "Out for Delivery":
+        return "bg-orange-500/10 border-orange-500/20";
+      case "Delivered":
+        return "bg-green-500/10 border-green-500/20";
+      default:
+        return "bg-gray-500/10 border-gray-500/20";
     }
   };
 
   const handleCallAgent = (phone) => {
-    window.open(`tel:${phone}`, '_self');
+    window.open(`tel:${phone}`, "_self");
   };
 
   const handleMessageAgent = (phone) => {
-    window.open(`https://wa.me/${phone.replace('+', '')}`, '_blank');
+    window.open(`https://wa.me/${phone.replace("+", "")}`, "_blank");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white px-4 sm:px-6 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-blue-400/10 blur-3xl"
-            style={{
-              width: `${100 + i * 50}px`,
-              height: `${100 + i * 50}px`,
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 20}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 20, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 10 + i * 2,
-              repeat: Infinity,
-              delay: i * 2,
-            }}
-          />
-        ))}
-      </div>
-
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-gray-900 px-3 sm:px-4 md:px-6 relative overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, scale: 0.9, rotateY: 15 }}
-        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-        transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-        className="relative z-10 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-4xl"
-        style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)",
-          boxShadow: `
-            0 25px 50px -12px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-            0 0 0 1px rgba(255, 255, 255, 0.1)
-          `
-        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 w-full max-w-4xl mx-auto py-4 sm:py-8 md:py-10"
       >
-        <div className="text-center mb-8">
-          <motion.h2
-            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-300 via-cyan-300 to-indigo-300 bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Track Your Order 🔍
-          </motion.h2>
-          <motion.p
-            className="text-white/70 mt-2 text-sm sm:text-base"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            Enter your Order ID to track real-time status and delivery agent details
-          </motion.p>
-        </div>
-
-        <form onSubmit={handleTrack} className="space-y-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <input
-              type="text"
-              placeholder="Enter Order ID (e.g., ORD123, ORD456, ORD789, ORD999)"
-              value={orderId}
-              onChange={(e) => setOrderId(e.target.value.toUpperCase())}
-              className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
-              required
-            />
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              type="submit"
-              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl font-semibold text-white shadow-lg hover:shadow-blue-500/30 transition-all duration-300 whitespace-nowrap"
-            >
-              Track Order
-            </motion.button>
+        {/* Main Content Card */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl ring-1 ring-gray-300 transition-all duration-300 hover:shadow-xl hover:sm:shadow-2xl  overflow-hidden mx-2 sm:mx-0">
+          {/* Header Section */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 sm:px-6 md:px-8 py-4 sm:py-6 text-white">
+            <div className="text-center">
+              <motion.h1
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                Track Your Order
+              </motion.h1>
+              <motion.p
+                className="text-blue-100 text-sm sm:text-base md:text-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                Enter your Order ID to track real-time status
+              </motion.p>
+            </div>
           </div>
-        </form>
 
-        <AnimatePresence>
-          {status && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.5 }}
-              className="mt-8 space-y-6"
-            >
-              {/* Status Card */}
-              <div className={`p-6 rounded-2xl border-2 ${getStatusBgColor(status)} border-white/20 backdrop-blur-lg`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-white">Order #{orderId}</h3>
-                    <p className="text-white/60 text-sm">{trackingData?.service}</p>
-                  </div>
-                  <div className="text-right">
-                    <div className={`text-2xl font-bold bg-gradient-to-r ${getStatusColor(status)} bg-clip-text text-transparent`}>
-                      {status} {trackingData?.statusIcon}
-                    </div>
-                    <p className="text-white/60 text-sm">
-                      Ordered on: {trackingData?.orderDate}
-                    </p>
+          {/* Search Section */}
+          <div className="p-4 sm:p-6 md:p-8">
+            <form onSubmit={handleTrack} className="space-y-4 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    placeholder="Enter Order ID (e.g., ORD123, ORD456...)"
+                    value={orderId}
+                    onChange={(e) => setOrderId(e.target.value.toUpperCase())}
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                    required
+                  />
+                  <div className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm sm:text-base">
+                    🔍
                   </div>
                 </div>
-
-                {/* Progress Bar */}
-                <div className="mb-6">
-                  <div className="flex justify-between text-sm text-white/60 mb-2">
-                    <span>Progress</span>
-                    <span>{trackingData?.progress}%</span>
-                  </div>
-                  <div className="w-full bg-white/20 rounded-full h-3">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${trackingData?.progress}%` }}
-                      transition={{ duration: 1, ease: "easeOut" }}
-                      className={`h-3 rounded-full bg-gradient-to-r ${getStatusColor(status)} shadow-lg`}
-                    />
-                  </div>
-                </div>
-
-                {/* Timeline */}
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-white/80">Order Timeline</h4>
-                  {trackingData?.steps.map((step, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                        step.completed 
-                          ? "bg-green-500 text-white" 
-                          : "bg-white/20 text-white/60"
-                      }`}>
-                        {step.completed ? "✓" : step.icon}
-                      </div>
-                      <div className="flex-1">
-                        <div className={`font-medium ${
-                          step.completed ? "text-white" : "text-white/60"
-                        }`}>
-                          {step.stage}
-                        </div>
-                        <div className="text-sm text-white/50">
-                          {step.timestamp}
-                        </div>
-                      </div>
-                      {step.completed && (
-                        <div className="text-green-400 text-sm">
-                          Completed
-                        </div>
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  type="submit"
+                  className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-semibold text-white shadow-lg hover:shadow-blue-500/30 transition-all duration-300 whitespace-nowrap text-sm sm:text-base"
+                >
+                  Track Order
+                </motion.button>
               </div>
+            </form>
 
-              {/* Delivery Agent Section */}
-              {trackingData?.deliveryAgent && (
+            <AnimatePresence>
+              {status && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-lg"
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="mt-6 sm:mt-8 space-y-4 sm:space-y-6"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-semibold text-white/80 flex items-center text-lg">
-                      <span className="mr-3">🚚</span>
-                      Delivery Agent Details
-                      {trackingData.deliveryAgent.liveTracking && (
-                        <span className="ml-2 px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full border border-green-400/30">
-                          Live Tracking
+                  {/* Status Card */}
+                  <div
+                    className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 ${getStatusBgColor(
+                      status
+                    )} backdrop-blur-sm`}
+                  >
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-4 sm:mb-6">
+                      <div className="mb-3 sm:mb-0">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                          Order #{orderId}
+                        </h3>
+                        <p className="text-gray-600 text-base sm:text-lg mt-1">
+                          {trackingData?.service}
+                        </p>
+                      </div>
+                      <div className="text-left sm:text-right">
+                        <div
+                          className={`text-xl sm:text-2xl font-bold bg-gradient-to-r ${getStatusColor(
+                            status
+                          )} bg-clip-text text-transparent`}
+                        >
+                          {status} {trackingData?.statusIcon}
+                        </div>
+                        <p className="text-gray-500 text-xs sm:text-sm mt-1">
+                          Ordered on: {trackingData?.orderDate}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="mb-4 sm:mb-6">
+                      <div className="flex justify-between text-gray-600 text-sm sm:text-base mb-2">
+                        <span className="font-medium">Progress</span>
+                        <span className="font-semibold">
+                          {trackingData?.progress}%
                         </span>
-                      )}
-                    </h4>
-                    <div className="text-right">
-                      <div className="text-cyan-300 font-semibold">
-                        {trackingData.deliveryAgent.eta}
                       </div>
-                      <div className="text-white/60 text-sm">
-                        Estimated Arrival
+                      <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${trackingData?.progress}%` }}
+                          transition={{ duration: 1, ease: "easeOut" }}
+                          className={`h-2 sm:h-3 rounded-full bg-gradient-to-r ${getStatusColor(
+                            status
+                          )} shadow-md`}
+                        />
                       </div>
+                    </div>
+
+                    {/* Timeline */}
+                    <div className="space-y-3 sm:space-y-4">
+                      <h4 className="font-semibold text-gray-800 text-base sm:text-lg">
+                        Order Timeline
+                      </h4>
+                      {trackingData?.steps.map((step, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="flex items-start space-x-3 sm:space-x-4"
+                        >
+                          <div
+                            className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-lg ${
+                              step.completed
+                                ? "bg-green-500 text-white shadow-lg"
+                                : "bg-gray-100 text-gray-400 border border-gray-200"
+                            }`}
+                          >
+                            {step.completed ? "✓" : step.icon}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div
+                              className={`font-semibold text-sm sm:text-base ${
+                                step.completed
+                                  ? "text-gray-900"
+                                  : "text-gray-600"
+                              } truncate`}
+                            >
+                              {step.stage}
+                            </div>
+                            <div className="text-gray-500 text-xs sm:text-sm">
+                              {step.timestamp}
+                            </div>
+                          </div>
+                          {step.completed && (
+                            <div className="text-green-500 font-medium text-xs sm:text-sm flex items-center shrink-0">
+                              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full mr-1 sm:mr-2"></span>
+                              Done
+                            </div>
+                          )}
+                        </motion.div>
+                      ))}
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Agent Profile */}
-                    <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-2xl">
-                        {trackingData.deliveryAgent.photo}
+                  {/* Delivery Agent Section */}
+                  {trackingData?.deliveryAgent && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100"
+                    >
+                      <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-4 sm:mb-6">
+                        <h4 className="font-semibold text-gray-800 text-base sm:text-lg flex items-center mb-2 sm:mb-0">
+                          <span className="mr-2 text-xl sm:text-2xl">🚚</span>
+                          Delivery Agent
+                          {trackingData.deliveryAgent.liveTracking && (
+                            <span className="ml-2 px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full border border-green-200 font-medium">
+                              Live
+                            </span>
+                          )}
+                        </h4>
+                        <div className="text-left sm:text-right">
+                          <div className="text-cyan-600 font-bold text-lg sm:text-xl">
+                            {trackingData.deliveryAgent.eta}
+                          </div>
+                          <div className="text-gray-600 text-xs sm:text-sm">
+                            Estimated Arrival
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <div className="font-bold text-white text-lg">
-                          {trackingData.deliveryAgent.name}
-                        </div>
-                        <div className="text-amber-300 text-sm">
-                          {trackingData.deliveryAgent.rating}
-                        </div>
-                        <div className="text-white/60 text-sm">
-                          {trackingData.deliveryAgent.vehicle}
-                        </div>
-                      </div>
-                    </div>
 
-                    {/* Current Status */}
-                    <div className="space-y-2">
-                      <div className="text-white/60 text-sm">Current Location</div>
-                      <div className="font-semibold text-white flex items-center">
-                        <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                        {trackingData.deliveryAgent.currentLocation}
-                      </div>
-                      {trackingData.deliveryAgent.liveTracking && (
-                        <div className="text-cyan-300 text-sm flex items-center">
-                          <span className="mr-1">📍</span>
-                          Live location updating
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                        {/* Agent Profile */}
+                        <div className="flex items-center space-x-3 sm:space-x-4">
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-xl sm:text-2xl text-white shadow-lg">
+                            {trackingData.deliveryAgent.photo}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="font-bold text-gray-900 text-base sm:text-lg truncate">
+                              {trackingData.deliveryAgent.name}
+                            </div>
+                            <div className="text-amber-600 font-medium text-xs sm:text-sm">
+                              {trackingData.deliveryAgent.rating}
+                            </div>
+                            <div className="text-gray-600 text-xs sm:text-sm truncate">
+                              {trackingData.deliveryAgent.vehicle}
+                            </div>
+                          </div>
                         </div>
-                      )}
-                    </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex flex-col space-y-3">
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => handleCallAgent(trackingData.deliveryAgent.phone)}
-                        className="px-4 py-2 bg-green-500/20 text-green-300 rounded-xl border border-green-400/30 hover:bg-green-500/30 transition-all duration-300 flex items-center justify-center space-x-2"
+                        {/* Current Status */}
+                        <div className="space-y-1 sm:space-y-2">
+                          <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                            Current Location
+                          </div>
+                          <div className="font-semibold text-gray-900 text-sm sm:text-base flex items-center">
+                            <span className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full mr-2 sm:mr-3 animate-pulse"></span>
+                            <span className="truncate">
+                              {trackingData.deliveryAgent.currentLocation}
+                            </span>
+                          </div>
+                          {trackingData.deliveryAgent.liveTracking && (
+                            <div className="text-cyan-600 text-xs sm:text-sm flex items-center font-medium">
+                              <span className="mr-1">📍</span>
+                              Live location updating
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex flex-row sm:flex-col gap-2 sm:gap-3">
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() =>
+                              handleCallAgent(trackingData.deliveryAgent.phone)
+                            }
+                            className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-3 bg-green-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center space-x-2 text-xs sm:text-sm"
+                          >
+                            <span className="text-sm sm:text-lg">📞</span>
+                            <span>Call Agent</span>
+                          </motion.button>
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() =>
+                              handleMessageAgent(
+                                trackingData.deliveryAgent.phone
+                              )
+                            }
+                            className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-3 bg-blue-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center space-x-2 text-xs sm:text-sm"
+                          >
+                            <span className="text-sm sm:text-lg">💬</span>
+                            <span>Message</span>
+                          </motion.button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* No Agent Assigned Message */}
+                  {status === "Order Placed" &&
+                    !trackingData?.deliveryAgent && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-200 text-center"
                       >
-                        <span>📞</span>
-                        <span>Call Agent</span>
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => handleMessageAgent(trackingData.deliveryAgent.phone)}
-                        className="px-4 py-2 bg-blue-500/20 text-blue-300 rounded-xl border border-blue-400/30 hover:bg-blue-500/30 transition-all duration-300 flex items-center justify-center space-x-2"
-                      >
-                        <span>💬</span>
-                        <span>Message</span>
-                      </motion.button>
+                        <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">
+                          ⏳
+                        </div>
+                        <div className="text-blue-700 font-bold text-base sm:text-lg mb-1 sm:mb-2">
+                          Delivery Agent Not Yet Assigned
+                        </div>
+                        <p className="text-blue-600 text-xs sm:text-sm">
+                          Your order is being processed. A delivery agent will
+                          be assigned soon and you'll be notified.
+                        </p>
+                      </motion.div>
+                    )}
+
+                  {/* Customer & Delivery Info */}
+                  {trackingData && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                      {/* Customer Information */}
+                      <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gray-50 border border-gray-200">
+                        <h4 className="font-semibold text-gray-800 text-base sm:text-lg mb-3 sm:mb-4 flex items-center">
+                          <span className="mr-2 text-lg sm:text-xl">👤</span>
+                          Customer Information
+                        </h4>
+                        <div className="space-y-3 sm:space-y-4">
+                          <div>
+                            <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                              Name
+                            </div>
+                            <div className="text-gray-900 font-semibold text-sm sm:text-base">
+                              {trackingData.customer.name}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                              Phone
+                            </div>
+                            <div className="text-gray-900 font-semibold text-sm sm:text-base">
+                              {trackingData.customer.phone}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                              Address
+                            </div>
+                            <div className="text-gray-900 font-semibold text-xs sm:text-sm">
+                              {trackingData.customer.address}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Delivery Information */}
+                      <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gray-50 border border-gray-200">
+                        <h4 className="font-semibold text-gray-800 text-base sm:text-lg mb-3 sm:mb-4 flex items-center">
+                          <span className="mr-2 text-lg sm:text-xl">📅</span>
+                          Delivery Information
+                        </h4>
+                        <div className="space-y-3 sm:space-y-4">
+                          <div>
+                            <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                              Service Type
+                            </div>
+                            <div className="text-gray-900 font-semibold text-sm sm:text-base">
+                              {trackingData.service}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                              Order Date
+                            </div>
+                            <div className="text-gray-900 font-semibold text-xs sm:text-sm">
+                              {trackingData.orderDate}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                              Estimated Delivery
+                            </div>
+                            <div className="text-gray-900 font-semibold text-xs sm:text-sm">
+                              {trackingData.estimatedDelivery}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600 text-xs sm:text-sm font-medium">
+                              Current Status
+                            </div>
+                            <div
+                              className={`font-bold text-sm sm:text-base ${
+                                status === "Delivered"
+                                  ? "text-green-600"
+                                  : status === "Out for Delivery"
+                                  ? "text-orange-600"
+                                  : status === "In Transit"
+                                  ? "text-cyan-600"
+                                  : "text-blue-600"
+                              }`}
+                            >
+                              {status} {trackingData.statusIcon}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  )}
+
+                  {/* Support Info */}
+                  <div className="text-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100">
+                    <p className="text-gray-600 text-xs sm:text-sm">
+                      Need help? Contact our support team at{" "}
+                      <span className="text-blue-600 font-semibold">
+                        support@onetapservices.com
+                      </span>{" "}
+                      or call{" "}
+                      <span className="text-blue-600 font-semibold">
+                        +91 98765 43210
+                      </span>
+                    </p>
                   </div>
                 </motion.div>
               )}
 
-              {/* No Agent Assigned Message */}
-              {status === "Order Placed" && !trackingData?.deliveryAgent && (
+              {status === "Order not found" && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-6 rounded-2xl bg-blue-500/10 border border-blue-400/30 text-center"
+                  className="mt-4 sm:mt-6 text-center p-6 sm:p-8 rounded-xl sm:rounded-2xl bg-red-50 border border-red-200"
                 >
-                  <div className="text-3xl mb-2">⏳</div>
-                  <div className="text-blue-300 font-medium mb-2">Delivery Agent Not Yet Assigned</div>
-                  <p className="text-blue-200/80 text-sm">
-                    Your order is being processed. A delivery agent will be assigned soon and you'll be notified.
+                  <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">❌</div>
+                  <div className="text-red-700 font-bold text-base sm:text-lg mb-1 sm:mb-2">
+                    Order Not Found
+                  </div>
+                  <p className="text-red-600 text-xs sm:text-sm">
+                    Please check your Order ID and try again. Valid IDs: ORD123,
+                    ORD456, ORD789, ORD999
                   </p>
                 </motion.div>
               )}
-
-              {/* Customer & Delivery Info */}
-              {trackingData && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Customer Information */}
-                  <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-lg">
-                    <h4 className="font-semibold text-white/80 mb-4 flex items-center">
-                      <span className="mr-2">👤</span>
-                      Customer Information
-                    </h4>
-                    <div className="space-y-3 text-sm">
-                      <div>
-                        <div className="text-white/60">Name</div>
-                        <div className="text-white font-medium">{trackingData.customer.name}</div>
-                      </div>
-                      <div>
-                        <div className="text-white/60">Phone</div>
-                        <div className="text-white font-medium">{trackingData.customer.phone}</div>
-                      </div>
-                      <div>
-                        <div className="text-white/60">Address</div>
-                        <div className="text-white font-medium">{trackingData.customer.address}</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Delivery Information */}
-                  <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-lg">
-                    <h4 className="font-semibold text-white/80 mb-4 flex items-center">
-                      <span className="mr-2">📅</span>
-                      Delivery Information
-                    </h4>
-                    <div className="space-y-3 text-sm">
-                      <div>
-                        <div className="text-white/60">Service Type</div>
-                        <div className="text-white font-medium">{trackingData.service}</div>
-                      </div>
-                      <div>
-                        <div className="text-white/60">Order Date</div>
-                        <div className="text-white font-medium">{trackingData.orderDate}</div>
-                      </div>
-                      <div>
-                        <div className="text-white/60">Estimated Delivery</div>
-                        <div className="text-white font-medium">{trackingData.estimatedDelivery}</div>
-                      </div>
-                      <div>
-                        <div className="text-white/60">Current Status</div>
-                        <div className={`font-medium ${
-                          status === "Delivered" ? "text-green-400" : 
-                          status === "Out for Delivery" ? "text-orange-400" :
-                          status === "In Transit" ? "text-cyan-400" : 
-                          "text-blue-400"
-                        }`}>
-                          {status} {trackingData.statusIcon}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Support Info */}
-              <div className="text-center p-4 rounded-2xl bg-white/5 border border-white/10">
-                <p className="text-white/60 text-sm">
-                  Need help? Contact our support team at{" "}
-                  <span className="text-blue-300">support@servicecenter.com</span> or call{" "}
-                  <span className="text-blue-300">+91 98765 43210</span>
-                </p>
-              </div>
-            </motion.div>
-          )}
-
-          {status === "Order not found" && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-6 text-center p-6 rounded-2xl bg-red-500/20 border border-red-400/30"
-            >
-              <div className="text-2xl mb-2">❌</div>
-              <div className="text-red-200 font-medium">Order Not Found</div>
-              <p className="text-red-100/80 text-sm mt-2">
-                Please check your Order ID and try again. Valid IDs: ORD123, ORD456, ORD789, ORD999
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </AnimatePresence>
+          </div>
+        </div>
       </motion.div>
     </div>
   );
