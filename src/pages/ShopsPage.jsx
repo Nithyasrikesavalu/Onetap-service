@@ -2501,6 +2501,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Maps2 from "../components/MapLoop";
 
 // 🏪 30 Complete Shop Data with Full Details
 const shops = [
@@ -3241,19 +3242,30 @@ export default function Shops() {
   }, [filterPlace, searchQuery]);
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-4 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
+    <section className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
+      {/* Header */}
 
-        <div className="text-center py-15">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Professional Printing Partners
-          </h2>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
-            Connect with certified business printing centers offering
-            enterprise-grade solutions for all your corporate document needs.
-          </p>
+      <div className="map-wrap flex justify-center">
+        {/* Background Map */}
+        <div className="map-background">
+          <Maps2 />
         </div>
+
+        {/* Text Content Overlay */}
+        <div className="map-text-overlay flex justify-center items-center">
+          <div>
+            <h2 className="text-5xl font-bold mb-4">
+              Professional Printing Partners
+            </h2>
+            <p className="text-lg max-w-3xl mx-auto ">
+              Connect with certified business printing centers offering
+              enterprise-grade solutions for all your corporate document needs.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Filters Section */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-8">
           <div className="flex flex-col md:flex-row gap-4 items-center">

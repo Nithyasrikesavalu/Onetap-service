@@ -13,6 +13,7 @@ import RequestService from "./components/RequestService";
 import TrackOrder from "./components/TrackOrder";
 import AboutPage from "./pages/AboutPage";
 import UserProfile from "./components/user/user";
+import Maps2 from "./components/MapLoop";
 
 const App = () => {
   return (
