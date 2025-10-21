@@ -24,7 +24,7 @@ export default function Maps2() {
     lng: 79.7212150568176,
   });
 
-  const zoom = 14;
+  const zoom = 17;
   maptilersdk.config.apiKey = "aeT5KKDAoXuo3xVXAPJf";
 
   // Custom icon elements
@@ -114,7 +114,7 @@ export default function Maps2() {
       scrollZoom: false,
       touchZoomRotate: false,
       pitch: 60,
-      bearing: -60,
+      bearing: -80,
     });
 
     map.current.on("load", async () => {
@@ -314,7 +314,31 @@ export default function Maps2() {
     coordinates.forEach((coord) => {
       bounds.extend(coord);
     });
-    map.current.fitBounds(bounds, { padding: 50, duration: 1000 });
+    // map.current.fitBounds(bounds, {
+    //   padding: 50,
+    //   duration: 1300,
+    //   //   maxZoom: 17, // Add maximum zoom level
+    //   //   minZoom: 12, // Add minimum zoom level (optional)
+    //   zoom: 15, // Force specific zoom level (alternative approach)
+    // });
+
+    map.current
+      .fitBounds(bounds, {
+        padding: 50,
+        duration: 1000,
+      })
+      .on("moveend", () => {
+        // After centering, move to a new position
+        setTimeout(() => {
+          map.current.easeTo({
+            center: [79.718, 12.817], // New coordinates (adjust these)
+            zoom: 15, // Optional: change zoom
+            // pitch: 60, // Maintain 3D view
+            // bearing: -20, // Maintain rotation
+            duration: 1500, // Smooth transition
+          });
+        }, 500); // Wait 1 second after centering
+      });
   };
 
   const updateDeliveryStatus = (progress) => {

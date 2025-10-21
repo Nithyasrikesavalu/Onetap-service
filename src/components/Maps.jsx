@@ -30,7 +30,7 @@ export default function Maps({ shopcord, deliverycord }) {
     // lng: deliverycord.lng
   });
 
-  const zoom = 14;
+  const zoom = 17;
   maptilersdk.config.apiKey = "aeT5KKDAoXuo3xVXAPJf";
 
   // Custom icon elements
@@ -301,7 +301,13 @@ export default function Maps({ shopcord, deliverycord }) {
     coordinates.forEach((coord) => {
       bounds.extend(coord);
     });
-    map.current.fitBounds(bounds, { padding: 50, duration: 1000 });
+    map.current.fitBounds(bounds, {
+      padding: 50,
+      duration: 1000,
+      //   maxZoom: 17, // Add maximum zoom level
+      //   minZoom: 12, // Add minimum zoom level (optional)
+      zoom: 15, // Force specific zoom level (alternative approach)
+    });
   };
 
   const updateDeliveryStatus = (progress) => {
