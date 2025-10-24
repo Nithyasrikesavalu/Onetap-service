@@ -1,0 +1,272 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Delivery Status Overlay */
+.delivery-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+}
+
+.delivery-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+  backdrop-filter: blur(10px);
+}
+
+.delivery-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.status {
+  margin: 0 0 15px 0;
+  color: #666;
+  font-weight: 500;
+}
+
+.progress-container {
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #45a049);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #666;
+  font-weight: bold;
+}
+
+.location-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.start {
+  background: #FF0000;
+}
+
+.dot.end {
+  background: #00FF00;
+}
+
+/* Custom Marker Styles */
+.custom-marker {
+  position: relative;
+  cursor: pointer;
+}
+
+.marker-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 3px solid white;
+  transition: all 0.3s ease;
+}
+
+.marker-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Restaurant Marker */
+.restaurant-marker .marker-icon {
+  background: #FF6B6B;
+}
+
+.restaurant-marker .marker-icon img {
+  filter: brightness(0) invert(1);
+}
+
+/* Home Marker */
+.home-marker .marker-icon {
+  background: #4ECDC4;
+}
+
+.home-marker .marker-icon img {
+  filter: brightness(0) invert(1);
+}
+
+/* Bike Marker */
+.bike-marker .marker-icon {
+  background: #45B7D1;
+  transform: scale(1.1);
+}
+
+.bike-marker .marker-icon img {
+  filter: brightness(0) invert(1);
+}
+
+/* Pulse Animation */
+.marker-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: inherit;
+  animation: pulse 2s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Hover Effects */
+.custom-marker:hover .marker-icon {
+  transform: scale(1.2);
+}
+
+.bike-marker:hover .marker-icon {
+  transform: scale(1.3);
+}
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
+}
+
+.map {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.geocoding {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+/* Sprite Marker Styles */
+.sprite-marker {
+  position: relative;
+  cursor: pointer;
+}
+
+.sprite-icon {
+  width: 32px;
+  height: 32px;
+  background-size: 192px 96px; /* Total sprite sheet size */
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid white;
+  transition: all 0.3s ease;
+}
+
+/* Pulse Animation for Sprite Markers */
+.sprite-marker .marker-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  z-index: -1;
+  opacity: 0;
+}
+
+/* Hover Effects */
+.sprite-marker:hover .sprite-icon {
+  transform: scale(1.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.bike-marker:hover .sprite-icon {
+  transform: scale(1.25);
+}
+
+/* Restaurant marker specific */
+.restaurant-marker .sprite-icon {
+  background-color: #FF6B6B;
+}
+
+/* Home marker specific */
+.home-marker .sprite-icon {
+  background-color: #4ECDC4;
+}
+
+/* Bike marker specific */
+.bike-marker .sprite-icon {
+  background-color: #45B7D1;
+  transform: scale(1.1);
+}
