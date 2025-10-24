@@ -12,17 +12,17 @@ import Navbar from "./components/Navbar";
 import RequestService from "./components/RequestService";
 import TrackOrder from "./components/TrackOrder";
 import AboutPage from "./pages/AboutPage";
-import UserProfile from "./components/user/user";
-import Maps2 from "./components/MapLoop";
+import UserProfile from "./components/user/UserProfile";
+import VendorDashboard from "./components/vendor/VendorDashboard";
 
 const App = () => {
   return (
     <>
-      {/* <UserProfile /> */}
-
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<AuthForm />} />
+          <Route path="/user" element={<UserProfile />} />
+          <Route path="/vendor" element={<VendorDashboard />} />
         </Route>
 
         <Route element={<MainLayout />}>

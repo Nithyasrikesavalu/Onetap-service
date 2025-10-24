@@ -3,75 +3,141 @@ import { useNavigate } from "react-router-dom";
 
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [otp, setOtp] = useState("");
-  const [generatedOtp, setGeneratedOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleGenerateOtp = async () => {
+  // Handle registration + send OTP
+  const handleRegisterAndSendOtp = async () => {
     setLoading(true);
-    setMessage("Sending OTP...");
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOtp(newOtp);
-    setOtpSent(true);
+    setMessage("Creating account and sending OTP...");
+
+    try {
+      // Register new user
+      const registerRes = await fetch(
+        "http://localhost:5000/api/users/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
+      const registerData = await registerRes.json();
+
+      if (!registerRes.ok) {
+        setMessage(registerData.message || "Registration failed.");
+        setLoading(false);
+        return;
+      }
+
+      // Send OTP email
+      const otpRes = await fetch("http://localhost:5000/api/users/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const otpData = await otpRes.json();
+
+      if (otpRes.ok) {
+        setOtpSent(true);
+        setMessage("OTP sent to your email!");
+      } else {
+        setMessage(otpData.message || "Failed to send OTP");
+      }
+    } catch (err) {
+      setMessage("Server error. Try again.", err);
+    }
+
     setLoading(false);
-    setMessage(`OTP sent! (For demo: ${newOtp})`);
   };
 
+  // Handle login
+  const handleLogin = async () => {
+    setLoading(true);
+    setMessage("Signing in...");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userName", data.user.name);
+        setMessage("Login successful!");
+        setTimeout(() => navigate("/"), 1000);
+      } else {
+        setMessage(data.message || "Login failed.");
+      }
+    } catch (err) {
+      setMessage("Server error while logging in.");
+    }
+
+    setLoading(false);
+  };
+
+  // Handle OTP verification after registration
   const handleVerifyOtp = async () => {
     setLoading(true);
     setMessage("Verifying OTP...");
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    if (otp === generatedOtp) {
-      setMessage("✅ Verification successful! Redirecting...");
-      setTimeout(() => {
-        navigate("/shops");
-      }, 800);
-    } else {
-      setMessage("❌ Invalid OTP. Please try again.");
+    try {
+      const res = await fetch("http://localhost:5000/api/users/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setMessage("✅ OTP verified! Redirecting...");
+        setTimeout(() => toggleAuthMode(), 1200);
+      } else {
+        setMessage("❌ " + data.message);
+      }
+    } catch (err) {
+      setMessage("Server error during OTP verification.");
     }
+
     setLoading(false);
   };
 
+  // Main form action
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (otpSent) {
-      await handleVerifyOtp();
+    if (isLogin) {
+      await handleLogin();
     } else {
-      await handleGenerateOtp();
+      if (otpSent) {
+        await handleVerifyOtp();
+      } else {
+        await handleRegisterAndSendOtp();
+      }
     }
   };
 
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
-    setOtpSent(false);
-    setOtp("");
-    setGeneratedOtp("");
     setEmail("");
     setPassword("");
     setName("");
+    setOtp("");
+    setOtpSent(false);
     setMessage("");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-100 flex items-center justify-center ">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-100 flex items-center justify-center">
       <div className="w-full max-w-md">
-        {/* <div className="text-center mb-8">
-          <p className="text-gray-600 text-sm">
-            {isLogin
-              ? "Welcome back to your account"
-              : "Join our community today"}
-          </p>
-        </div> */}
-
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
@@ -83,7 +149,7 @@ export default function AuthForm() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {!isLogin && (
               <div className="space-y-2">
-                <label className=" text-sm font-semibold text-gray-700 flex items-center">
+                <label className="text-sm font-semibold text-gray-700">
                   Full Name
                 </label>
                 <input
@@ -98,7 +164,7 @@ export default function AuthForm() {
             )}
 
             <div className="space-y-2">
-              <label className=" text-sm font-semibold text-gray-700 flex items-center">
+              <label className="text-sm font-semibold text-gray-700">
                 Email Address
               </label>
               <input
@@ -112,7 +178,7 @@ export default function AuthForm() {
             </div>
 
             <div className="space-y-2">
-              <label className=" text-sm font-semibold text-gray-700 flex items-center">
+              <label className="text-sm font-semibold text-gray-700">
                 Password
               </label>
               <input
@@ -125,13 +191,10 @@ export default function AuthForm() {
               />
             </div>
 
-            {otpSent && (
+            {!isLogin && otpSent && (
               <div className="space-y-2 animate-fade-in">
-                <label className=" text-sm font-semibold text-gray-700 flex items-center">
+                <label className="text-sm font-semibold text-gray-700">
                   Verification Code
-                  <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-                    Sent!
-                  </span>
                 </label>
                 <input
                   type="text"
@@ -159,13 +222,15 @@ export default function AuthForm() {
               }`}
             >
               {loading
-                ? otpSent
+                ? isLogin
+                  ? "Logging in..."
+                  : otpSent
                   ? "Verifying..."
                   : "Sending OTP..."
-                : otpSent
-                ? "Verify & Continue"
                 : isLogin
-                ? "Sign in with OTP"
+                ? "Sign in"
+                : otpSent
+                ? "Verify OTP"
                 : "Create Account"}
             </button>
           </form>

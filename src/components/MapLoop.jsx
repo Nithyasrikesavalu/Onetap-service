@@ -331,13 +331,13 @@ export default function Maps2() {
         // After centering, move to a new position
         setTimeout(() => {
           map.current.easeTo({
-            center: [79.718, 12.817], // New coordinates (adjust these)
+            center: [79.717, 12.817], // New coordinates (adjust these)
             zoom: 15, // Optional: change zoom
             // pitch: 60, // Maintain 3D view
             // bearing: -20, // Maintain rotation
             duration: 1500, // Smooth transition
           });
-        }, 500); // Wait 1 second after centering
+        }, 200); // Wait 1 second after centering
       });
   };
 
