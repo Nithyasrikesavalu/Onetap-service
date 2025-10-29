@@ -11,6 +11,7 @@ export default function DashboardTab({
   isLoading,
   onViewAllOrders,
   onViewAllReviews,
+  onViewAllNotifications,
 }) {
   const stats = [
     {
@@ -35,15 +36,100 @@ export default function DashboardTab({
     },
   ];
 
-  // Calculate total earnings from monthly data
-  const totalEarnings = earnings.reduce(
-    (sum, month) => sum + month.earnings,
-    0
-  );
-  const maxEarnings = Math.max(
-    ...earnings.map((month) => month.earnings),
-    50000
-  );
+  // Mock recent notifications data
+  const recentNotifications = [
+    {
+      id: 1,
+      type: "new_request",
+      customerName: "Rajesh Kumar",
+      service: "Passport Application",
+      timestamp: "2024-02-20T10:30:00",
+      status: "pending",
+      priority: "high",
+    },
+    {
+      id: 2,
+      type: "status_update",
+      customerName: "Priya Sharma",
+      service: "Color Printing",
+      timestamp: "2024-02-20T09:15:00",
+      status: "pending",
+      priority: "medium",
+    },
+    {
+      id: 3,
+      type: "document_request",
+      customerName: "Amit Patel",
+      service: "GST Registration",
+      timestamp: "2024-02-19T16:45:00",
+      status: "pending",
+      priority: "high",
+    },
+  ];
+
+  // Get notification icon based on type
+  const getNotificationIcon = (type) => {
+    switch (type) {
+      case "new_request":
+        return "🆕";
+      case "status_update":
+        return "🔄";
+      case "document_request":
+        return "📄";
+      case "payment_received":
+        return "💰";
+      default:
+        return "🔔";
+    }
+  };
+
+  // Get notification color based on priority
+  const getNotificationColor = (priority) => {
+    switch (priority) {
+      case "high":
+        return "border-l-red-400";
+      case "medium":
+        return "border-l-yellow-400";
+      case "low":
+        return "border-l-green-400";
+      default:
+        return "border-l-gray-400";
+    }
+  };
+
+  // Format timestamp
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 60) {
+      return `${diffMins} min ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+    } else {
+      return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+    }
+  };
+
+  // Get notification message based on type
+  const getNotificationMessage = (notification) => {
+    switch (notification.type) {
+      case "new_request":
+        return `New service request for ${notification.service}`;
+      case "status_update":
+        return `Order status updated to ${notification.status}`;
+      case "document_request":
+        return `Additional documents required for ${notification.service}`;
+      case "payment_received":
+        return `Payment received for ${notification.service}`;
+      default:
+        return `Notification for ${notification.service}`;
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -72,7 +158,7 @@ export default function DashboardTab({
         ))}
       </div>
 
-      {/* Recent Orders & Earnings Chart */}
+      {/* Recent Orders & Notifications */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Orders */}
         <div className="bg-white rounded-2xl shadow-lg p-6">
@@ -110,35 +196,55 @@ export default function DashboardTab({
           </div>
         </div>
 
-        {/* Earnings Chart */}
+        {/* Recent Notifications */}
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-900">
-              Earnings Overview
+              Request Notifications
             </h2>
-            <div className="text-right">
-              <p className="text-2xl font-bold text-green-600">
-                ₹{totalEarnings.toLocaleString()}
-              </p>
-              <p className="text-gray-600 text-sm">Total Revenue</p>
-            </div>
+            <button
+              onClick={onViewAllNotifications}
+              className="text-green-600 hover:text-green-700 font-medium"
+            >
+              View All
+            </button>
           </div>
           <div className="space-y-4">
-            {earnings.map((month, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <span className="text-gray-600 w-16">{month.month}</span>
-                <div className="flex items-center space-x-3 flex-1 max-w-md">
-                  <div className="flex-1 bg-gray-200 rounded-full h-3">
-                    <div
-                      className="bg-green-500 h-3 rounded-full transition-all duration-500"
-                      style={{
-                        width: `${(month.earnings / maxEarnings) * 100}%`,
-                      }}
-                    ></div>
+            {recentNotifications.map((notification) => (
+              <div
+                key={notification.id}
+                className={`p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer border-l-4 ${getNotificationColor(
+                  notification.priority
+                )}`}
+                onClick={() =>
+                  console.log(`View notification: ${notification.id}`)
+                }
+              >
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <span className="text-sm">
+                      {getNotificationIcon(notification.type)}
+                    </span>
                   </div>
-                  <span className="font-semibold text-gray-900 w-20 text-right">
-                    ₹{month.earnings.toLocaleString()}
-                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="font-semibold text-gray-900 text-sm">
+                        {notification.customerName}
+                      </h3>
+                      <span className="text-xs text-gray-500">
+                        {formatTime(notification.timestamp)}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-1">
+                      {getNotificationMessage(notification)}
+                    </p>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs text-gray-500">
+                        {notification.service}
+                      </span>
+                      <StatusBadge status={notification.status} />
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -195,7 +301,7 @@ export default function DashboardTab({
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-2xl shadow-lg p-6">
+      {/* <div className="bg-white rounded-2xl shadow-lg p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button className="p-4 border border-gray-200 rounded-xl text-left hover:bg-green-50 hover:border-green-200 transition-colors">
@@ -218,7 +324,7 @@ export default function DashboardTab({
             <p className="text-gray-600 text-sm">Team member access</p>
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

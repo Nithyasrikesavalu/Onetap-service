@@ -13,6 +13,12 @@ export default function VendorSidebar({
     { id: "dashboard", label: "Dashboard", icon: "📊" },
     { id: "orders", label: "Orders", icon: "📦" },
     { id: "services", label: "Services", icon: "🛠️" },
+    {
+      id: "notifications",
+      label: "Notifications",
+      icon: "🔔",
+      notifications: 6,
+    },
     { id: "reviews", label: "Reviews", icon: "⭐" },
     { id: "earnings", label: "Earnings", icon: "💰" },
     { id: "settings", label: "Settings", icon: "⚙️" },

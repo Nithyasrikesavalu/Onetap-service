@@ -7,6 +7,7 @@ import ServicesTab from "./tabs/ServicesTab";
 import ReviewsTab from "./tabs/ReviewsTab";
 import EarningsTab from "./tabs/EarningsTab";
 import SettingsTab from "./tabs/SettingsTab";
+import NotificationTab from "./tabs/NotificationTab";
 
 export default function VendorDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -344,6 +345,7 @@ export default function VendorDashboard() {
             isLoading={isLoading}
             onViewAllOrders={() => setActiveTab("orders")}
             onViewAllReviews={() => setActiveTab("reviews")}
+            onViewAllNotifications={() => setActiveTab("notifications")}
           />
         );
       case "orders":
@@ -367,6 +369,8 @@ export default function VendorDashboard() {
             calculateAverageRating={calculateAverageRating}
           />
         );
+      case "notifications":
+        return <NotificationTab />;
       case "earnings":
         return <EarningsTab vendor={vendor} earnings={earnings} />;
       case "settings":
@@ -382,6 +386,9 @@ export default function VendorDashboard() {
             earnings={earnings}
             onRefresh={refreshDashboard}
             isLoading={isLoading}
+            onViewAllOrders={() => setActiveTab("orders")}
+            onViewAllReviews={() => setActiveTab("reviews")}
+            onViewAllNotifications={() => setActiveTab("notifications")}
           />
         );
     }

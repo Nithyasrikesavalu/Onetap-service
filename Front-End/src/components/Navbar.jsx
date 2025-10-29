@@ -30,7 +30,17 @@ export default function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
     setUserName("");
-    navigate("/login");
+    navigate("/");
+  };
+
+  const handleNotificationTab = () => {
+    navigate("/usernotifi");
+    setIsProfileOpen(false);
+  };
+
+  const handleMyOrders = () => {
+    navigate("/myorders");
+    setIsProfileOpen(false);
   };
 
   return (
@@ -40,12 +50,16 @@ export default function Navbar() {
           {/* LEFT: Brand */}
           <Link to={"/"} className="flex items-center space-x-4">
             <div className="flex items-center gap-3 group cursor-pointer">
-              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-xl shadow-lg transform group-hover:scale-105 transition-all duration-300">
+              {/* <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-xl shadow-lg transform group-hover:scale-105 transition-all duration-300">
                 1Ts
-              </div>
-              <div className="transform group-hover:translate-x-1 transition-transform duration-300">
+              </div> */}
+              <div className="transform group-hover:scale-110 transition-transform duration-300">
                 <div className="text-xl font-bold bg-gradient-to-r from-blue-700 to-indigo-800 bg-clip-text text-transparent">
-                  OneTap Services
+                  <img
+                    src="./images/logo.png"
+                    width={150}
+                    alt="OneTap Services"
+                  />
                 </div>
               </div>
             </div>
@@ -126,7 +140,10 @@ export default function Navbar() {
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-4">
             {/* Notification Bell */}
-            <button className="p-3 rounded-xl bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-200 transition-all duration-300 shadow-sm relative group">
+            <button
+              onClick={handleNotificationTab}
+              className="p-3 rounded-xl bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-200 transition-all duration-300 shadow-sm relative group"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-600 group-hover:text-blue-600"
@@ -164,6 +181,28 @@ export default function Navbar() {
                         {userName}
                       </p>
                     </div>
+
+                    <button
+                      onClick={handleMyOrders}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-red-50 transition-all duration-300 group"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-red-500 hover:text-red-600 transition-colors duration-200"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 22a2 2 0 002-2H10a2 2 0 002 2zm6-6V10a6 6 0 00-12 0v6l-1.5 1.5a1 1 0 00.7 1.7h14.6a1 1 0 00.7-1.7L18 16z"
+                        />
+                      </svg>
+
+                      <span>My Orders</span>
+                    </button>
 
                     <button
                       onClick={handleLogout}
