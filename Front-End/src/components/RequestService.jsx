@@ -141,11 +141,40 @@ const RequestService = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validateStep(currentStep)) {
+  //     console.log("Form Data:", form);
+  //     setSubmitted(true);
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateStep(currentStep)) {
-      console.log("Form Data:", form);
-      setSubmitted(true);
+    if (!validateStep(currentStep)) return;
+    // Post to backend
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/service-booking",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setSubmitted(true);
+        // Optionally reset the form or keep as is
+        // setForm({ ...initialState })
+      } else {
+        setErrors({ ...errors, api: result.message || "Submission failed!" });
+      }
+    } catch (err) {
+      setErrors({
+        ...errors,
+        api: "Failed to submit request. Please try again.",
+      });
     }
   };
 
@@ -1585,6 +1614,7 @@ const RequestService = () => {
                       ) : (
                         <motion.button
                           type="submit"
+                          onClick={handleSubmit}
                           className="px-6 sm:px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-medium text-white shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center space-x-2"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
