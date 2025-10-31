@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StatsCard from "../common/StatsCard";
 import StatusBadge from "../common/StatusBadge";
+
+import { io } from "socket.io-client";
+const socket = io("http://localhost:5000");
 
 export default function DashboardTab({
   vendor,
@@ -37,35 +40,89 @@ export default function DashboardTab({
   ];
 
   // Mock recent notifications data
-  const recentNotifications = [
-    {
-      id: 1,
-      type: "new_request",
-      customerName: "Rajesh Kumar",
-      service: "Passport Application",
-      timestamp: "2024-02-20T10:30:00",
-      status: "pending",
-      priority: "high",
-    },
-    {
-      id: 2,
-      type: "status_update",
-      customerName: "Priya Sharma",
-      service: "Color Printing",
-      timestamp: "2024-02-20T09:15:00",
-      status: "pending",
-      priority: "medium",
-    },
-    {
-      id: 3,
-      type: "document_request",
-      customerName: "Amit Patel",
-      service: "GST Registration",
-      timestamp: "2024-02-19T16:45:00",
-      status: "pending",
-      priority: "high",
-    },
-  ];
+  // const recentNotifications = [
+  //   {
+  //     id: 1,
+  //     type: "new_request",
+  //     customerName: "Rajesh Kumar",
+  //     service: "Passport Application",
+  //     timestamp: "2024-02-20T10:30:00",
+  //     status: "pending",
+  //     priority: "high",
+  //   },
+  //   {
+  //     id: 2,
+  //     type: "status_update",
+  //     customerName: "Priya Sharma",
+  //     service: "Color Printing",
+  //     timestamp: "2024-02-20T09:15:00",
+  //     status: "pending",
+  //     priority: "medium",
+  //   },
+  //   {
+  //     id: 3,
+  //     type: "document_request",
+  //     customerName: "Amit Patel",
+  //     service: "GST Registration",
+  //     timestamp: "2024-02-19T16:45:00",
+  //     status: "pending",
+  //     priority: "high",
+  //   },
+  // ];
+
+  const getShopId = () => localStorage.getItem("shopId") || "";
+
+  const shopId = getShopId();
+  const [recentNotifications, setRecentNotifications] = useState([]);
+  const [_isLoading, set_IsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      set_IsLoading(true);
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/servicebookings?shopId=${shopId}`
+        );
+        const data = await res.json();
+        // Transform or map data if needed for your UI
+        setRecentNotifications(
+          data.bookings.map((booking) => ({
+            id: booking._id,
+            customerName: booking.userName,
+            customerPhone: booking.userMobile,
+            requestType: booking.service,
+            requestDetails: booking.extraItem || booking.additionalInfo || "",
+            status: booking.status || "pending",
+            timestamp: booking.createdAt || booking.created_at,
+            documents:
+              booking.documents && booking.documents.length
+                ? booking.documents.map((doc) => doc.originalName || doc)
+                : [],
+            type: "new_request", // <-- ADD THIS
+            priority: "medium", // <-- ADD THIS
+          }))
+        );
+      } catch (err) {
+        setRecentNotifications([]);
+      }
+      set_IsLoading(false);
+    }
+    if (shopId) fetchData();
+  }, [shopId]);
+
+  useEffect(() => {
+    socket.on("new_service_request", (data) => {
+      console.log("⚡ Notification:", data);
+
+      // Play notification sound
+      new Audio("/notification.wav").play();
+
+      // Refresh UI
+      onRefresh && onRefresh();
+    });
+
+    return () => socket.off("new_service_request");
+  }, []);
 
   // Get notification icon based on type
   const getNotificationIcon = (type) => {
@@ -119,15 +176,15 @@ export default function DashboardTab({
   const getNotificationMessage = (notification) => {
     switch (notification.type) {
       case "new_request":
-        return `New service request for ${notification.service}`;
+        return `New service request for ${notification.requestType}`;
       case "status_update":
         return `Order status updated to ${notification.status}`;
       case "document_request":
-        return `Additional documents required for ${notification.service}`;
+        return `Additional documents required for ${notification.requestType}`;
       case "payment_received":
-        return `Payment received for ${notification.service}`;
+        return `Payment received for ${notification.requestType}`;
       default:
-        return `Notification for ${notification.service}`;
+        return `Notification for ${notification.requestType}`;
     }
   };
 

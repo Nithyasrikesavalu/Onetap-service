@@ -29,6 +29,11 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userMobile");
+    localStorage.removeItem("userAddress");
     setUserName("");
     navigate("/");
   };
@@ -39,7 +44,7 @@ export default function Navbar() {
   };
 
   const handleMyOrders = () => {
-    navigate("/myorders");
+    navigate("/user", { state: "orders" });
     setIsProfileOpen(false);
   };
 

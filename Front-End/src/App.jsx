@@ -38,7 +38,7 @@ const App = () => {
           <Route path="/upload" element={<AboutPage />} />
           <Route path="/Allservice" element={<Services />} />
           <Route path="/usernotifi" element={<UserNotificationPanel />} />
-          <Route path="/myorders" element={<MyOrders />} />
+          {/* <Route path="/myorders" element={<MyOrders />} /> */}
         </Route>
       </Routes>
     </>

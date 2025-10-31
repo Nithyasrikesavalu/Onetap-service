@@ -110,12 +110,28 @@ export default function AuthForm() {
         body: JSON.stringify({ email, password, role: loginRole }),
       });
 
+      console.log("Logging in with", { email, password, role: loginRole });
+
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userName", data.user.name);
-        localStorage.setItem("userRole", data.user.role);
+        if (data.user.role === "customer") {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userId", data.user._id);
+          localStorage.setItem("userName", data.user.name);
+          localStorage.setItem("userEmail", data.user.email);
+          localStorage.setItem("userMobile", data.user.mobile);
+          localStorage.setItem("userAddress", data.user.address);
+          localStorage.setItem("userRole", data.user.role);
+        } else if (data.user.role === "vendor") {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("shopId", data.user._id);
+          localStorage.setItem("shopName", data.user.name);
+          localStorage.setItem("shopEmail", data.user.email);
+          localStorage.setItem("shopMobile", data.user.mobile);
+          localStorage.setItem("shopAddress", data.user.address);
+          localStorage.setItem("userRole", data.user.role);
+        }
 
         setMessage("Login successful!");
 

@@ -1,19 +1,36 @@
 import mongoose from "mongoose";
 
-const serviceBookingSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  mobile: { type: String, required: true },
-  serviceCategory: { type: String, required: true },
-  serviceType: { type: String, required: true },
-  message: { type: String, required: true },
-  appointmentType: { type: String }, // 'in-person', 'home-visit', 'online'
-  appointmentDate: { type: String }, // Store as string for easy validation
-  appointmentTime: { type: String },
-  branchLocation: { type: String },
-  created_at: { type: Date, default: Date.now }
-}, { timestamps: true });
+const documentSchema = new mongoose.Schema({
+  originalName: String,
+  storedName: String,
+  path: String,
+  type: String,
+  size: Number,
+});
+
+const serviceBookingSchema = new mongoose.Schema(
+  {
+    userName: { type: String, required: true },
+    userEmail: { type: String, required: true },
+    userMobile: { type: String, required: true },
+    service: { type: String, required: true },
+    extraItem: { type: String },
+    additionalInfo: { type: String },
+    appointmentType: { type: String },
+    appointmentDate: { type: String },
+    appointmentTime: { type: String },
+    shopId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Shop",
+      required: true,
+    },
+    userLocation: { type: String },
+    documents: [documentSchema],
+    status: { type: String, default: "Pending" },
+    created_at: { type: Date, default: Date.now },
+  },
+  { timestamps: true }
+);
 
 const ServiceBooking = mongoose.model("ServiceBooking", serviceBookingSchema);
-
 export default ServiceBooking;

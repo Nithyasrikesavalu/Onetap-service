@@ -5,9 +5,11 @@ import OrdersTab from "./tabs/OrdersTab";
 import DocumentsTab from "./tabs/DocumentsTab";
 import NotificationsTab from "./tabs/NotificationsTab";
 import SettingsTab from "./tabs/SettingsTab";
+import { useLocation } from "react-router-dom";
 
 export default function UserProfile() {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.state || "dashboard");
 
   const [user] = useState({
     name: "Rajesh Kumar",

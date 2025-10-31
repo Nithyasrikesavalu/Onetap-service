@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 // Document requirements mapping (same as before)
 const documentRequirements = {
@@ -520,6 +521,8 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
+  const [shopId, setshopId] = useState("69039f957336d51e6dfe1eb8");
+
   const requiresPhysicalAppointment =
     physicalAppointmentServices.includes(extraItem);
   const canBeOnline = onlineAppointmentServices.includes(extraItem);
@@ -624,43 +627,52 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
     appointmentType === "online" ||
     (appointmentType === "physical" && appointmentDate && appointmentTime);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!allDocumentsUploaded) {
       setRequestStatus("error");
       return;
     }
-
     if (requiresAppointment && !isAppointmentComplete) {
       setCurrentStep(2);
       return;
     }
 
-    // Simulate API call - this would connect to your backend
-    console.log("Submitted to database:", {
-      uploadedDocuments,
-      additionalInfo,
-      service: service?.title,
-      extraItem,
-      appointment: requiresAppointment
-        ? {
-            type: appointmentType,
-            date: appointmentDate,
-            time: appointmentTime,
-            status: "confirmed",
-          }
-        : null,
-      timestamp: new Date().toISOString(),
-      // Add other fields you need for your database
+    // Prepare form data for file upload
+    const formData = new FormData();
+    Object.keys(uploadedDocuments).forEach((docName, i) => {
+      formData.append(
+        "documents",
+        uploadedDocuments[docName],
+        docName + "-" + uploadedDocuments[docName].name
+      );
     });
 
-    setCurrentStep(3);
+    // Add booking data fields
+    formData.append("userName", localStorage.getItem("userName") || "");
+    formData.append("userEmail", localStorage.getItem("userEmail") || "");
+    formData.append("userMobile", localStorage.getItem("userMobile") || "");
+    formData.append("service", service?.title || "");
+    formData.append("extraItem", extraItem || "");
+    formData.append("additionalInfo", additionalInfo || "");
+    formData.append("appointmentType", appointmentType || "");
+    formData.append("appointmentDate", appointmentDate || "");
+    formData.append("appointmentTime", appointmentTime || "");
+    formData.append("shopId", shopId || "");
+    formData.append("userLocation", localStorage.getItem("userAddress") || "");
+    formData.append("timestamp", new Date().toISOString());
 
-    // Auto close after success
-    setTimeout(() => {
-      onClose();
-    }, 3000);
+    try {
+      await fetch("http://localhost:5000/api/servicebookings", {
+        method: "POST",
+        body: formData,
+      });
+      setCurrentStep(3);
+      setTimeout(() => onClose(), 3000);
+    } catch (err) {
+      setRequestStatus("error");
+    }
   };
 
   const getFileIcon = (fileName) => {
@@ -1371,6 +1383,15 @@ function ServiceCard({ service, isExpanded, onToggle, onServiceClick }) {
 }
 
 export default function Services() {
+  const { state } = useLocation();
+
+  // console.log(state.shop);
+  // console.log(localStorage.getItem("userId"));
+  // console.log(localStorage.getItem("userName"));
+  // console.log(localStorage.getItem("userEmail"));
+  // console.log(localStorage.getItem("userMobile"));
+  // console.log(localStorage.getItem("userAddress"));
+
   const [expandedCards, setExpandedCards] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
@@ -1378,13 +1399,13 @@ export default function Services() {
   const [searchTerm, setSearchTerm] = useState("");
   const [setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsScrolled(window.scrollY > 50);
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   const toggleCard = (index) => {
     setExpandedCards((prev) => ({

@@ -3,16 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const RequestService = () => {
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    serviceCategory: "",
-    serviceType: "",
-    message: "",
+    userName: "",
+    userEmail: "",
+    userMobile: "",
+    service: "",
+    extraItem: "",
+    additionalInfo: "",
+    appointmentType: "in-person",
     appointmentDate: "",
     appointmentTime: "",
-    appointmentType: "in-person",
-    branchLocation: "",
+    shopId: "",
+    userLocation: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -36,10 +37,10 @@ const RequestService = () => {
       setErrors({ ...errors, [name]: "" });
     }
 
-    if (name === "serviceCategory") {
+    if (name === "service") {
       setForm((prev) => ({
         ...prev,
-        serviceType: "",
+        extraItem: "",
         appointmentType: "in-person",
       }));
     }
@@ -48,8 +49,8 @@ const RequestService = () => {
       setForm((prev) => ({ ...prev, appointmentTime: "" }));
     }
 
-    if (name === "serviceType") {
-      const service = serviceOptions[form.serviceCategory]?.find(
+    if (name === "extraItem") {
+      const service = serviceOptions[form.service]?.find(
         (s) => s.value === value
       );
       if (service) {
@@ -70,25 +71,26 @@ const RequestService = () => {
 
     switch (step) {
       case 0:
-        if (!form.name.trim()) newErrors.name = "Name is required";
-        else if (form.name.trim().length < 2)
-          newErrors.name = "Name must be at least 2 characters";
+        if (!form.userName.trim()) newErrors.userName = "Name is required";
+        else if (form.userName.trim().length < 2)
+          newErrors.userName = "Name must be at least 2 characters";
         break;
       case 1:
-        if (!form.email.trim()) newErrors.email = "Email is required";
-        else if (!/\S+@\S+\.\S+/.test(form.email))
-          newErrors.email = "Email is invalid";
-        if (!form.mobile.trim()) newErrors.mobile = "Mobile number is required";
-        else if (!/^\d{10}$/.test(form.mobile))
-          newErrors.mobile = "Mobile number must be 10 digits";
+        if (!form.userEmail.trim()) newErrors.userEmail = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(form.userEmail))
+          newErrors.userEmail = "Email is invalid";
+        if (!form.userMobile.trim())
+          newErrors.userMobile = "Mobile number is required";
+        else if (!/^\d{10}$/.test(form.userMobile))
+          newErrors.userMobile = "Mobile number must be 10 digits";
         break;
       case 2:
-        if (!form.serviceCategory)
-          newErrors.serviceCategory = "Please select a service category";
+        if (!form.service)
+          newErrors.service = "Please select a service category";
         break;
       case 3:
-        if (!form.serviceType)
-          newErrors.serviceType = "Please select a service type";
+        if (!form.extraItem)
+          newErrors.extraItem = "Please select a service type";
         break;
       case 4:
         if (!isAppointmentSectionEnabled()) break;
@@ -122,15 +124,15 @@ const RequestService = () => {
           }
         }
 
-        if (form.appointmentType === "in-person" && !form.branchLocation) {
-          newErrors.branchLocation = "Please select branch location";
+        if (form.appointmentType === "in-person" && !form.shopId) {
+          newErrors.shopId = "Please select branch location";
         }
         break;
       case 5:
-        if (!form.message.trim())
-          newErrors.message = "Please provide some details";
-        else if (form.message.trim().length < 10)
-          newErrors.message =
+        if (!form.additionalInfo.trim())
+          newErrors.additionalInfo = "Please provide some details";
+        else if (form.additionalInfo.trim().length < 10)
+          newErrors.additionalInfo =
             "Please provide more details (min. 10 characters)";
         break;
       default:
@@ -141,21 +143,15 @@ const RequestService = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (validateStep(currentStep)) {
-  //     console.log("Form Data:", form);
-  //     setSubmitted(true);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateStep(currentStep)) return;
-    // Post to backend
+
+    form.shopId = "69039f957336d51e6dfe1eb8";
+
     try {
       const response = await fetch(
-        "http://localhost:5000/api/service-booking",
+        "http://localhost:5000/api/servicebookings",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -165,8 +161,6 @@ const RequestService = () => {
       const result = await response.json();
       if (response.ok && result.success) {
         setSubmitted(true);
-        // Optionally reset the form or keep as is
-        // setForm({ ...initialState })
       } else {
         setErrors({ ...errors, api: result.message || "Submission failed!" });
       }
@@ -189,16 +183,16 @@ const RequestService = () => {
   };
 
   const steps = [
-    { title: "Personal", icon: "👤", field: "name" },
-    { title: "Contact", icon: "📱", fields: ["email", "mobile"] },
-    { title: "Category", icon: "📂", field: "serviceCategory" },
-    { title: "Service", icon: "🛠️", field: "serviceType" },
+    { title: "Personal", icon: "👤", field: "userName" },
+    { title: "Contact", icon: "📱", fields: ["userEmail", "userMobile"] },
+    { title: "Category", icon: "📂", field: "service" },
+    { title: "Service", icon: "🛠️", field: "extraItem" },
     {
       title: "Appointment",
       icon: "📅",
       fields: ["appointmentDate", "appointmentTime"],
     },
-    { title: "Details", icon: "📝", field: "message" },
+    { title: "Details", icon: "📝", field: "additionalInfo" },
   ];
 
   const serviceCategories = [
@@ -609,27 +603,27 @@ const RequestService = () => {
 
   const branchLocations = [
     {
-      value: "t_nager",
+      value: "69036208c35681ac21a8c402",
       label: "T Nagar",
       address: "123 MG Road, T Nagar, Chennai",
     },
     {
-      value: "porur",
+      value: "69036208c35681ac21a8c40a",
       label: "Porur",
       address: "456 Mount Road, Porur, Chennai",
     },
     {
-      value: "tambaram",
+      value: "69036208c35681ac21a8c406",
       label: "Tambaram",
       address: "789 GST Road, Tambaram, Chennai",
     },
     {
-      value: "velachery",
+      value: "69036208c35681ac21a8c408",
       label: "Velachery",
       address: "321 Velachery Main Road, Chennai",
     },
     {
-      value: "anna_nagar",
+      value: "69036207c35681ac21a8c400",
       label: "Anna Nagar",
       address: "654 3rd Avenue, Anna Nagar, Chennai",
     },
@@ -652,9 +646,9 @@ const RequestService = () => {
 
   // Get current selected service
   const getCurrentService = () => {
-    if (!form.serviceCategory || !form.serviceType) return null;
-    return serviceOptions[form.serviceCategory]?.find(
-      (s) => s.value === form.serviceType
+    if (!form.service || !form.extraItem) return null;
+    return serviceOptions[form.service]?.find(
+      (s) => s.value === form.extraItem
     );
   };
 
@@ -731,16 +725,16 @@ const RequestService = () => {
   };
 
   const getSelectedServiceLabel = () => {
-    if (!form.serviceCategory || !form.serviceType) return "";
-    const service = serviceOptions[form.serviceCategory]?.find(
-      (s) => s.value === form.serviceType
+    if (!form.service || !form.extraItem) return "";
+    const service = serviceOptions[form.service]?.find(
+      (s) => s.value === form.extraItem
     );
     return service ? service.label : "";
   };
 
   const getSelectedBranchLabel = () => {
-    if (!form.branchLocation) return "";
-    const branch = branchLocations.find((b) => b.value === form.branchLocation);
+    if (!form.shopId) return "";
+    const branch = branchLocations.find((b) => b.value === form.shopId);
     return branch ? branch.label : "";
   };
 
@@ -890,26 +884,56 @@ const RequestService = () => {
                             </label>
                             <input
                               type="text"
-                              name="name"
-                              value={form.name}
+                              name="userName"
+                              value={form.userName}
                               onChange={handleChange}
                               required
                               className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 ${
-                                errors.name
+                                errors.userName
                                   ? "bg-red-50 border-red-300 focus:ring-red-300 focus:border-transparent"
                                   : "bg-gray-50 border-gray-200 focus:ring-blue-500 focus:border-transparent"
                               }`}
                               placeholder="Enter your full name"
                             />
                             <AnimatePresence>
-                              {errors.name && (
+                              {errors.userName && (
                                 <motion.p
                                   initial={{ opacity: 0, y: -10 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: -10 }}
                                   className="text-red-600 text-xs mt-2 flex items-center"
                                 >
-                                  ⚠️ {errors.name}
+                                  ⚠️ {errors.userName}
+                                </motion.p>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                          <div>
+                            <label className="block mb-3 text-sm font-medium text-gray-700">
+                              Address *
+                            </label>
+                            <input
+                              type="text"
+                              name="userLocation"
+                              value={form.userLocation}
+                              onChange={handleChange}
+                              required
+                              className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 ${
+                                errors.userLocation
+                                  ? "bg-red-50 border-red-300 focus:ring-red-300 focus:border-transparent"
+                                  : "bg-gray-50 border-gray-200 focus:ring-blue-500 focus:border-transparent"
+                              }`}
+                              placeholder="Enter your Address"
+                            />
+                            <AnimatePresence>
+                              {errors.userLocation && (
+                                <motion.p
+                                  initial={{ opacity: 0, y: -10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -10 }}
+                                  className="text-red-600 text-xs mt-2 flex items-center"
+                                >
+                                  ⚠️ {errors.userLocation}
                                 </motion.p>
                               )}
                             </AnimatePresence>
@@ -932,26 +956,26 @@ const RequestService = () => {
                             </label>
                             <input
                               type="email"
-                              name="email"
-                              value={form.email}
+                              name="userEmail"
+                              value={form.userEmail}
                               onChange={handleChange}
                               required
                               className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 ${
-                                errors.email
+                                errors.userEmail
                                   ? "bg-red-50 border-red-300 focus:ring-red-300 focus:border-transparent"
                                   : "bg-gray-50 border-gray-200 focus:ring-blue-500 focus:border-transparent"
                               }`}
                               placeholder="your.email@example.com"
                             />
                             <AnimatePresence>
-                              {errors.email && (
+                              {errors.userEmail && (
                                 <motion.p
                                   initial={{ opacity: 0, y: -10 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: -10 }}
                                   className="text-red-600 text-xs mt-2 flex items-center"
                                 >
-                                  ⚠️ {errors.email}
+                                  ⚠️ {errors.userEmail}
                                 </motion.p>
                               )}
                             </AnimatePresence>
@@ -962,27 +986,27 @@ const RequestService = () => {
                             </label>
                             <input
                               type="tel"
-                              name="mobile"
-                              value={form.mobile}
+                              name="userMobile"
+                              value={form.userMobile}
                               onChange={handleChange}
                               required
                               maxLength="10"
                               className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 ${
-                                errors.mobile
+                                errors.userMobile
                                   ? "bg-red-50 border-red-300 focus:ring-red-300 focus:border-transparent"
                                   : "bg-gray-50 border-gray-200 focus:ring-blue-500 focus:border-transparent"
                               }`}
                               placeholder="Enter 10-digit mobile number"
                             />
                             <AnimatePresence>
-                              {errors.mobile && (
+                              {errors.userMobile && (
                                 <motion.p
                                   initial={{ opacity: 0, y: -10 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: -10 }}
                                   className="text-red-600 text-xs mt-2 flex items-center"
                                 >
-                                  ⚠️ {errors.mobile}
+                                  ⚠️ {errors.userMobile}
                                 </motion.p>
                               )}
                             </AnimatePresence>
@@ -1010,18 +1034,16 @@ const RequestService = () => {
                                   whileHover={{ scale: 1.02 }}
                                   whileTap={{ scale: 0.98 }}
                                   className={`flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                                    form.serviceCategory === category.id
+                                    form.service === category.id
                                       ? "bg-blue-50 border-blue-500 shadow-lg shadow-blue-500/20"
                                       : "bg-gray-50 border-gray-200 hover:bg-gray-100"
                                   }`}
                                 >
                                   <input
                                     type="radio"
-                                    name="serviceCategory"
+                                    name="service"
                                     value={category.id}
-                                    checked={
-                                      form.serviceCategory === category.id
-                                    }
+                                    checked={form.service === category.id}
                                     onChange={handleChange}
                                     className="hidden"
                                   />
@@ -1041,12 +1063,12 @@ const RequestService = () => {
                                     </div>
                                     <div
                                       className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                        form.serviceCategory === category.id
+                                        form.service === category.id
                                           ? "border-blue-500 bg-blue-500"
                                           : "border-gray-400"
                                       }`}
                                     >
-                                      {form.serviceCategory === category.id && (
+                                      {form.service === category.id && (
                                         <motion.div
                                           initial={{ scale: 0 }}
                                           animate={{ scale: 1 }}
@@ -1059,14 +1081,14 @@ const RequestService = () => {
                               ))}
                             </div>
                             <AnimatePresence>
-                              {errors.serviceCategory && (
+                              {errors.service && (
                                 <motion.p
                                   initial={{ opacity: 0, y: -10 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: -10 }}
                                   className="text-red-600 text-xs mt-2 flex items-center"
                                 >
-                                  ⚠️ {errors.serviceCategory}
+                                  ⚠️ {errors.service}
                                 </motion.p>
                               )}
                             </AnimatePresence>
@@ -1088,68 +1110,63 @@ const RequestService = () => {
                               Select Specific Service *
                             </label>
                             <div className="grid gap-3">
-                              {form.serviceCategory &&
-                                serviceOptions[form.serviceCategory]?.map(
-                                  (option) => (
-                                    <motion.label
-                                      key={option.value}
-                                      whileHover={{ scale: 1.02 }}
-                                      whileTap={{ scale: 0.98 }}
-                                      className={`flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                                        form.serviceType === option.value
-                                          ? "bg-blue-50 border-blue-500 shadow-lg shadow-blue-500/20"
-                                          : "bg-gray-50 border-gray-200 hover:bg-gray-100"
-                                      }`}
-                                    >
-                                      <input
-                                        type="radio"
-                                        name="serviceType"
-                                        value={option.value}
-                                        checked={
-                                          form.serviceType === option.value
-                                        }
-                                        onChange={handleChange}
-                                        className="hidden"
-                                      />
-                                      <div className="flex items-center space-x-3 w-full">
-                                        <div
-                                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                                            form.serviceType === option.value
-                                              ? "border-blue-500 bg-blue-500"
-                                              : "border-gray-400"
-                                          }`}
-                                        >
-                                          {form.serviceType ===
-                                            option.value && (
-                                            <motion.div
-                                              initial={{ scale: 0 }}
-                                              animate={{ scale: 1 }}
-                                              className="w-2 h-2 bg-white rounded-full"
-                                            />
-                                          )}
+                              {form.service &&
+                                serviceOptions[form.service]?.map((option) => (
+                                  <motion.label
+                                    key={option.value}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    className={`flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                                      form.extraItem === option.value
+                                        ? "bg-blue-50 border-blue-500 shadow-lg shadow-blue-500/20"
+                                        : "bg-gray-50 border-gray-200 hover:bg-gray-100"
+                                    }`}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="extraItem"
+                                      value={option.value}
+                                      checked={form.extraItem === option.value}
+                                      onChange={handleChange}
+                                      className="hidden"
+                                    />
+                                    <div className="flex items-center space-x-3 w-full">
+                                      <div
+                                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                                          form.extraItem === option.value
+                                            ? "border-blue-500 bg-blue-500"
+                                            : "border-gray-400"
+                                        }`}
+                                      >
+                                        {form.extraItem === option.value && (
+                                          <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            className="w-2 h-2 bg-white rounded-full"
+                                          />
+                                        )}
+                                      </div>
+                                      <div className="flex-1">
+                                        <div className="font-medium text-gray-900">
+                                          {option.label}
                                         </div>
-                                        <div className="flex-1">
-                                          <div className="font-medium text-gray-900">
-                                            {option.label}
-                                          </div>
-                                          <div className="text-xs text-gray-600 mt-1">
-                                            {option.description}
-                                          </div>
+                                        <div className="text-xs text-gray-600 mt-1">
+                                          {option.description}
                                         </div>
                                       </div>
-                                    </motion.label>
-                                  )
-                                )}
+                                    </div>
+                                  </motion.label>
+                                ))}
                             </div>
                             <AnimatePresence>
-                              {errors.serviceType && (
+                              {errors.extraItem && (
                                 <motion.p
                                   initial={{ opacity: 0, y: -10 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: -10 }}
                                   className="text-red-600 text-xs mt-2 flex items-center"
                                 >
-                                  ⚠️ {errors.serviceType}
+                                  ⚠️ {errors.extraItem}
                                 </motion.p>
                               )}
                             </AnimatePresence>
@@ -1294,37 +1311,34 @@ const RequestService = () => {
                                   Select Branch Location *
                                 </label>
                                 <div className="grid gap-3">
-                                  {branchLocations.map((branch) => (
+                                  {branchLocations.map((branch, i) => (
                                     <motion.label
-                                      key={branch.value}
+                                      key={i}
                                       whileHover={{ scale: 1.02 }}
                                       whileTap={{ scale: 0.98 }}
                                       className={`flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                                        form.branchLocation === branch.value
+                                        form.shopId === branch.value
                                           ? "bg-blue-50 border-blue-500 shadow-lg shadow-blue-500/20"
                                           : "bg-gray-50 border-gray-200 hover:bg-gray-100"
                                       }`}
                                     >
                                       <input
                                         type="radio"
-                                        name="branchLocation"
+                                        name="shopId"
                                         value={branch.value}
-                                        checked={
-                                          form.branchLocation === branch.value
-                                        }
+                                        checked={form.shopId === branch.value}
                                         onChange={handleChange}
                                         className="hidden"
                                       />
                                       <div className="flex items-center space-x-3 w-full">
                                         <div
                                           className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                                            form.branchLocation === branch.value
+                                            form.shopId === branch.value
                                               ? "border-blue-500 bg-blue-500"
                                               : "border-gray-400"
                                           }`}
                                         >
-                                          {form.branchLocation ===
-                                            branch.value && (
+                                          {form.shopId === branch.value && (
                                             <motion.div
                                               initial={{ scale: 0 }}
                                               animate={{ scale: 1 }}
@@ -1345,14 +1359,14 @@ const RequestService = () => {
                                   ))}
                                 </div>
                                 <AnimatePresence>
-                                  {errors.branchLocation && (
+                                  {errors.shopId && (
                                     <motion.p
                                       initial={{ opacity: 0, y: -10 }}
                                       animate={{ opacity: 1, y: 0 }}
                                       exit={{ opacity: 0, y: -10 }}
                                       className="text-red-600 text-xs mt-2 flex items-center"
                                     >
-                                      ⚠️ {errors.branchLocation}
+                                      ⚠️ {errors.shopId}
                                     </motion.p>
                                   )}
                                 </AnimatePresence>
@@ -1482,7 +1496,7 @@ const RequestService = () => {
                                     </div>
                                     <div>
                                       {form.appointmentType === "in-person" &&
-                                      form.branchLocation ? (
+                                      form.shopId ? (
                                         <>🏢 {getSelectedBranchLabel()}</>
                                       ) : form.appointmentType ===
                                         "home-visit" ? (
@@ -1533,38 +1547,38 @@ const RequestService = () => {
                               Additional Details *
                             </label>
                             <textarea
-                              name="message"
-                              value={form.message}
+                              name="additionalInfo"
+                              value={form.additionalInfo}
                               onChange={handleChange}
                               rows="5"
                               placeholder="Please describe your request in detail. Include any specific requirements, documents you have, preferred timeline, or any other relevant information..."
                               className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 resize-none ${
-                                errors.message
+                                errors.additionalInfo
                                   ? "bg-red-50 border-red-300 focus:ring-red-300 focus:border-transparent"
                                   : "bg-gray-50 border-gray-200 focus:ring-blue-500 focus:border-transparent"
                               }`}
                             />
                             <div className="flex justify-between items-center mt-2">
                               <AnimatePresence>
-                                {errors.message && (
+                                {errors.additionalInfo && (
                                   <motion.p
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     className="text-red-600 text-xs flex items-center"
                                   >
-                                    ⚠️ {errors.message}
+                                    ⚠️ {errors.additionalInfo}
                                   </motion.p>
                                 )}
                               </AnimatePresence>
                               <span
                                 className={`text-xs ${
-                                  form.message.length < 10
+                                  form.additionalInfo.length < 10
                                     ? "text-gray-500"
                                     : "text-green-600"
                                 }`}
                               >
-                                {form.message.length}/10
+                                {form.additionalInfo.length}/10
                               </span>
                             </div>
                           </div>
@@ -1593,7 +1607,7 @@ const RequestService = () => {
                         <div>
                           Step {currentStep + 1} of {steps.length}
                         </div>
-                        {form.serviceType && (
+                        {form.extraItem && (
                           <div className="text-blue-600 mt-1 font-medium">
                             {getSelectedServiceLabel()}
                           </div>
@@ -1668,7 +1682,7 @@ const RequestService = () => {
                     >
                       Thank you{" "}
                       <span className="text-blue-600 font-semibold">
-                        {form.name}
+                        {form.userName}
                       </span>
                       !
                       <br />
@@ -1716,9 +1730,10 @@ const RequestService = () => {
                       <br />
                       Confirmation has been sent to{" "}
                       <span className="text-blue-600">
-                        {form.email}
-                      </span> and{" "}
-                      <span className="text-blue-600">{form.mobile}</span>.
+                        {form.userEmail}
+                      </span>{" "}
+                      and{" "}
+                      <span className="text-blue-600">{form.userMobile}</span>.
                     </motion.p>
                   </div>
 
@@ -1733,16 +1748,17 @@ const RequestService = () => {
                         setSubmitted(false);
                         setCurrentStep(0);
                         setForm({
-                          name: "",
-                          email: "",
-                          mobile: "",
-                          serviceCategory: "",
-                          serviceType: "",
-                          message: "",
+                          userName: "",
+                          userEmail: "",
+                          userMobile: "",
+                          service: "",
+                          extraItem: "",
+                          additionalInfo: "",
+                          appointmentType: "in-person",
                           appointmentDate: "",
                           appointmentTime: "",
-                          appointmentType: "in-person",
-                          branchLocation: "",
+                          shopId: "",
+                          userLocation: "",
                         });
                         setErrors({});
                       }}

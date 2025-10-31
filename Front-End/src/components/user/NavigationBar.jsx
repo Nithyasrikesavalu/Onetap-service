@@ -16,12 +16,21 @@ const NavigationBar = ({ activeTab, setActiveTab, user }) => {
           {/* Logo */}
           <Link to={"/"} className="flex items-center space-x-4">
             <div className="flex items-center gap-3 group cursor-pointer">
-              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-xl shadow-lg transform group-hover:scale-105 transition-all duration-300">
+              {/* <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-xl shadow-lg transform group-hover:scale-105 transition-all duration-300">
                 1Ts
               </div>
               <div className="transform group-hover:translate-x-1 transition-transform duration-300">
                 <div className="text-xl font-bold bg-gradient-to-r from-blue-700 to-indigo-800 bg-clip-text text-transparent">
                   OneTap Services
+                </div>
+              </div> */}
+              <div className="transform group-hover:scale-110 transition-transform duration-300">
+                <div className="text-xl font-bold bg-gradient-to-r from-blue-700 to-indigo-800 bg-clip-text text-transparent">
+                  <img
+                    src="./images/logo.png"
+                    width={150}
+                    alt="OneTap Services"
+                  />
                 </div>
               </div>
             </div>

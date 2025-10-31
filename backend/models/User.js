@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   address: { type: String },
   role: { type: String, enum: ["customer", "vendor", "admin"], default: "customer" },
   status: { type: String, enum: ["active", "inactive", "blocked"], default: "active" },
-  otp: { type: String }
+  // otp: { type: String }
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

@@ -1,74 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const getShopId = () => localStorage.getItem("shopId") || "";
 
 export default function NotificationTab() {
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      customerName: "Rajesh Kumar",
-      customerPhone: "+91 98765 43210",
-      requestType: "PAN Card Update",
-      requestDetails: "Update PAN card details for new address",
-      status: "pending", // pending, accepted, rejected
-      timestamp: "2024-02-20T10:30:00",
-      documents: ["Aadhaar Card", "Current PAN", "Address Proof"],
-      urgency: "high", // high, medium, low
-    },
-    {
-      id: 2,
-      customerName: "Priya Sharma",
-      customerPhone: "+91 98765 43211",
-      requestType: "Bulk Printing",
-      requestDetails: "Print 500 visiting cards with new design",
-      status: "pending",
-      timestamp: "2024-02-20T09:15:00",
-      documents: ["Design File", "Contact Details"],
-      urgency: "medium",
-    },
-    {
-      id: 3,
-      customerName: "Amit Patel",
-      customerPhone: "+91 98765 43212",
-      requestType: "Document Notarization",
-      requestDetails: "Notarize property documents for registration",
-      status: "pending",
-      timestamp: "2024-02-19T16:45:00",
-      documents: ["Property Deed", "ID Proof", "Witness Statements"],
-      urgency: "high",
-    },
-    {
-      id: 4,
-      customerName: "Sneha Reddy",
-      customerPhone: "+91 98765 43213",
-      requestType: "GST Registration",
-      requestDetails: "New GST registration for business startup",
-      status: "pending",
-      timestamp: "2024-02-19T14:20:00",
-      documents: ["PAN Card", "Aadhaar", "Business Proof", "Bank Statement"],
-      urgency: "medium",
-    },
-    {
-      id: 5,
-      customerName: "Saran raj",
-      customerPhone: "+91 98765 43210",
-      requestType: "Passport Application",
-      requestDetails: "Fresh passport application with tatkal service",
-      status: "pending",
-      timestamp: "2024-02-19T11:00:00",
-      documents: ["Aadhaar Card", "Birth Certificate", "Address Proof"],
-      urgency: "high",
-    },
-    {
-      id: 6,
-      customerName: "Anjali Singh",
-      customerPhone: "+91 98765 43215",
-      requestType: "Document Scanning",
-      requestDetails: "Scan and digitize 50 legal documents",
-      status: "pending",
-      timestamp: "2024-02-18T17:30:00",
-      documents: ["Legal Documents"],
-      urgency: "low",
-    },
-  ]);
+  // const [notifications, setNotifications] = useState([
+  //   {
+  //     id: 1,
+  //     customerName: "Rajesh Kumar",
+  //     customerPhone: "+91 98765 43210",
+  //     requestType: "PAN Card Update",
+  //     requestDetails: "Update PAN card details for new address",
+  //     status: "pending", // pending, accepted, rejected
+  //     timestamp: "2024-02-20T10:30:00",
+  //     documents: ["Aadhaar Card", "Current PAN", "Address Proof"],
+  //   },
+  //   {
+  //     id: 2,
+  //     customerName: "Priya Sharma",
+  //     customerPhone: "+91 98765 43211",
+  //     requestType: "Bulk Printing",
+  //     requestDetails: "Print 500 visiting cards with new design",
+  //     status: "pending",
+  //     timestamp: "2024-02-20T09:15:00",
+  //     documents: ["Design File", "Contact Details"],
+  //   },
+  //   {
+  //     id: 3,
+  //     customerName: "Amit Patel",
+  //     customerPhone: "+91 98765 43212",
+  //     requestType: "Document Notarization",
+  //     requestDetails: "Notarize property documents for registration",
+  //     status: "pending",
+  //     timestamp: "2024-02-19T16:45:00",
+  //     documents: ["Property Deed", "ID Proof", "Witness Statements"],
+  //   },
+  //   {
+  //     id: 4,
+  //     customerName: "Sneha Reddy",
+  //     customerPhone: "+91 98765 43213",
+  //     requestType: "GST Registration",
+  //     requestDetails: "New GST registration for business startup",
+  //     status: "pending",
+  //     timestamp: "2024-02-19T14:20:00",
+  //     documents: ["PAN Card", "Aadhaar", "Business Proof", "Bank Statement"],
+  //   },
+  //   {
+  //     id: 5,
+  //     customerName: "Saran raj",
+  //     customerPhone: "+91 98765 43210",
+  //     requestType: "Passport Application",
+  //     requestDetails: "Fresh passport application with tatkal service",
+  //     status: "pending",
+  //     timestamp: "2024-02-19T11:00:00",
+  //     documents: ["Aadhaar Card", "Birth Certificate", "Address Proof"],
+  //   },
+  //   {
+  //     id: 6,
+  //     customerName: "Anjali Singh",
+  //     customerPhone: "+91 98765 43215",
+  //     requestType: "Document Scanning",
+  //     requestDetails: "Scan and digitize 50 legal documents",
+  //     status: "pending",
+  //     timestamp: "2024-02-18T17:30:00",
+  //     documents: ["Legal Documents"],
+  //   },
+  // ]);
+
+  const shopId = getShopId();
+  const [notifications, setNotifications] = useState([]);
 
   const [filter, setFilter] = useState("all"); // all, pending, accepted, rejected
   const [searchTerm, setSearchTerm] = useState("");
@@ -133,20 +132,6 @@ export default function NotificationTab() {
     }
   };
 
-  // Get urgency color
-  const getUrgencyColor = (urgency) => {
-    switch (urgency) {
-      case "high":
-        return "bg-red-100 text-red-800 border-red-200";
-      case "medium":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "low":
-        return "bg-green-100 text-green-800 border-green-200";
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
-    }
-  };
-
   // Get status color
   const getStatusColor = (status) => {
     switch (status) {
@@ -195,6 +180,39 @@ export default function NotificationTab() {
 
   const stats = getStats();
 
+  // Fetch bookings for this shop
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/servicebookings?shopId=${shopId}`
+        );
+        const data = await res.json();
+        // Transform or map data if needed for your UI
+        setNotifications(
+          data.bookings.map((booking) => ({
+            id: booking._id,
+            customerName: booking.userName,
+            customerPhone: booking.userMobile,
+            requestType: booking.service,
+            requestDetails: booking.extraItem || booking.additionalInfo || "",
+            status: booking.status || "pending", // default/fallback
+            timestamp: booking.createdAt || booking.created_at,
+            documents:
+              booking.documents && booking.documents.length
+                ? booking.documents.map((doc) => doc.originalName || doc)
+                : [],
+          }))
+        );
+      } catch (err) {
+        setNotifications([]);
+      }
+      setIsLoading(false);
+    }
+    if (shopId) fetchData();
+  }, [shopId]);
+
   return (
     <div className="space-y-6">
       {/* Header with Stats */}
@@ -216,7 +234,7 @@ export default function NotificationTab() {
 
       {/* Filters and Search */}
       <div className="bg-white rounded-2xl shadow-lg p-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Search */}
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -247,18 +265,6 @@ export default function NotificationTab() {
               <option value="rejected">Rejected</option>
             </select>
           </div>
-
-          {/* Sort By */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Sort By
-            </label>
-            <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-              <option value="urgency">Urgency</option>
-            </select>
-          </div>
         </div>
       </div>
 
@@ -269,7 +275,7 @@ export default function NotificationTab() {
             key={notification.id}
             className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow"
           >
-            {/* Header with Status and Urgency */}
+            {/* Header with Status */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-start mb-2">
                 <span
@@ -279,15 +285,6 @@ export default function NotificationTab() {
                 >
                   {notification.status.charAt(0).toUpperCase() +
                     notification.status.slice(1)}
-                </span>
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium border ${getUrgencyColor(
-                    notification.urgency
-                  )}`}
-                >
-                  {notification.urgency.charAt(0).toUpperCase() +
-                    notification.urgency.slice(1)}{" "}
-                  Priority
                 </span>
               </div>
 

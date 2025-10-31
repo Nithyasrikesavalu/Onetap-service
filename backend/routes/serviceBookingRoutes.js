@@ -1,12 +1,9 @@
 import { Router } from "express";
+import multer from "multer";
 import { createBooking, getAllBookings } from "../controllers/serviceBookingController.js";
-
+const upload = multer({ dest: "uploads/" });
 const router = Router();
 
-// POST: Create a new service booking
-router.post("/", createBooking);
-
-// GET: All bookings (for admin panel)
+router.post("/", upload.array("documents"), createBooking);
 router.get("/", getAllBookings);
-
 export default router;

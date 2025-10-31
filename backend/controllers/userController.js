@@ -138,8 +138,7 @@
 //     if (!user) return res.status(404).json({ message: "User not found." });
 
 //     const match = await bcrypt.compare(password, user.password);
-    
-    
+
 //     if (!match) return res.status(401).json({ message: "Invalid credentials." });
 
 //     const token = jwt.sign(
@@ -179,7 +178,6 @@
 //   }
 // };
 
-
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -190,8 +188,10 @@ export const register = async (req, res) => {
     const { name, email, password, mobile, address, role } = req.body;
 
     // Check if email/mobile exists
-    if (await User.findOne({ email })) return res.status(400).json({ message: "Email already registered" });
-    if (await User.findOne({ mobile })) return res.status(400).json({ message: "Mobile already registered" });
+    if (await User.findOne({ email }))
+      return res.status(400).json({ message: "Email already registered" });
+    if (await User.findOne({ mobile }))
+      return res.status(400).json({ message: "Mobile already registered" });
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -204,7 +204,7 @@ export const register = async (req, res) => {
       mobile,
       address,
       role,
-      status: "active"
+      status: "active",
     });
 
     res.status(201).json({ message: "User registered", user });
@@ -214,18 +214,19 @@ export const register = async (req, res) => {
 };
 
 // OTP generator
-const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
+const generateOtp = () =>
+  Math.floor(100000 + Math.random() * 900000).toString();
 
 // Send OTP
 export const sendOtp = async (req, res) => {
   try {
     const { email, mobile } = req.body;
-    
+
     // Find user by email OR mobile
     const user = await User.findOne({
-      $or: [{ email }, { mobile }]
+      $or: [{ email }, { mobile }],
     });
-    
+
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const otp = generateOtp();
@@ -254,8 +255,9 @@ export const sendOtp = async (req, res) => {
       html: `<h2>Hello ${user.name}</h2><p>Your OTP is <b>${otp}</b></p><p>Valid for 5 minutes.</p>`,
     });
 
-    return res.status(200).json({ message: "OTP sent successfully to your email!" });
-
+    return res
+      .status(200)
+      .json({ message: "OTP sent successfully to your email!" });
   } catch (error) {
     console.error("Send OTP error:", error);
     return res.status(500).json({
@@ -270,7 +272,7 @@ export const verifyOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
     const user = await User.findOne({ email });
-    
+
     if (!user) return res.status(404).json({ message: "User not found" });
 
     // Check if OTP exists and is not expired
@@ -297,7 +299,9 @@ export const verifyOtp = async (req, res) => {
 
     res.json({ message: "OTP verified successfully!" });
   } catch (err) {
-    res.status(500).json({ message: "OTP verification error", error: err.message });
+    res
+      .status(500)
+      .json({ message: "OTP verification error", error: err.message });
   }
 };
 
@@ -307,12 +311,30 @@ export const login = async (req, res) => {
     const { email, password, role } = req.body;
 
     const user = await User.findOne({ email, role });
-    if (!user || user.status !== "active") return res.status(400).json({ message: "Invalid credentials or user inactive" });
+    if (!user) {
+      console.error("Login: No such user or wrong role", { email, role });
+      return res
+        .status(400)
+        .json({ message: "Invalid credentials or user inactive" });
+    }
+
+    if (user.status !== "active") {
+      console.error("Login: User inactive", { email, userStatus: user.status });
+      return res
+        .status(400)
+        .json({ message: "Invalid credentials or user inactive" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+    if (!isMatch) {
+      console.error("Login: Password mismatch for user", { email });
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
 
-    // Generate JWT
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET not set in environment variables");
+    }
+
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -323,15 +345,17 @@ export const login = async (req, res) => {
       message: "Login successful",
       token,
       user: {
+        _id: user._id,
         name: user.name,
         role: user.role,
         email: user.email,
         mobile: user.mobile,
         address: user.address,
         status: user.status,
-      }
+      },
     });
   } catch (err) {
+    console.error("Login error", err);
     res.status(500).json({ message: "Login error", error: err.message });
   }
 };

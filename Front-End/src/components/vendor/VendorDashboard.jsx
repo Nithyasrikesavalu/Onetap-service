@@ -13,11 +13,11 @@ export default function VendorDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isLoading, setIsLoading] = useState(true);
   const [vendor, setVendor] = useState({
-    name: "Digital Print Solutions",
-    email: "contact@digitalprints.com",
-    phone: "+91 98765 43210",
+    name: localStorage.getItem("shopName"),
+    email: localStorage.getItem("shopEmail"),
+    phone: localStorage.getItem("shopMobile"),
     joinedDate: "10 Jan 2024",
-    address: "123 Business Street, Mumbai",
+    address: localStorage.getItem("shopAddress"),
     rating: 4.8,
     totalEarnings: "₹45,250",
     activeOrders: 5,
