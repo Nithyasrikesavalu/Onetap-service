@@ -332,14 +332,6 @@ const RequestService = () => {
         allowsHomeVisit: true,
         requiresSignature: true,
       },
-      {
-        value: "birth_death_cert",
-        label: "📜 Birth/Death Certificate",
-        description: "Certificate issuance",
-        requiresInPerson: false,
-        allowsHomeVisit: false,
-        requiresSignature: false,
-      },
     ],
     international: [
       {
@@ -386,22 +378,6 @@ const RequestService = () => {
         requiresSignature: true,
       },
       {
-        value: "health_card",
-        label: "🩺 Health Card Registration",
-        description: "Digital health records",
-        requiresInPerson: false,
-        allowsHomeVisit: true,
-        requiresSignature: false,
-      },
-      {
-        value: "medical_certificate",
-        label: "📄 Medical Certificates",
-        description: "Fitness and medical reports",
-        requiresInPerson: true,
-        allowsHomeVisit: false,
-        requiresSignature: true,
-      },
-      {
         value: "insurance_claim",
         label: "💰 Insurance Claim",
         description: "Claim processing assistance",
@@ -413,7 +389,7 @@ const RequestService = () => {
     education: [
       {
         value: "marksheet_attestation",
-        label: "📊 Marksheet Attestation",
+        label: "📊 Marksheet",
         description: "Academic document verification",
         requiresInPerson: false,
         allowsHomeVisit: true,
@@ -426,22 +402,6 @@ const RequestService = () => {
         requiresInPerson: false,
         allowsHomeVisit: true,
         requiresSignature: true,
-      },
-      {
-        value: "transfer_certificate",
-        label: "📜 Transfer Certificate",
-        description: "TC issuance and attestation",
-        requiresInPerson: false,
-        allowsHomeVisit: false,
-        requiresSignature: false,
-      },
-      {
-        value: "degree_certificate",
-        label: "🎖️ Degree Certificate",
-        description: "Duplicate and verification",
-        requiresInPerson: false,
-        allowsHomeVisit: false,
-        requiresSignature: false,
       },
       {
         value: "admission_consultation",
@@ -462,33 +422,9 @@ const RequestService = () => {
         requiresSignature: true,
       },
       {
-        value: "msme_registration",
-        label: "🏢 MSME Registration",
-        description: "Udyam registration",
-        requiresInPerson: false,
-        allowsHomeVisit: false,
-        requiresSignature: true,
-      },
-      {
         value: "company_registration",
         label: "💼 Company Registration",
         description: "Private and public limited",
-        requiresInPerson: true,
-        allowsHomeVisit: false,
-        requiresSignature: true,
-      },
-      {
-        value: "fssai_license",
-        label: "🍽️ FSSAI License",
-        description: "Food business license",
-        requiresInPerson: true,
-        allowsHomeVisit: false,
-        requiresSignature: true,
-      },
-      {
-        value: "trade_license",
-        label: "🏪 Trade License",
-        description: "Municipal business license",
         requiresInPerson: true,
         allowsHomeVisit: false,
         requiresSignature: true,
@@ -512,14 +448,6 @@ const RequestService = () => {
         requiresSignature: false,
       },
       {
-        value: "bank_application",
-        label: "🏦 Bank Applications",
-        description: "Loan and account applications",
-        requiresInPerson: false,
-        allowsHomeVisit: false,
-        requiresSignature: true,
-      },
-      {
         value: "govt_schemes",
         label: "📱 Govt Scheme Applications",
         description: "Various government schemes",
@@ -538,22 +466,6 @@ const RequestService = () => {
     ],
     legal: [
       {
-        value: "birth_certificate",
-        label: "👶 Birth Certificate",
-        description: "Issuance and duplicate",
-        requiresInPerson: false,
-        allowsHomeVisit: false,
-        requiresSignature: false,
-      },
-      {
-        value: "income_certificate",
-        label: "💰 Income Certificate",
-        description: "Salary and business income",
-        requiresInPerson: false,
-        allowsHomeVisit: false,
-        requiresSignature: true,
-      },
-      {
         value: "community_certificate",
         label: "👥 Community Certificate",
         description: "Caste and community proof",
@@ -562,8 +474,8 @@ const RequestService = () => {
         requiresSignature: false,
       },
       {
-        value: "domicile_certificate",
-        label: "🏠 Domicile Certificate",
+        value: "nativity_certificate",
+        label: "🏠 Nativity Certificate",
         description: "Residence proof",
         requiresInPerson: false,
         allowsHomeVisit: false,

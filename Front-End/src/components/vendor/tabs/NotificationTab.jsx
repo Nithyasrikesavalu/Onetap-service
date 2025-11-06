@@ -337,7 +337,7 @@ export default function NotificationTab() {
 
             {/* Action Buttons */}
             <div className="p-4">
-              {notification.status === "pending" ? (
+              {notification.status === "Pending" ? (
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleAcceptRequest(notification.id)}
@@ -395,7 +395,7 @@ export default function NotificationTab() {
       )}
 
       {/* Stats Summary */}
-      <div className="bg-white rounded-2xl shadow-lg p-6">
+      {/* <div className="bg-white rounded-2xl shadow-lg p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
           Request Summary
         </h3>
@@ -421,7 +421,7 @@ export default function NotificationTab() {
             <p className="text-gray-600 text-sm">Rejected</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

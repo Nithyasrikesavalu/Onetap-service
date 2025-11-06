@@ -132,9 +132,47 @@ const onlineAppointmentServices = [
   "Property Document Print",
   "General Typing Works",
   "Document Scanning", // Can be done by uploading scanned copies
-  "Colour Printouts", // Can submit soft copies
   "Photo Printing", // Can submit digital photos
   "ID Card Printing", // Can submit design files
+  "New Learner's License",
+  "Permanent License Apply",
+  "Renewal of License",
+  "Address or Name Change",
+  "Duplicate License",
+  "New Passport Application",
+  "Passport Renewal / Re-issue",
+  "Police Verification Assistance",
+  "Appointment Booking Support",
+  "CM Health Insurance Card (TN)",
+  "Ayushman Bharat Card",
+  "New Health Card Registration",
+  "Renewal / Correction",
+  "Insurance Claim Form Filling",
+  "Marksheet Verification / Duplicate Copy",
+  "Scholarship Application Help",
+  "Community Certificate for Students",
+  "GST Registration",
+  "MSME / Udyam Registration",
+  "FSSAI License",
+  "Shop Establishment License",
+  "Trademark / Logo Registration",
+  "PAN for Business",
+  "TNPSC / SSC / RRB Exam Apply",
+  "College / University Admission",
+  "Passport / PAN Online Apply",
+  "Voter ID Apply / Correction",
+  "Government Scheme Registration",
+  "Job Application Form Filling",
+  "Birth Certificate",
+  "Community Certificate",
+  "Income Certificate",
+  "Nativity Certificate",
+  "Residence Proof",
+  "Death Certificate",
+  "Voter ID Services",
+  "Ration Card Update",
+  "TNeGA / eSevai Portal Support",
+  "Court Affidavit Typing",
 ];
 
 // Mock database structure for vendor availability
@@ -1312,10 +1350,16 @@ function ServiceCard({ service, isExpanded, onToggle, onServiceClick }) {
                       {extra}
                     </span>
                     <div className="flex items-center space-x-2">
-                      {requiresPhysical && (
+                      {requiresPhysical && !canBeOnline && (
                         <span className="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full flex items-center">
                           <Icon name="calendar" className="w-3 h-3 mr-1" />
-                          Physical
+                          Visit
+                        </span>
+                      )}
+                      {canBeOnline && requiresPhysical && (
+                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full flex items-center">
+                          <Icon name="online" className="w-3 h-3 mr-1" />
+                          Visit / Online
                         </span>
                       )}
                       {canBeOnline && !requiresPhysical && (

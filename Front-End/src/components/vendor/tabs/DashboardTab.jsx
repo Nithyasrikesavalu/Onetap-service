@@ -3,6 +3,7 @@ import StatsCard from "../common/StatsCard";
 import StatusBadge from "../common/StatusBadge";
 
 import { io } from "socket.io-client";
+import NotificationsPanel from "./notifications/NotificationsPanel";
 const socket = io("http://localhost:5000");
 
 export default function DashboardTab({
@@ -110,19 +111,22 @@ export default function DashboardTab({
     if (shopId) fetchData();
   }, [shopId]);
 
-  useEffect(() => {
-    socket.on("new_service_request", (data) => {
-      console.log("⚡ Notification:", data);
+  const notificationSound = new Audio("/notification.wav");
 
-      // Play notification sound
-      new Audio("/notification.wav").play();
+  // useEffect(() => {
+  //   socket.on("new_service_request", (data) => {
+  //     console.log("⚡ Notification:", data);
 
-      // Refresh UI
-      onRefresh && onRefresh();
-    });
+  //     // ✅ Reliable notification sound
+  //     notificationSound.pause();
+  //     notificationSound.currentTime = 0;
+  //     notificationSound.play().catch(() => {});
 
-    return () => socket.off("new_service_request");
-  }, []);
+  //     onRefresh && onRefresh();
+  //   });
+
+  //   return () => socket.off("new_service_request");
+  // }, []);
 
   // Get notification icon based on type
   const getNotificationIcon = (type) => {
@@ -254,7 +258,7 @@ export default function DashboardTab({
         </div>
 
         {/* Recent Notifications */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
+        {/* <div className="bg-white rounded-2xl shadow-lg p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-900">
               Request Notifications
@@ -306,7 +310,14 @@ export default function DashboardTab({
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
+
+        <NotificationsPanel
+          shopId={getShopId()}
+          onViewAllNotifications={onViewAllNotifications}
+          onRefresh={onRefresh}
+          limit={3}
+        />
       </div>
 
       {/* Recent Reviews */}
