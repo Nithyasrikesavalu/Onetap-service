@@ -1,76 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { acceptRequestAndCreateOrder } from "../../../utility/api";
 
 const getShopId = () => localStorage.getItem("shopId") || "";
 
 export default function NotificationTab() {
-  // const [notifications, setNotifications] = useState([
-  //   {
-  //     id: 1,
-  //     customerName: "Rajesh Kumar",
-  //     customerPhone: "+91 98765 43210",
-  //     requestType: "PAN Card Update",
-  //     requestDetails: "Update PAN card details for new address",
-  //     status: "pending", // pending, accepted, rejected
-  //     timestamp: "2024-02-20T10:30:00",
-  //     documents: ["Aadhaar Card", "Current PAN", "Address Proof"],
-  //   },
-  //   {
-  //     id: 2,
-  //     customerName: "Priya Sharma",
-  //     customerPhone: "+91 98765 43211",
-  //     requestType: "Bulk Printing",
-  //     requestDetails: "Print 500 visiting cards with new design",
-  //     status: "pending",
-  //     timestamp: "2024-02-20T09:15:00",
-  //     documents: ["Design File", "Contact Details"],
-  //   },
-  //   {
-  //     id: 3,
-  //     customerName: "Amit Patel",
-  //     customerPhone: "+91 98765 43212",
-  //     requestType: "Document Notarization",
-  //     requestDetails: "Notarize property documents for registration",
-  //     status: "pending",
-  //     timestamp: "2024-02-19T16:45:00",
-  //     documents: ["Property Deed", "ID Proof", "Witness Statements"],
-  //   },
-  //   {
-  //     id: 4,
-  //     customerName: "Sneha Reddy",
-  //     customerPhone: "+91 98765 43213",
-  //     requestType: "GST Registration",
-  //     requestDetails: "New GST registration for business startup",
-  //     status: "pending",
-  //     timestamp: "2024-02-19T14:20:00",
-  //     documents: ["PAN Card", "Aadhaar", "Business Proof", "Bank Statement"],
-  //   },
-  //   {
-  //     id: 5,
-  //     customerName: "Saran raj",
-  //     customerPhone: "+91 98765 43210",
-  //     requestType: "Passport Application",
-  //     requestDetails: "Fresh passport application with tatkal service",
-  //     status: "pending",
-  //     timestamp: "2024-02-19T11:00:00",
-  //     documents: ["Aadhaar Card", "Birth Certificate", "Address Proof"],
-  //   },
-  //   {
-  //     id: 6,
-  //     customerName: "Anjali Singh",
-  //     customerPhone: "+91 98765 43215",
-  //     requestType: "Document Scanning",
-  //     requestDetails: "Scan and digitize 50 legal documents",
-  //     status: "pending",
-  //     timestamp: "2024-02-18T17:30:00",
-  //     documents: ["Legal Documents"],
-  //   },
-  // ]);
-
   const shopId = getShopId();
   const [notifications, setNotifications] = useState([]);
 
   const [filter, setFilter] = useState("all"); // all, pending, accepted, rejected
   const [searchTerm, setSearchTerm] = useState("");
+  const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   // Filter notifications based on status and search
@@ -94,18 +33,23 @@ export default function NotificationTab() {
   const handleAcceptRequest = async (notificationId) => {
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { booking, order } = await acceptRequestAndCreateOrder(
+        notificationId
+      );
 
+      // Update notification status in UI
       setNotifications((prev) =>
         prev.map((notif) =>
-          notif.id === notificationId ? { ...notif, status: "accepted" } : notif
+          notif.id === booking._id || notif.id === booking.id
+            ? { ...notif, status: "accepted" }
+            : notif
         )
       );
 
-      console.log(`Request ${notificationId} accepted`);
+      // Optionally, add newly created order to another orders list
+      setOrders((prev) => [order, ...prev]);
     } catch (error) {
-      console.error("Failed to accept request:", error);
+      alert("Failed to accept request. Try again!");
     } finally {
       setIsLoading(false);
     }

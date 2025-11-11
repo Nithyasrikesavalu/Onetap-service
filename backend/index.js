@@ -39,6 +39,7 @@ import serviceBookingRoutes from "./routes/serviceBookingRoutes.js";
 import shopRoutes from "./routes/shopRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import serviceMasterRoutes from "./routes/serviceMasterRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 import http from "http"; // ✅ ADD
 import { Server } from "socket.io"; // ✅ ADD
@@ -79,6 +80,7 @@ app.use("/api/servicebookings", serviceBookingRoutes);
 app.use("/api/shops", shopRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/service-master", serviceMasterRoutes);
+app.use("/api/orders", orderRoutes);
 
 // ✅ Start server
 const PORT = process.env.PORT || 5000;

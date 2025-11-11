@@ -84,7 +84,7 @@ const NavigationBar = ({ activeTab, setActiveTab, user }) => {
               className="flex items-center space-x-3 cursor-pointer"
             >
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-medium">R</span>
+                <span className="text-white text-sm font-medium">M</span>
               </div>
               <span className="text-gray-700 font-medium">{user.name}</span>
             </div>

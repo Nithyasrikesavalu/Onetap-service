@@ -18,11 +18,11 @@ export default function VendorDashboard() {
     phone: localStorage.getItem("shopMobile"),
     joinedDate: "10 Jan 2024",
     address: localStorage.getItem("shopAddress"),
-    rating: 4.8,
-    totalEarnings: "₹45,250",
-    activeOrders: 5,
-    completedOrders: 128,
-    pendingRequests: 3,
+    rating: 0,
+    totalEarnings: "₹0",
+    activeOrders: 0,
+    completedOrders: 0,
+    pendingRequests: 0,
   });
 
   const [recentOrders, setRecentOrders] = useState([]);
@@ -39,128 +39,6 @@ export default function VendorDashboard() {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         // Set mock data
-        setRecentOrders([
-          {
-            id: "ORD001",
-            customerName: "Rajesh Kumar",
-            customerPhone: "+91 98765 43210",
-            service: "Passport Application",
-            status: "in-progress",
-            amount: "₹450",
-            date: "20 Feb 2024",
-            deadline: "24 Feb 2024",
-            documents: ["Aadhaar Card", "Photo", "Address Proof"],
-            notes: "Urgent processing required",
-          },
-          {
-            id: "ORD002",
-            customerName: "Priya Sharma",
-            customerPhone: "+91 98765 43211",
-            service: "Color Printing",
-            status: "pending",
-            amount: "₹120",
-            date: "22 Feb 2024",
-            deadline: "25 Feb 2024",
-            documents: ["Document File"],
-            notes: "Double-sided printing required",
-          },
-          {
-            id: "ORD003",
-            customerName: "Amit Patel",
-            customerPhone: "+91 98765 43212",
-            service: "Document Scanning",
-            status: "completed",
-            amount: "₹80",
-            date: "18 Feb 2024",
-            deadline: "20 Feb 2024",
-            documents: ["Physical Documents"],
-            notes: "Scan to PDF format",
-          },
-          {
-            id: "ORD004",
-            customerName: "Sneha Reddy",
-            customerPhone: "+91 98765 43213",
-            service: "GST Registration",
-            status: "in-progress",
-            amount: "₹899",
-            date: "25 Feb 2024",
-            deadline: "02 Mar 2024",
-            documents: ["PAN Card", "Aadhaar", "Business Proof"],
-            notes: "New business registration",
-          },
-          {
-            id: "ORD005",
-            customerName: "Rohan Mehta",
-            customerPhone: "+91 98765 43214",
-            service: "Visiting Card Printing",
-            status: "completed",
-            amount: "₹250",
-            date: "15 Feb 2024",
-            deadline: "18 Feb 2024",
-            documents: ["Logo File", "Design Template"],
-            notes: "Glossy finish required",
-          },
-          {
-            id: "ORD006",
-            customerName: "Anjali Singh",
-            customerPhone: "+91 98765 43215",
-            service: "Document Notarization",
-            status: "cancelled",
-            amount: "₹300",
-            date: "19 Feb 2024",
-            deadline: "22 Feb 2024",
-            documents: ["Property Documents"],
-            notes: "Customer cancelled order",
-          },
-          {
-            id: "ORD007",
-            customerName: "Vikram Joshi",
-            customerPhone: "+91 98765 43216",
-            service: "Photo ID Printing",
-            status: "pending",
-            amount: "₹75",
-            date: "26 Feb 2024",
-            deadline: "28 Feb 2024",
-            documents: ["Digital Photo"],
-            notes: "Passport size photos",
-          },
-          {
-            id: "ORD008",
-            customerName: "Neha Gupta",
-            customerPhone: "+91 98765 43217",
-            service: "Document Lamination",
-            status: "in-progress",
-            amount: "₹40",
-            date: "23 Feb 2024",
-            deadline: "24 Feb 2024",
-            documents: ["Educational Certificates"],
-            notes: "A4 size lamination",
-          },
-          {
-            id: "ORD009",
-            customerName: "Arun Malhotra",
-            customerPhone: "+91 98765 43218",
-            service: "Company Incorporation",
-            status: "in-progress",
-            amount: "₹2,500",
-            date: "18 Feb 2024",
-            deadline: "29 Feb 2024",
-            documents: ["Director PAN", "Address Proof"],
-            notes: "Private Limited company",
-          },
-          {
-            id: "ORD010",
-            customerName: "Pooja Verma",
-            customerPhone: "+91 98765 43219",
-            service: "Xerox & Photocopy",
-            status: "completed",
-            amount: "₹60",
-            date: "21 Feb 2024",
-            deadline: "21 Feb 2024",
-            documents: ["Original Documents"],
-            notes: "50 pages single sided",
-          },
-        ]);
 
         setServices([
           {
@@ -206,39 +84,39 @@ export default function VendorDashboard() {
           },
         ]);
 
-        setReviews([
-          {
-            id: 1,
-            customerName: "Rajesh Kumar",
-            rating: 5,
-            comment: "Excellent service! Quick and professional.",
-            date: "20 Feb 2024",
-            service: "Passport Application",
-          },
-          {
-            id: 2,
-            customerName: "Priya Sharma",
-            rating: 4,
-            comment:
-              "Good quality printing, but delivery was slightly delayed.",
-            date: "18 Feb 2024",
-            service: "Color Printing",
-          },
-          {
-            id: 3,
-            customerName: "Amit Patel",
-            rating: 5,
-            comment: "Very professional and fast service. Highly recommended!",
-            date: "15 Feb 2024",
-            service: "Document Scanning",
-          },
-        ]);
+        // setReviews([
+        //   {
+        //     id: 1,
+        //     customerName: "Rajesh Kumar",
+        //     rating: 5,
+        //     comment: "Excellent service! Quick and professional.",
+        //     date: "20 Feb 2024",
+        //     service: "Passport Application",
+        //   },
+        //   {
+        //     id: 2,
+        //     customerName: "Priya Sharma",
+        //     rating: 4,
+        //     comment:
+        //       "Good quality printing, but delivery was slightly delayed.",
+        //     date: "18 Feb 2024",
+        //     service: "Color Printing",
+        //   },
+        //   {
+        //     id: 3,
+        //     customerName: "Amit Patel",
+        //     rating: 5,
+        //     comment: "Very professional and fast service. Highly recommended!",
+        //     date: "15 Feb 2024",
+        //     service: "Document Scanning",
+        //   },
+        // ]);
 
         setEarnings([
-          { month: "Jan", earnings: 32500 },
-          { month: "Feb", earnings: 45250 },
-          { month: "Mar", earnings: 28900 },
-          { month: "Apr", earnings: 38750 },
+          { month: "Jan", earnings: 0 },
+          { month: "Feb", earnings: 0 },
+          { month: "Mar", earnings: 0 },
+          { month: "Apr", earnings: 0 },
         ]);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -351,8 +229,9 @@ export default function VendorDashboard() {
       case "orders":
         return (
           <OrdersTab
-            recentOrders={recentOrders}
-            onOrderStatusUpdate={handleOrderStatusUpdate}
+            // recentOrders={recentOrders}
+            // onOrderStatusUpdate={handleOrderStatusUpdate}
+            shopId={"69039f957336d51e6dfe1eb8"}
           />
         );
       case "services":
@@ -381,7 +260,6 @@ export default function VendorDashboard() {
         return (
           <DashboardTab
             vendor={vendor}
-            recentOrders={recentOrders}
             reviews={reviews}
             earnings={earnings}
             onRefresh={refreshDashboard}

@@ -8,7 +8,6 @@ const socket = io("http://localhost:5000");
 
 export default function DashboardTab({
   vendor,
-  recentOrders,
   reviews,
   earnings,
   onRefresh,
@@ -20,7 +19,7 @@ export default function DashboardTab({
   const stats = [
     {
       label: "Total Earnings",
-      value: vendor.totalEarnings,
+      value: "₹0",
       icon: "💰",
     },
     {
@@ -76,6 +75,32 @@ export default function DashboardTab({
   const shopId = getShopId();
   const [recentNotifications, setRecentNotifications] = useState([]);
   const [_isLoading, set_IsLoading] = useState(false);
+  const [recentOrders, setRecentOrders] = useState([]);
+
+  useEffect(() => {
+    async function fetchRecentOrders() {
+      if (!shopId) {
+        setRecentOrders([]);
+        return;
+      }
+      try {
+        // Fetch all, then slice, or adjust the API to accept a limit param
+        const res = await fetch(
+          `http://localhost:5000/api/orders?shopId=${shopId}`
+        );
+        const data = await res.json();
+        // Newest first by default, otherwise, sort by createdAt/date
+        const sorted = (data.orders ?? []).sort(
+          (a, b) =>
+            new Date(b.date || b.createdAt) - new Date(a.date || a.createdAt)
+        );
+        setRecentOrders(sorted.slice(0, 3)); // Just top 3
+      } catch (err) {
+        setRecentOrders([]);
+      }
+    }
+    fetchRecentOrders();
+  }, [shopId]);
 
   useEffect(() => {
     async function fetchData() {
@@ -113,22 +138,6 @@ export default function DashboardTab({
 
   const notificationSound = new Audio("/notification.wav");
 
-  // useEffect(() => {
-  //   socket.on("new_service_request", (data) => {
-  //     console.log("⚡ Notification:", data);
-
-  //     // ✅ Reliable notification sound
-  //     notificationSound.pause();
-  //     notificationSound.currentTime = 0;
-  //     notificationSound.play().catch(() => {});
-
-  //     onRefresh && onRefresh();
-  //   });
-
-  //   return () => socket.off("new_service_request");
-  // }, []);
-
-  // Get notification icon based on type
   const getNotificationIcon = (type) => {
     switch (type) {
       case "new_request":
@@ -233,27 +242,40 @@ export default function DashboardTab({
             </button>
           </div>
           <div className="space-y-4">
-            {recentOrders.slice(0, 3).map((order) => (
-              <div
-                key={order.id}
-                className="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
-                onClick={() => console.log(`View order details: ${order.id}`)}
-              >
-                <div>
-                  <h3 className="font-semibold text-gray-900">
-                    {order.service}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{order.customerName}</p>
-                  <p className="text-gray-500 text-sm">Due: {order.deadline}</p>
+            {recentOrders.length === 0 ? (
+              <div className="text-gray-500 p-2">No recent orders</div>
+            ) : (
+              recentOrders.map((order) => (
+                <div
+                  key={order._id}
+                  className="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
+                  onClick={() =>
+                    console.log(`View order details: ${order._id}`)
+                  }
+                >
+                  <div>
+                    <h3 className="font-semibold text-gray-900">
+                      {order.service}
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      {order.customerName}
+                    </p>
+                    <p className="text-gray-500 text-sm">
+                      Due:{" "}
+                      {order.deadline
+                        ? new Date(order.deadline).toLocaleString()
+                        : "--"}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <StatusBadge status={order.status} />
+                    <p className="text-gray-900 font-semibold mt-1">
+                      {order.amount}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <StatusBadge status={order.status} />
-                  <p className="text-gray-900 font-semibold mt-1">
-                    {order.amount}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
 

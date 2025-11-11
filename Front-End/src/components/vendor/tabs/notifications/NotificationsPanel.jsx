@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import NotificationItem from "./NotificationItem";
-import { NotificationSound } from "./NotificationSound";
+import { NotificationSound } from "../../../../utility/NotificationSound";
 
 const socket = io("http://localhost:5000");
 
@@ -43,18 +43,20 @@ const NotificationsPanel = ({
         );
         const data = await res.json();
 
-        const fetchedNotifications = data.bookings.map((booking) => ({
-          id: booking._id,
-          customerName: booking.userName,
-          customerPhone: booking.userMobile,
-          requestType: booking.service,
-          requestDetails: booking.extraItem || booking.additionalInfo || "",
-          status: booking.status || "pending",
-          timestamp: booking.createdAt || booking.created_at,
-          documents: booking.documents || [],
-          type: "new_request",
-          priority: "medium",
-        }));
+        const fetchedNotifications = data.bookings
+          .filter((booking) => booking.status !== "accepted")
+          .map((booking) => ({
+            id: booking._id,
+            customerName: booking.userName,
+            customerPhone: booking.userMobile,
+            requestType: booking.service,
+            requestDetails: booking.extraItem || booking.additionalInfo || "",
+            status: booking.status || "pending",
+            timestamp: booking.createdAt || booking.created_at,
+            documents: booking.documents || [],
+            type: "new_request",
+            priority: "medium",
+          }));
 
         // Sort by timestamp (newest first) and limit
         const sortedNotifications = fetchedNotifications.sort(
@@ -104,29 +106,26 @@ const NotificationsPanel = ({
         priority: "high",
       };
 
-      // Set as the most recent notification for glowing effect
-      setMostRecentNotificationId(newNotification.id);
+      // ✅ Only add to notifications if NOT accepted
+      if (newNotification.status !== "accepted") {
+        setMostRecentNotificationId(newNotification.id);
 
-      // Add to unread notifications
-      setUnreadNotifications((prev) => {
-        const newUnread = new Set(prev);
-        newUnread.add(newNotification.id);
-        return newUnread;
-      });
+        setUnreadNotifications((prev) => {
+          const newUnread = new Set(prev);
+          newUnread.add(newNotification.id);
+          return newUnread;
+        });
 
-      // Update notifications (keep only limit, newest first)
-      setNotifications((prev) => {
-        const updated = [newNotification, ...prev].slice(0, limit);
-        return updated;
-      });
+        setNotifications((prev) => [newNotification, ...prev].slice(0, limit));
 
-      // Start notification sound (will loop until notifications are read)
-      if (soundManager.current) {
-        soundManager.current.playLoop();
-        setIsSoundPlaying(true);
+        // Start notification sound if needed
+        if (soundManager.current) {
+          soundManager.current.playLoop();
+          setIsSoundPlaying(true);
+        }
+
+        if (onRefresh) onRefresh();
       }
-
-      onRefresh && onRefresh();
     };
 
     socket.on("new_service_request", handleNewServiceRequest);

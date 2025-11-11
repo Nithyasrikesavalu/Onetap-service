@@ -22,8 +22,8 @@ export default function EarningsTab({ vendor, earnings }) {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             This Month
           </h3>
-          <p className="text-3xl font-bold text-gray-900">₹12,450</p>
-          <p className="text-green-600 text-sm mt-2">+15% from last month</p>
+          <p className="text-3xl font-bold text-gray-900">₹0</p>
+          <p className="text-green-600 text-sm mt-2">+0%</p>
         </div>
 
         {/* Payouts */}
@@ -31,8 +31,8 @@ export default function EarningsTab({ vendor, earnings }) {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             Next Payout
           </h3>
-          <p className="text-3xl font-bold text-blue-600">₹8,920</p>
-          <p className="text-gray-600 text-sm mt-2">Processing on 28 Feb</p>
+          <p className="text-3xl font-bold text-blue-600">₹0</p>
+          <p className="text-gray-600 text-sm mt-2">Processing on 1 Dec</p>
         </div>
       </div>
 

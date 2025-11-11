@@ -1,51 +1,93 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import StatusBadge from "../common/StatusBadge";
 
-export default function OrdersTab({
-  recentOrders: initialOrders,
-  onOrderStatusUpdate,
-}) {
-  const [orders, setOrders] = useState(initialOrders);
+// Utility API functions (put in utils/api.js or inside this file if preferred)
+const API_BASE = "http://localhost:5000/api";
+
+const fetchOrders = async (shopId) => {
+  const response = await fetch(`${API_BASE}/orders?shopId=${shopId}`);
+  if (!response.ok) throw new Error("Failed to fetch orders");
+  const { orders } = await response.json();
+  return orders;
+};
+
+const fetchOrderDetails = async (orderId) => {
+  const response = await fetch(`${API_BASE}/orders/${orderId}`);
+  if (!response.ok) throw new Error("Failed to fetch order details");
+  const { order } = await response.json();
+  return order;
+};
+
+const updateOrderStatus = async (orderId, newStatus) => {
+  const response = await fetch(`${API_BASE}/orders/${orderId}/status`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: newStatus }),
+  });
+  if (!response.ok) throw new Error("Failed to update status");
+  const { order } = await response.json();
+  return order;
+};
+
+export default function OrdersTab({ shopId }) {
+  const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [updateStatus, setUpdateStatus] = useState("");
 
-  // Filter and sort orders
+  // Fetch orders initially
+  useEffect(() => {
+    if (!shopId) return;
+    setIsLoading(true);
+    fetchOrders(shopId)
+      .then(setOrders)
+      .catch((e) => alert(e.message))
+      .finally(() => setIsLoading(false));
+  }, [shopId]);
+
+  // Derived stats
+  const orderStats = useMemo(() => {
+    const total = orders.length;
+    const completed = orders.filter((o) => o.status === "completed").length;
+    const inProgress = orders.filter((o) => o.status === "in-progress").length;
+    const pending = orders.filter((o) => o.status === "pending").length;
+    const cancelled = orders.filter((o) => o.status === "cancelled").length;
+    return { total, completed, inProgress, pending, cancelled };
+  }, [orders]);
+
+  // Search/Filter/Sort
   const filteredAndSortedOrders = useMemo(() => {
     let filtered = orders.filter((order) => {
       const matchesSearch =
-        order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.id.toLowerCase().includes(searchTerm.toLowerCase());
-
+        order.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.service?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${order._id}`.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus =
         statusFilter === "all" || order.status === statusFilter;
-
       return matchesSearch && matchesStatus;
     });
 
-    // Sort orders
+    // Sorting logic
     filtered.sort((a, b) => {
       let aValue, bValue;
-
       switch (sortBy) {
         case "date":
           aValue = new Date(a.date);
           bValue = new Date(b.date);
           break;
         case "amount":
-          aValue = parseInt(a.amount.replace("₹", "").replace(",", ""));
-          bValue = parseInt(b.amount.replace("₹", "").replace(",", ""));
+          aValue = Number(a.amount);
+          bValue = Number(b.amount);
           break;
         case "customer":
-          aValue = a.customerName.toLowerCase();
-          bValue = b.customerName.toLowerCase();
+          aValue = a.customerName?.toLowerCase() || "";
+          bValue = b.customerName?.toLowerCase() || "";
           break;
         case "deadline":
           aValue = new Date(a.deadline);
@@ -55,101 +97,60 @@ export default function OrdersTab({
           aValue = a[sortBy];
           bValue = b[sortBy];
       }
-
-      if (sortOrder === "asc") {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
-      }
+      if (sortOrder === "asc") return aValue > bValue ? 1 : -1;
+      else return bValue > aValue ? 1 : -1;
     });
 
     return filtered;
   }, [orders, searchTerm, statusFilter, sortBy, sortOrder]);
 
-  // Get order statistics
-  const orderStats = useMemo(() => {
-    const total = orders.length;
-    const completed = orders.filter(
-      (order) => order.status === "completed"
-    ).length;
-    const inProgress = orders.filter(
-      (order) => order.status === "in-progress"
-    ).length;
-    const pending = orders.filter((order) => order.status === "pending").length;
-    const cancelled = orders.filter(
-      (order) => order.status === "cancelled"
-    ).length;
-
-    return { total, completed, inProgress, pending, cancelled };
-  }, [orders]);
-
-  // Update order status
-  const updateOrderStatus = async (orderId, newStatus) => {
+  // Modal handlers
+  const openDetailsModal = async (order) => {
     setIsLoading(true);
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // Update local state
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.id === orderId ? { ...order, status: newStatus } : order
-        )
-      );
-
-      // Call the parent component's update function if provided
-      if (onOrderStatusUpdate) {
-        onOrderStatusUpdate(orderId, newStatus);
-      }
-
-      console.log(`Order ${orderId} status updated to ${newStatus}`);
-    } catch (error) {
-      console.error("Failed to update order status:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    // Fetch latest details from backend
+    const fullOrder = await fetchOrderDetails(order._id);
+    setSelectedOrder(fullOrder);
+    setIsDetailsModalOpen(true);
+    setIsLoading(false);
   };
 
-  // Handle status update
-  const handleStatusUpdate = async (e) => {
-    e.preventDefault();
-    if (!selectedOrder || !updateStatus) return;
-
-    setIsLoading(true);
-    try {
-      await updateOrderStatus(selectedOrder.id, updateStatus);
-      setIsUpdateModalOpen(false);
-      setSelectedOrder(null);
-      setUpdateStatus("");
-    } catch (error) {
-      console.error("Failed to update order:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Open update modal
   const openUpdateModal = (order) => {
     setSelectedOrder(order);
     setUpdateStatus(order.status);
     setIsUpdateModalOpen(true);
   };
 
-  // Open details modal
-  const openDetailsModal = (order) => {
-    setSelectedOrder(order);
-    setIsDetailsModalOpen(true);
-  };
-
-  // Close modals
   const closeModals = () => {
-    setIsUpdateModalOpen(false);
     setIsDetailsModalOpen(false);
+    setIsUpdateModalOpen(false);
     setSelectedOrder(null);
     setUpdateStatus("");
   };
 
-  // Get status options based on current status
+  // Update status handler
+  const handleStatusUpdate = async (e) => {
+    e.preventDefault();
+    if (
+      !selectedOrder ||
+      !updateStatus ||
+      updateStatus === selectedOrder.status
+    )
+      return;
+    setIsLoading(true);
+    try {
+      const updated = await updateOrderStatus(selectedOrder._id, updateStatus);
+      setOrders((prev) =>
+        prev.map((o) => (o._id === updated._id ? updated : o))
+      );
+      closeModals();
+    } catch (err) {
+      alert("Failed to update status: " + err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Options for status transitions
   const getAvailableStatusOptions = (currentStatus) => {
     const statusFlow = {
       pending: ["in-progress", "cancelled"],
@@ -157,11 +158,10 @@ export default function OrdersTab({
       completed: [],
       cancelled: ["pending"],
     };
-
     return statusFlow[currentStatus] || [];
   };
 
-  // Export orders (simulated)
+  // CSV Export logic
   const exportOrders = () => {
     const csvContent = [
       [
@@ -174,7 +174,7 @@ export default function OrdersTab({
         "Deadline",
       ],
       ...filteredAndSortedOrders.map((order) => [
-        order.id,
+        order._id,
         order.customerName,
         order.service,
         order.amount,
@@ -185,7 +185,6 @@ export default function OrdersTab({
     ]
       .map((row) => row.join(","))
       .join("\n");
-
     const blob = new Blob([csvContent], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -197,45 +196,14 @@ export default function OrdersTab({
     URL.revokeObjectURL(url);
   };
 
-  // Mock document data for demonstration
-  const getOrderDocuments = (order) => {
-    // In a real app, this would come from the order data or API
-    return [
-      {
-        id: 1,
-        name: "Aadhaar_Card.pdf",
-        type: "Identity Proof",
-        size: "2.4 MB",
-        uploadedAt: "2024-02-20T10:30:00",
-        status: "verified",
-      },
-      {
-        id: 2,
-        name: "Passport_Photo.jpg",
-        type: "Photo",
-        size: "1.2 MB",
-        uploadedAt: "2024-02-20T10:32:00",
-        status: "verified",
-      },
-      {
-        id: 3,
-        name: "Address_Proof.pdf",
-        type: "Address Proof",
-        size: "3.1 MB",
-        uploadedAt: "2024-02-20T10:35:00",
-        status: "pending",
-      },
-    ];
-  };
-
   return (
     <div className="space-y-6">
-      {/* Header with Stats */}
+      {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Orders</h1>
           <p className="text-gray-600 mt-1">
-            {orderStats.total} total orders • {orderStats.completed} completed •{" "}
+            {orderStats.total} total • {orderStats.completed} completed •{" "}
             {orderStats.inProgress} in progress
           </p>
         </div>
@@ -263,7 +231,6 @@ export default function OrdersTab({
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
             />
           </div>
-
           {/* Status Filter */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -281,7 +248,6 @@ export default function OrdersTab({
               <option value="cancelled">Cancelled</option>
             </select>
           </div>
-
           {/* Sort By */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -299,7 +265,6 @@ export default function OrdersTab({
             </select>
           </div>
         </div>
-
         {/* Sort Order Toggle */}
         <div className="flex items-center space-x-2 mt-4">
           <span className="text-sm text-gray-700">Order:</span>
@@ -344,93 +309,61 @@ export default function OrdersTab({
             <tbody className="divide-y divide-gray-200">
               {filteredAndSortedOrders.map((order) => (
                 <tr
-                  key={order.id}
+                  key={order._id}
                   className="hover:bg-gray-50 transition-colors"
                 >
                   <td className="px-6 py-4">
-                    <div>
-                      <span className="font-medium text-green-600 block">
-                        {order.id}
-                      </span>
-                      <span className="text-gray-500 text-sm block">
-                        {order.date}
-                      </span>
-                    </div>
+                    <span className="font-medium text-green-600 block">
+                      {order._id}
+                    </span>
+                    <span className="text-gray-500 text-sm block">
+                      {order.date ? new Date(order.date).toLocaleString() : ""}
+                    </span>
                   </td>
                   <td className="px-6 py-4">
-                    <div>
-                      <p className="font-medium text-gray-900">
-                        {order.customerName}
-                      </p>
-                      {order.customerPhone && (
-                        <p className="text-gray-500 text-sm">
-                          {order.customerPhone}
-                        </p>
-                      )}
-                    </div>
+                    <span className="font-medium text-gray-900">
+                      {order.customerName}
+                    </span>{" "}
+                    <br />
+                    <span className="text-gray-500 text-sm">
+                      {order.customerPhone}
+                    </span>
                   </td>
                   <td className="px-6 py-4">
-                    <div>
-                      <p className="font-medium text-gray-900">
-                        {order.service}
-                      </p>
-                      <p className="text-gray-500 text-sm">
-                        {order.documents?.length || 0} document(s)
-                      </p>
-                      {order.notes && (
-                        <p className="text-gray-400 text-xs mt-1">
-                          {order.notes}
-                        </p>
-                      )}
-                    </div>
+                    <span className="font-medium text-gray-900">
+                      {order.service}
+                    </span>{" "}
+                    <br />
+                    <span className="text-gray-500 text-sm">
+                      {order.documents?.length || 0} document(s)
+                    </span>
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
-                    {order.amount}
+                    {order.amount || "—"}
                   </td>
                   <td className="px-6 py-4">
                     <StatusBadge status={order.status} />
                   </td>
-                  <td className="px-6 py-4">
-                    <div>
-                      <span
-                        className={`text-sm ${
-                          new Date(order.deadline) < new Date() &&
-                          order.status !== "completed" &&
-                          order.status !== "cancelled"
-                            ? "text-red-600 font-medium"
-                            : "text-gray-500"
-                        }`}
-                      >
-                        {order.deadline}
-                      </span>
-                      {new Date(order.deadline) < new Date() &&
-                        order.status !== "completed" &&
-                        order.status !== "cancelled" && (
-                          <span className="block text-xs text-red-500 mt-1">
-                            Overdue
-                          </span>
-                        )}
-                    </div>
+                  <td className="px-6 py-4 text-gray-500">
+                    {order.deadline
+                      ? new Date(order.deadline).toLocaleDateString()
+                      : "--"}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-col space-y-2 min-w-[100px]">
                       <button
                         onClick={() => openUpdateModal(order)}
                         disabled={isLoading}
-                        className="bg-green-600 hover:bg-green-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-1"
+                        className="bg-green-600 hover:bg-green-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <span>Update</span>
+                        Update
                       </button>
                       <button
                         onClick={() => openDetailsModal(order)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center space-x-1"
+                        className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors"
                       >
-                        <span>Details</span>
+                        Details
                       </button>
-                      {/* <button className="bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center space-x-1">
-                        <span>📞</span>
-                        <span>Contact</span>
-                      </button> */}
                     </div>
                   </td>
                 </tr>
@@ -467,10 +400,9 @@ export default function OrdersTab({
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 Update Order Status
               </h2>
-
               <div className="mb-6">
                 <p className="text-gray-600 mb-2">
-                  <strong>Order:</strong> {selectedOrder.id}
+                  <strong>Order:</strong> {selectedOrder._id}
                 </p>
                 <p className="text-gray-600 mb-2">
                   <strong>Customer:</strong> {selectedOrder.customerName}
@@ -479,7 +411,6 @@ export default function OrdersTab({
                   <strong>Service:</strong> {selectedOrder.service}
                 </p>
               </div>
-
               <form onSubmit={handleStatusUpdate}>
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -505,7 +436,6 @@ export default function OrdersTab({
                     )}
                   </select>
                 </div>
-
                 <div className="flex space-x-3">
                   <button
                     type="button"
@@ -543,7 +473,7 @@ export default function OrdersTab({
                   <h2 className="text-2xl font-bold text-gray-900">
                     Order Details
                   </h2>
-                  <p className="text-gray-600 mt-1">{selectedOrder.id}</p>
+                  <p className="text-gray-600 mt-1">{selectedOrder._id}</p>
                 </div>
                 <button
                   onClick={closeModals}
@@ -552,11 +482,9 @@ export default function OrdersTab({
                   ×
                 </button>
               </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Order Information */}
-                <div className="lg:col-span-2 space-y-6">
-                  {/* Customer Information */}
+                <div className="space-y-6">
                   <div className="bg-gray-50 rounded-xl p-4">
                     <h3 className="text-lg font-semibold text-gray-900 mb-4">
                       Customer Information
@@ -591,51 +519,30 @@ export default function OrdersTab({
                           Order Date
                         </label>
                         <p className="text-gray-900 font-medium">
-                          {selectedOrder.date}
+                          {selectedOrder.date
+                            ? new Date(selectedOrder.date).toLocaleString()
+                            : ""}
                         </p>
                       </div>
                     </div>
                   </div>
-
-                  {/* Service Details */}
                   <div className="bg-gray-50 rounded-xl p-4">
                     <h3 className="text-lg font-semibold text-gray-900 mb-4">
                       Service Details
                     </h3>
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Service Type
-                        </label>
-                        <p className="text-gray-900 font-medium text-lg">
-                          {selectedOrder.service}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Service Description
-                        </label>
-                        <p className="text-gray-700">
-                          {selectedOrder.serviceDescription ||
-                            "Complete processing and submission of the requested service. Includes document verification, form filling, and application submission."}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Special Instructions
-                        </label>
-                        <p className="text-gray-700 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                          {selectedOrder.notes ||
-                            "No special instructions provided"}
-                        </p>
-                      </div>
-                    </div>
+                    <p className="font-medium text-gray-800 mb-2">
+                      {selectedOrder.service}
+                    </p>
+                    <p className="text-gray-700">
+                      {selectedOrder.serviceDescription || "—"}
+                    </p>
+                    <p className="text-gray-700 bg-yellow-50 border border-yellow-200 rounded-lg p-3 mt-2">
+                      {selectedOrder.notes || "No special instructions"}
+                    </p>
                   </div>
                 </div>
-
-                {/* Documents Section */}
+                {/* Documents and Summary */}
                 <div className="space-y-6">
-                  {/* Order Summary */}
                   <div className="bg-green-50 rounded-xl p-4 border border-green-200">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Order Summary
@@ -644,7 +551,7 @@ export default function OrdersTab({
                       <div className="flex justify-between">
                         <span className="text-gray-600">Amount:</span>
                         <span className="font-semibold text-gray-900">
-                          {selectedOrder.amount}
+                          {selectedOrder.amount || "—"}
                         </span>
                       </div>
                       <div className="flex justify-between">
@@ -654,21 +561,23 @@ export default function OrdersTab({
                       <div className="flex justify-between">
                         <span className="text-gray-600">Deadline:</span>
                         <span className="font-semibold text-gray-900">
-                          {selectedOrder.deadline}
+                          {selectedOrder.deadline
+                            ? new Date(
+                                selectedOrder.deadline
+                              ).toLocaleDateString()
+                            : "--"}
                         </span>
                       </div>
                     </div>
                   </div>
-
-                  {/* Uploaded Documents */}
                   <div className="bg-white border border-gray-200 rounded-xl p-4">
                     <h3 className="text-lg font-semibold text-gray-900 mb-4">
                       Uploaded Documents
                     </h3>
                     <div className="space-y-3">
-                      {getOrderDocuments(selectedOrder).map((doc) => (
+                      {(selectedOrder.documents ?? []).map((doc, idx) => (
                         <div
-                          key={doc.id}
+                          key={doc._id || idx}
                           className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                         >
                           <div className="flex items-center space-x-3">
@@ -677,54 +586,27 @@ export default function OrdersTab({
                             </div>
                             <div>
                               <p className="font-medium text-gray-900 text-sm">
-                                {doc.name}
+                                {doc.originalName || doc.name}
                               </p>
                               <p className="text-gray-500 text-xs">
-                                {doc.type} • {doc.size}
+                                {doc.type}
                               </p>
                             </div>
                           </div>
-                          {/* <span
-                            className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              doc.status === "verified"
-                                ? "bg-green-100 text-green-800"
-                                : "bg-yellow-100 text-yellow-800"
-                            }`}
-                          >
-                            {doc.status === "verified" ? "Verified" : "Pending"}
-                          </span> */}
                         </div>
                       ))}
                     </div>
-                    <div className="mt-4 flex space-x-2">
-                      <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors">
-                        Download All
-                      </button>
-                      {/* <button className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors">
-                        Request More
-                      </button> */}
-                    </div>
+                  </div>
+                  {/* Close Button */}
+                  <div className="flex justify-end mt-4">
+                    <button
+                      onClick={closeModals}
+                      className="px-6 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
+                      Close
+                    </button>
                   </div>
                 </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
-                <button
-                  onClick={closeModals}
-                  className="px-6 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Close
-                </button>
-                <button
-                  onClick={() => {
-                    closeModals();
-                    openUpdateModal(selectedOrder);
-                  }}
-                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  Update Status
-                </button>
               </div>
             </div>
           </div>
