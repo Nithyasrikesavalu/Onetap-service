@@ -268,8 +268,8 @@ export default function AuthForm() {
               <label className="text-sm font-semibold text-gray-700">
                 I want to {isLogin ? "login as" : "sign up as"}
               </label>
-              <div className="grid grid-cols-3 gap-3">
-                {["customer", "vendor", "admin"].map((roleOption) => (
+              <div className="grid grid-cols-2 gap-3">
+                {["customer", "vendor"].map((roleOption) => (
                   <button
                     key={roleOption}
                     type="button"
