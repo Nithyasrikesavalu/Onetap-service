@@ -558,7 +558,6 @@
 //   );
 // }
 
-
 import React, { useState, useEffect } from "react";
 
 export default function OrdersTab() {
@@ -570,8 +569,6 @@ export default function OrdersTab() {
   // 🧠 Replace this with your logged-in user ID (from context, localStorage, or props)
   // const userId = localStorage.getItem("userId"); // Example: "6732b8f1a91f3d001c21dabc"
   const customerEmail = localStorage.getItem("userEmail"); // Example
-
-
 
   // ✅ Fetch user's orders from backend
   useEffect(() => {
@@ -592,11 +589,12 @@ export default function OrdersTab() {
         // Map backend order fields to UI-friendly structure
         const mappedOrders = data.orders.map((order) => ({
           id: order._id,
-          orderId: order.orderId || `ORD-${order._id.slice(-5).toUpperCase()}`,
+          orderId: order.orderId || `ORD${order._id.slice(-3).toUpperCase()}`,
           serviceType: order.serviceType || order.service || "Unknown Service",
-          serviceDescription: order.description || "No description available",
-          shopName: order.shopName || "Unnamed Shop",
-          shopLocation: order.shopLocation || "N/A",
+          serviceDescription:
+            order.serviceDescription || "No description available",
+          shopName: order.shopname || "Unnamed Shop",
+          shopLocation: order.shopAddress || "N/A",
           orderDate: order.date || order.createdAt,
           status: order.status || "pending",
           amount: order.amount ? `₹${order.amount}` : "₹0",
@@ -612,8 +610,8 @@ export default function OrdersTab() {
           progress: order.progress || 0,
         }));
 
-        console.log(mappedOrders);
-        
+        console.log(data);
+
         setOrders(mappedOrders);
       } catch (err) {
         console.error("Error fetching orders:", err);
@@ -800,7 +798,9 @@ export default function OrdersTab() {
                 {/* Status */}
                 <div className="col-span-2">
                   <div className="flex items-center space-x-2">
-                    <span className="text-lg">{getStatusIcon(order.status)}</span>
+                    <span className="text-lg">
+                      {getStatusIcon(order.status)}
+                    </span>
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${statusInfo.color}`}
                     >
@@ -831,7 +831,6 @@ export default function OrdersTab() {
           })}
         </div>
       </div>
-
 
       {/* Order Details Modal */}
       {selectedOrder && (
@@ -932,22 +931,23 @@ export default function OrdersTab() {
                       </span>
                       <div>
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusInfo(selectedOrder.status).color
-                            }`}
+                          className={`px-3 py-1 rounded-full text-sm font-medium ${
+                            getStatusInfo(selectedOrder.status).color
+                          }`}
                         >
                           {getStatusInfo(selectedOrder.status).text}
                         </span>
                         <p className="text-gray-600 text-sm mt-1">
                           {selectedOrder.status === "completed" &&
-                            selectedOrder.completionDate
+                          selectedOrder.completionDate
                             ? `Completed on ${formatDate(
-                              selectedOrder.completionDate
-                            )}`
+                                selectedOrder.completionDate
+                              )}`
                             : selectedOrder.status === "in-progress"
-                              ? `Estimated completion: ${formatDate(
+                            ? `Estimated completion: ${formatDate(
                                 selectedOrder.estimatedCompletion
                               )}`
-                              : `Expected completion: ${formatDate(
+                            : `Expected completion: ${formatDate(
                                 selectedOrder.estimatedCompletion
                               )}`}
                         </p>

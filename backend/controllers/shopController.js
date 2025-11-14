@@ -20,6 +20,20 @@ export const getShops = async (req, res) => {
   }
 };
 
+// Get all shops with services populated
+export const getShopOne = async (req, res) => {
+  try {
+    const shop = await Shop.findById(req.params.shopId);
+    console.log(req.params.shopId);
+
+    if (!shop) return res.status(404).json({ message: "Shop not found" });
+
+    res.json(shop);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // Update services for a given shop
 export const updateShopServices = async (req, res) => {
   try {

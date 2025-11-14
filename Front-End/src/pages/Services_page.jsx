@@ -559,7 +559,9 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
-  const [shopId, setshopId] = useState("69039f957336d51e6dfe1eb8");
+  const [shopId, setshopId] = useState("69036207c35681ac21a8c400");
+  const [shopName, setshopName] = useState("");
+  const [shopAddress, setshopAddress] = useState("");
 
   const requiresPhysicalAppointment =
     physicalAppointmentServices.includes(extraItem);
@@ -687,6 +689,22 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
       );
     });
 
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/shops/getshop/${shopId}`,
+        {
+          method: "GET",
+        }
+      );
+
+      const data = await res.json();
+      // console.log(data.name, data.address);
+      setshopName(data.name);
+      setshopAddress(data.address);
+    } catch (e) {
+      console.log(e);
+    }
+
     // Add booking data fields
     formData.append("userName", localStorage.getItem("userName") || "");
     formData.append("userEmail", localStorage.getItem("userEmail") || "");
@@ -698,6 +716,8 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
     formData.append("appointmentDate", appointmentDate || "");
     formData.append("appointmentTime", appointmentTime || "");
     formData.append("shopId", shopId || "");
+    formData.append("shopName", shopName || "");
+    formData.append("shoAddress", shopAddress || "");
     formData.append("userLocation", localStorage.getItem("userAddress") || "");
     formData.append("timestamp", new Date().toISOString());
 

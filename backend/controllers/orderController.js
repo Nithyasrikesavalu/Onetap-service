@@ -65,7 +65,9 @@ export const getOrdersByCustomerEmail = async (req, res) => {
   try {
     const { email } = req.params;
 
-    const orders = await Order.find({ customerEmail: email }).sort({ date: -1 });
+    const orders = await Order.find({ customerEmail: email }).sort({
+      date: -1,
+    });
 
     if (!orders.length)
       return res
@@ -93,7 +95,7 @@ export const getOrderById = async (req, res) => {
 // ✅ Update order status
 export const updateOrderStatus = async (req, res) => {
   try {
-    const { status } = req.body;
+    const { status, email } = req.body;
 
     const order = await Order.findByIdAndUpdate(
       req.params.id,
@@ -102,6 +104,24 @@ export const updateOrderStatus = async (req, res) => {
     );
 
     if (!order) return res.status(404).json({ message: "Order not found" });
+
+    // When order status changes
+    global.io.emit(`user_${email}_notification`, {
+      id: Date.now(),
+      type: "order_update",
+      title: "Order Status Updated",
+      message: `Your order is now ${order.status}.`,
+      status: order.status,
+      timestamp: new Date(),
+      serviceDetails: {
+        trackingId: order._id,
+        progress: order.progress || 0,
+        shopName: order.shopname,
+        shopAddress: order.shopAddress,
+      },
+    });
+
+    // console.log(email);
 
     res.json({ success: true, order });
   } catch (err) {

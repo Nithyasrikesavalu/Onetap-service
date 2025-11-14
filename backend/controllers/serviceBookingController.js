@@ -23,7 +23,7 @@ export const acceptRequestAndCreateOrder = async (req, res) => {
       customerPhone: booking.userMobile,
       customerEmail: booking.userEmail,
       service: booking.service,
-      serviceDescription: booking.additionalInfo,
+      serviceDescription: booking.extraItem + " " + booking.additionalInfo,
       notes: booking.notes || "",
       documents: booking.documents,
       // status: { type: String, default: "pending" }, // "pending", "in-progress", "completed", "cancelled"
@@ -31,7 +31,32 @@ export const acceptRequestAndCreateOrder = async (req, res) => {
       date: new Date(),
       deadline: new Date(),
       shopId: booking.shopId,
+      shopname: booking.shopname,
+      shopAddress: booking.shopAddress,
     });
+
+    // USER: Booking Accepted + Order Created
+    if (global.io) {
+      global.io.emit(`user_${booking.userEmail}_notification`, {
+        id: Date.now(),
+        type: "service_update",
+        title: "Booking Accepted",
+        message: `Your service request for ${booking.service} has been accepted.`,
+        status: "accepted",
+        timestamp: new Date(),
+        serviceDetails: {
+          requestType: booking.service,
+          shopName: booking.shopname,
+          shopAddress: booking.shopAddress,
+          shopPhone: booking.shopPhone || "",
+          requestDetails: booking.additionalInfo || "",
+          submittedDate: booking.createdAt,
+          trackingId: order._id,
+          vendorMessage:
+            "Your order has been created and is now being processed.",
+        },
+      });
+    }
 
     res.json({ success: true, booking, order });
   } catch (error) {
@@ -42,6 +67,8 @@ export const acceptRequestAndCreateOrder = async (req, res) => {
 
 export const createBooking = async (req, res) => {
   try {
+    console.log(req.body);
+
     const {
       userName,
       userEmail,

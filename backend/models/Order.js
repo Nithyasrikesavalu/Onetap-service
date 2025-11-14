@@ -14,6 +14,8 @@ const orderSchema = new mongoose.Schema({
   amount: Number,
   date: { type: Date, default: Date.now },
   deadline: Date,
+  shopname: {type: String,default: "Smart Xerox"},
+  shopAddress: {type: String, default: "Anna Nagar, Chennai"},
   shopId: { type: String, required: true }
 }, { timestamps: true });
 

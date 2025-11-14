@@ -231,7 +231,7 @@ export default function VendorDashboard() {
           <OrdersTab
             // recentOrders={recentOrders}
             // onOrderStatusUpdate={handleOrderStatusUpdate}
-            shopId={"69039f957336d51e6dfe1eb8"}
+            shopId={"69036207c35681ac21a8c400"}
           />
         );
       case "services":

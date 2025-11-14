@@ -15,14 +15,15 @@ const fetchOrderDetails = async (orderId) => {
   const response = await fetch(`${API_BASE}/orders/${orderId}`);
   if (!response.ok) throw new Error("Failed to fetch order details");
   const { order } = await response.json();
+  console.log(order);
   return order;
 };
 
-const updateOrderStatus = async (orderId, newStatus) => {
+const updateOrderStatus = async (orderId, newStatus, customerEmail) => {
   const response = await fetch(`${API_BASE}/orders/${orderId}/status`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: newStatus }),
+    body: JSON.stringify({ status: newStatus, email: customerEmail }),
   });
   if (!response.ok) throw new Error("Failed to update status");
   const { order } = await response.json();
@@ -138,7 +139,13 @@ export default function OrdersTab({ shopId }) {
       return;
     setIsLoading(true);
     try {
-      const updated = await updateOrderStatus(selectedOrder._id, updateStatus);
+      // console.log(selectedOrder.customerEmail);
+
+      const updated = await updateOrderStatus(
+        selectedOrder._id,
+        updateStatus,
+        selectedOrder.customerEmail
+      );
       setOrders((prev) =>
         prev.map((o) => (o._id === updated._id ? updated : o))
       );

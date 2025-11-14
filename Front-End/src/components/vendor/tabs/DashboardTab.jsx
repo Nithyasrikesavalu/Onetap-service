@@ -70,7 +70,7 @@ export default function DashboardTab({
   //   },
   // ];
 
-  const getShopId = () => localStorage.getItem("shopId") || "";
+  const getShopId = () => "69036207c35681ac21a8c400";
 
   const shopId = getShopId();
   const [recentNotifications, setRecentNotifications] = useState([]);
@@ -138,7 +138,7 @@ export default function DashboardTab({
 
   useEffect(() => {
     console.log("helo");
-    
+
     if (!shopId) return; // Listen to the "new_service_request" event from the server
 
     socket.on("new_service_request", (data) => {

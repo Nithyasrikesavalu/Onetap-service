@@ -13,6 +13,8 @@ const RequestService = () => {
     appointmentDate: "",
     appointmentTime: "",
     shopId: "",
+    shopName: "",
+    shopAddress: "",
     userLocation: "",
   });
 
@@ -147,7 +149,23 @@ const RequestService = () => {
     e.preventDefault();
     if (!validateStep(currentStep)) return;
 
-    form.shopId = "69039f957336d51e6dfe1eb8";
+    form.shopId = "69036207c35681ac21a8c400";
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/shops/getshop/${shopId}`,
+        {
+          method: "GET",
+        }
+      );
+
+      const data = await res.json();
+      // console.log(data.name, data.address);
+      form.shopName = data.name;
+      form.shopAddress = data.address;
+    } catch (e) {
+      console.log(e);
+    }
 
     try {
       const response = await fetch(

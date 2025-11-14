@@ -24,6 +24,8 @@ const serviceBookingSchema = new mongoose.Schema(
       ref: "Shop",
       required: true,
     },
+    shopname: { type: String, default: "Smart Xerox" },
+    shopAddress: { type: String, default: "Anna Nagar, Chennai" },
     userLocation: { type: String },
     documents: [documentSchema],
     status: { type: String, default: "Pending" },

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { acceptRequestAndCreateOrder } from "../../../utility/api";
 
-const getShopId = () => localStorage.getItem("shopId") || "";
+const getShopId = () => "69036207c35681ac21a8c400";
 
 export default function NotificationTab() {
   const shopId = getShopId();
