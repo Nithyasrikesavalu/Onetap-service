@@ -86,6 +86,7 @@ export const createBooking = async (req, res) => {
 
     // ✅ EMIT REAL-TIME NOTIFICATION TO FRONTEND
     if (global.io) {
+      console.log("Emitting new_service_request:", { shopId, userName }); // <-- Add this!
       global.io.emit("new_service_request", {
         shopId,
         userName,
