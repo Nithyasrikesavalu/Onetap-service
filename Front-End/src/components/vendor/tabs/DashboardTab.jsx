@@ -136,6 +136,39 @@ export default function DashboardTab({
     if (shopId) fetchData();
   }, [shopId]);
 
+  useEffect(() => {
+    console.log("helo");
+    
+    if (!shopId) return; // Listen to the "new_service_request" event from the server
+
+    socket.on("new_service_request", (data) => {
+      // Check if event is for the current shop
+      if (data.shopId === shopId) {
+        // Optional: Play notification sound
+        notificationSound.play(); // Create new notification object (same shape as your existing ones)
+
+        const newNotification = {
+          id: Date.now().toString(), // or other unique ID strategy
+          customerName: data.userName,
+          customerPhone: data.userMobile,
+          requestType: data.service,
+          requestDetails: "", // You can fill additional info as per your need
+          status: "pending",
+          timestamp: data.time,
+          documents: [],
+          type: "new_request",
+          priority: "medium",
+        }; // Prepend new notification
+
+        setRecentNotifications((prev) =>
+          [newNotification, ...prev].slice(0, 3)
+        );
+      }
+    }); // Clean up on unmount
+
+    return () => socket.off("new_service_request");
+  }, [shopId]);
+
   const notificationSound = new Audio("/notification.wav");
 
   const getNotificationIcon = (type) => {
