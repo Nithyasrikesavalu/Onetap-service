@@ -23,7 +23,7 @@ export const acceptRequestAndCreateOrder = async (req, res) => {
       customerPhone: booking.userMobile,
       customerEmail: booking.userEmail,
       service: booking.service,
-      serviceDescription: booking.serviceDescription,
+      serviceDescription: booking.additionalInfo,
       notes: booking.notes || "",
       documents: booking.documents,
       // status: { type: String, default: "pending" }, // "pending", "in-progress", "completed", "cancelled"

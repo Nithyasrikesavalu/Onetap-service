@@ -16,14 +16,17 @@ import UserNotificationPanel from "./components/UserNotificationTab";
 import MyOrders from "./components/MyOrders";
 import Admin from "./components/admin/Admin";
 import ServiceInput from "./components/admin/ServiceInput";
+import ScrollToTop from "./components/ScrollToTop";
+import OrdersTab from "./components/user/tabs/OrdersTab";
 
 const App = () => {
   return (
     <>
+    <ScrollToTop/>
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<AuthForm />} />
-          <Route path="/user" element={<UserProfile />} />
+          {/* <Route path="/user" element={<UserProfile />} /> */}
           <Route path="/vendor" element={<VendorDashboard />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/serviceinput" element={<ServiceInput />} />
@@ -38,6 +41,7 @@ const App = () => {
           <Route path="/upload" element={<AboutPage />} />
           <Route path="/Allservice" element={<Services />} />
           <Route path="/usernotifi" element={<UserNotificationPanel />} />
+          <Route path="/user" element={<OrdersTab />} />
           {/* <Route path="/myorders" element={<MyOrders />} /> */}
         </Route>
       </Routes>

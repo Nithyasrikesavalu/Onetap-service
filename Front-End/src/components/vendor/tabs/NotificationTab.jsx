@@ -134,21 +134,24 @@ export default function NotificationTab() {
         );
         const data = await res.json();
         // Transform or map data if needed for your UI
-        setNotifications(
-          data.bookings.map((booking) => ({
-            id: booking._id,
-            customerName: booking.userName,
-            customerPhone: booking.userMobile,
-            requestType: booking.service,
-            requestDetails: booking.extraItem || booking.additionalInfo || "",
-            status: booking.status || "pending", // default/fallback
-            timestamp: booking.createdAt || booking.created_at,
-            documents:
-              booking.documents && booking.documents.length
-                ? booking.documents.map((doc) => doc.originalName || doc)
-                : [],
-          }))
-        );
+        // console.log(data.bookings.status);
+        
+        const pendingBookings = data.bookings
+        .map((booking) => ({
+          id: booking._id,
+          customerName: booking.userName,
+          customerPhone: booking.userMobile,
+          requestType: booking.service,
+          requestDetails: booking.extraItem || booking.additionalInfo || "",
+          status: booking.status || "pending",
+          timestamp: booking.createdAt || booking.created_at,
+          documents:
+            booking.documents && booking.documents.length
+              ? booking.documents.map((doc) => doc.originalName || doc)
+              : [],
+        }));
+
+      setNotifications(pendingBookings.filter((b)=>(b.status == "Pending")));
       } catch (err) {
         setNotifications([]);
       }

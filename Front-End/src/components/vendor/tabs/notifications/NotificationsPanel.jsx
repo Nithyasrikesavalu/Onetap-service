@@ -239,7 +239,7 @@ const NotificationsPanel = ({
               notification={notification}
               isUnread={unreadNotifications.has(notification.id)}
               isGlowing={notification.id === mostRecentNotificationId}
-              onClick={handleNotificationClick}
+            onClick={onViewAllNotifications}
             />
           ))
         ) : (

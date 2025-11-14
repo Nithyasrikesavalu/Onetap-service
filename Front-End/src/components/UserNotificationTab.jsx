@@ -6,7 +6,6 @@ export default function UserNotificationTab() {
 
   // Initialize notifications from localStorage or use default data
   useEffect(() => {
-    localStorage.clear();
     const savedNotifications = localStorage.getItem("userNotifications");
     if (savedNotifications) {
       setNotifications(JSON.parse(savedNotifications));
@@ -301,7 +300,7 @@ export default function UserNotificationTab() {
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <div className="space-y-6 p-10">
+    <div className="space-y-6 p-10 min-h-screen">
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>

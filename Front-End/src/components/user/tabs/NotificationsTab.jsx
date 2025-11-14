@@ -1,163 +1,96 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useRef } from "react";
 
 export default function NotificationsTab() {
   const [notifications, setNotifications] = useState([]);
   const [hoveredNotification, setHoveredNotification] = useState(null);
+  const [selectedNotification, setSelectedNotification] = useState(null);
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+  const audioRef = useRef(null);
 
   // Initialize notifications from localStorage or use default data
   useEffect(() => {
-    localStorage.clear();
     const savedNotifications = localStorage.getItem("userNotifications");
     if (savedNotifications) {
       setNotifications(JSON.parse(savedNotifications));
-      console.log(savedNotifications);
     } else {
       const initialNotifications = [
-        // {
-        //   id: 1,
-        //   type: "service_request",
-        //   title: "PAN Card Update Request",
-        //   message:
-        //     "Your PAN card update request has been submitted to DocAssist Services",
-        //   timestamp: "2024-02-20T10:30:00",
-        //   isRead: false,
-        //   status: "accepted",
-        //   serviceDetails: {
-        //     requestType: "PAN Card Update",
-        //     requestDetails: "Update PAN card details for new address",
-        //     shopName: "DocAssist Services",
-        //     shopAddress: "123 Business Street, Chennai",
-        //     shopPhone: "+91 98765 43210",
-        //     documents: ["Aadhaar Card", "Current PAN", "Address Proof"],
-        //     submittedDate: "2024-02-20T10:30:00",
-        //     responseDate: "2024-02-20T11:45:00",
-        //     trackingId: "ORD001",
-        //     estimatedCompletion: "2024-02-25",
-        //     serviceFee: "₹500",
-        //     vendorMessage:
-        //       "Your PAN card update request has been accepted. Documents are under verification.",
-        //   },
-        // },
-        // {
-        //   id: 2,
-        //   type: "service_request",
-        //   title: "Bulk Printing Request",
-        //   message:
-        //     "Your bulk printing request was declined by PrintPro Solutions",
-        //   timestamp: "2024-02-20T09:15:00",
-        //   isRead: false,
-        //   status: "rejected",
-        //   serviceDetails: {
-        //     requestType: "Bulk Printing",
-        //     requestDetails: "Print 500 visiting cards with new design",
-        //     shopName: "PrintPro Solutions",
-        //     shopAddress: "456 Print Lane, Bangalore",
-        //     shopPhone: "+91 98765 43211",
-        //     documents: ["Design File", "Contact Details"],
-        //     submittedDate: "2024-02-20T09:15:00",
-        //     responseDate: "2024-02-20T14:20:00",
-        //     trackingId: null,
-        //     rejectionReason:
-        //       "Design file resolution is too low for quality printing",
-        //     vendorMessage:
-        //       "Unfortunately, your printing request could not be processed due to design quality issues.",
-        //   },
-        // },
-        // {
-        //   id: 3,
-        //   type: "service_request",
-        //   title: "Document Notarization",
-        //   message:
-        //     "Your document notarization is in progress at LegalDocs Notary",
-        //   timestamp: "2024-02-19T16:45:00",
-        //   isRead: false,
-        //   status: "in-progress",
-        //   serviceDetails: {
-        //     requestType: "Document Notarization",
-        //     requestDetails: "Notarize property documents for registration",
-        //     shopName: "LegalDocs Notary",
-        //     shopAddress: "789 Legal Avenue, Mumbai",
-        //     shopPhone: "+91 98765 43212",
-        //     documents: ["Property Deed", "ID Proof", "Witness Statements"],
-        //     submittedDate: "2024-02-19T16:45:00",
-        //     responseDate: "2024-02-20T10:15:00",
-        //     trackingId: "ORD002",
-        //     estimatedCompletion: "2024-02-22",
-        //     serviceFee: "₹1,200",
-        //     progress: 60,
-        //     vendorMessage:
-        //       "Your document notarization is scheduled. Please visit our office with original documents.",
-        //   },
-        // },
-        // {
-        //   id: 4,
-        //   type: "service_request",
-        //   title: "GST Registration",
-        //   message: "Your GST registration request is under review",
-        //   timestamp: "2024-02-19T14:20:00",
-        //   isRead: false,
-        //   status: "pending",
-        //   serviceDetails: {
-        //     requestType: "GST Registration",
-        //     requestDetails: "New GST registration for business startup",
-        //     shopName: "TaxEasy Consultants",
-        //     shopAddress: "321 Tax Street, Delhi",
-        //     shopPhone: "+91 98765 43213",
-        //     documents: [
-        //       "PAN Card",
-        //       "Aadhaar",
-        //       "Business Proof",
-        //       "Bank Statement",
-        //     ],
-        //     submittedDate: "2024-02-19T14:20:00",
-        //     responseDate: null,
-        //     trackingId: null,
-        //     vendorMessage:
-        //       "Your GST registration request is under review by our team.",
-        //   },
-        // },
-        // {
-        //   id: 5,
-        //   type: "service_update",
-        //   title: "Service Completed",
-        //   message: "Your passport application has been completed successfully",
-        //   timestamp: "2024-02-20T16:45:00",
-        //   isRead: false,
-        //   status: "completed",
-        //   serviceDetails: {
-        //     requestType: "Passport Application",
-        //     requestDetails: "Fresh passport application with tatkal service",
-        //     shopName: "Passport Seva Kendra",
-        //     shopAddress: "555 Passport Road, Hyderabad",
-        //     shopPhone: "+91 98765 43214",
-        //     documents: ["Aadhaar Card", "Birth Certificate", "Address Proof"],
-        //     submittedDate: "2024-02-19T11:00:00",
-        //     responseDate: "2024-02-19T15:30:00",
-        //     completionDate: "2024-02-20T16:45:00",
-        //     trackingId: "ORD003",
-        //     serviceFee: "₹2,500",
-        //     vendorMessage:
-        //       "Passport application processed successfully! Your passport will be delivered soon.",
-        //   },
-        // },
-        // {
-        //   id: 6,
-        //   type: "promotional",
-        //   title: "Special Offer",
-        //   message: "Get 20% off on all document services this week!",
-        //   timestamp: "2024-02-18T10:00:00",
-        //   isRead: false,
-        //   status: null,
-        // },
-        // {
-        //   id: 7,
-        //   type: "system",
-        //   title: "Welcome to DocAssist",
-        //   message: "Thank you for registering with our service platform",
-        //   timestamp: "2024-02-17T09:00:00",
-        //   isRead: false,
-        //   status: null,
-        // },
+        {
+          id: 1,
+          type: "service_request",
+          title: "PAN Card Update Request",
+          message:
+            "Your PAN card update request has been submitted to DocAssist Services",
+          timestamp: "2024-02-20T10:30:00",
+          isRead: false,
+          status: "accepted",
+          serviceDetails: {
+            requestType: "PAN Card Update",
+            requestDetails: "Update PAN card details for new address",
+            shopName: "DocAssist Services",
+            shopAddress: "123 Business Street, Chennai",
+            shopPhone: "+91 98765 43210",
+            documents: ["Aadhaar Card", "Current PAN", "Address Proof"],
+            submittedDate: "2024-02-20T10:30:00",
+            responseDate: "2024-02-20T11:45:00",
+            trackingId: "ORD001",
+            estimatedCompletion: "2024-02-25",
+            serviceFee: "₹500",
+            vendorMessage:
+              "Your PAN card update request has been accepted. Documents are under verification.",
+          },
+        },
+        {
+          id: 2,
+          type: "service_request",
+          title: "Bulk Printing Request",
+          message:
+            "Your bulk printing request was declined by PrintPro Solutions",
+          timestamp: "2024-02-20T09:15:00",
+          isRead: false,
+          status: "rejected",
+          serviceDetails: {
+            requestType: "Bulk Printing",
+            requestDetails: "Print 500 visiting cards with new design",
+            shopName: "PrintPro Solutions",
+            shopAddress: "456 Print Lane, Bangalore",
+            shopPhone: "+91 98765 43211",
+            documents: ["Design File", "Contact Details"],
+            submittedDate: "2024-02-20T09:15:00",
+            responseDate: "2024-02-20T14:20:00",
+            trackingId: null,
+            rejectionReason:
+              "Design file resolution is too low for quality printing",
+            vendorMessage:
+              "Unfortunately, your printing request could not be processed due to design quality issues.",
+          },
+        },
+        {
+          id: 3,
+          type: "service_request",
+          title: "Document Notarization",
+          message:
+            "Your document notarization is in progress at LegalDocs Notary",
+          timestamp: "2024-02-19T16:45:00",
+          isRead: false,
+          status: "in-progress",
+          serviceDetails: {
+            requestType: "Document Notarization",
+            requestDetails: "Notarize property documents for registration",
+            shopName: "LegalDocs Notary",
+            shopAddress: "789 Legal Avenue, Mumbai",
+            shopPhone: "+91 98765 43212",
+            documents: ["Property Deed", "ID Proof", "Witness Statements"],
+            submittedDate: "2024-02-19T16:45:00",
+            responseDate: "2024-02-20T10:15:00",
+            trackingId: "ORD002",
+            estimatedCompletion: "2024-02-22",
+            serviceFee: "₹1,200",
+            progress: 60,
+            vendorMessage:
+              "Your document notarization is scheduled. Please visit our office with original documents.",
+          },
+        },
       ];
       setNotifications(initialNotifications);
       localStorage.setItem(
@@ -167,12 +100,57 @@ export default function NotificationsTab() {
     }
   }, []);
 
+  // Play notification sound when new notifications are added
+  useEffect(() => {
+    if (notifications.length > 0 && isSoundEnabled) {
+      playNotificationSound();
+    }
+  }, [notifications.length]);
+
   // Save notifications to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("userNotifications", JSON.stringify(notifications));
   }, [notifications]);
 
-  const [selectedNotification, setSelectedNotification] = useState(null);
+  // Function to play notification sound
+  const playNotificationSound = () => {
+    if (audioRef.current && isSoundEnabled) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(error => {
+        console.log("Audio play failed:", error);
+      });
+    }
+  };
+
+  // Add new notification function (for testing)
+  const addTestNotification = () => {
+    const newNotification = {
+      id: Date.now(),
+      type: "service_update",
+      title: "New Service Update",
+      message: "Your service request has been updated with new information",
+      timestamp: new Date().toISOString(),
+      isRead: false,
+      status: "in-progress",
+      serviceDetails: {
+        requestType: "Test Service",
+        requestDetails: "This is a test notification",
+        shopName: "Test Services",
+        shopAddress: "Test Address",
+        shopPhone: "+91 98765 43210",
+        documents: ["Test Document"],
+        submittedDate: new Date().toISOString(),
+        responseDate: new Date().toISOString(),
+        trackingId: "TEST" + Date.now(),
+        estimatedCompletion: "2024-02-28",
+        serviceFee: "₹1000",
+        progress: 50,
+        vendorMessage: "This is a test notification message",
+      },
+    };
+
+    setNotifications(prev => [newNotification, ...prev]);
+  };
 
   // Mark notification as read
   const markAsRead = (notificationId) => {
@@ -199,20 +177,26 @@ export default function NotificationsTab() {
     }, 1000);
   };
 
-  // Clear individual notification when marked as read
-  const clearNotification = (notificationId) => {
+  // Hide/Remove individual notification
+  const hideNotification = (notificationId) => {
     setNotifications((prev) =>
       prev.filter((notif) => notif.id !== notificationId)
     );
   };
 
-  // Quick action - mark as read without opening modal
+  // Quick action - mark as read and hide
   const handleQuickRead = (notificationId, e) => {
     e.stopPropagation();
     markAsRead(notificationId);
     setTimeout(() => {
-      clearNotification(notificationId);
-    }, 500);
+      hideNotification(notificationId);
+    }, 300);
+  };
+
+  // Hide notification without marking as read
+  const handleHideNotification = (notificationId, e) => {
+    e.stopPropagation();
+    hideNotification(notificationId);
   };
 
   // Get status color
@@ -302,15 +286,42 @@ export default function NotificationsTab() {
 
   return (
     <div className="space-y-6 p-10">
+      {/* Hidden Audio Element for Notification Sound */}
+      <audio
+        ref={audioRef}
+        preload="auto"
+        src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3"
+      />
+
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
           <p className="text-gray-600 mt-1">
-            {unreadCount} unread notifications
+            {unreadCount} unread {unreadCount === 1 ? 'notification' : 'notifications'}
           </p>
         </div>
         <div className="flex items-center space-x-4">
+          {/* Sound Toggle */}
+          <button
+            onClick={() => setIsSoundEnabled(!isSoundEnabled)}
+            className={`px-4 py-2 rounded-lg font-medium shadow-sm transition-all duration-200 ${
+              isSoundEnabled
+                ? "bg-green-600 text-white hover:bg-green-700"
+                : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+            }`}
+          >
+            {isSoundEnabled ? "🔔 Sound On" : "🔕 Sound Off"}
+          </button>
+
+          {/* Test Notification Button */}
+          <button
+            onClick={addTestNotification}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200"
+          >
+            + Test Notification
+          </button>
+
           {notifications.length > 0 && (
             <button
               onClick={markAllAsRead}
@@ -345,10 +356,6 @@ export default function NotificationsTab() {
                 setSelectedNotification(notification);
                 if (!notification.isRead) {
                   markAsRead(notification.id);
-                  // Clear the notification after 2 seconds if it's read
-                  setTimeout(() => {
-                    clearNotification(notification.id);
-                  }, 2000);
                 }
               }}
             >
@@ -464,6 +471,12 @@ export default function NotificationsTab() {
                           className="px-3 py-1.5 text-xs bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 font-medium"
                         >
                           Mark as Read
+                        </button>
+                        <button
+                          onClick={(e) => handleHideNotification(notification.id, e)}
+                          className="px-3 py-1.5 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 font-medium"
+                        >
+                          Hide
                         </button>
                         {!notification.isRead && (
                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -718,18 +731,29 @@ export default function NotificationsTab() {
               )}
             </div>
 
-            <div className="p-6 border-t border-gray-200 flex justify-end space-x-3">
+            <div className="p-6 border-t border-gray-200 flex justify-between">
               <button
-                onClick={() => setSelectedNotification(null)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
+                onClick={() => {
+                  hideNotification(selectedNotification.id);
+                  setSelectedNotification(null);
+                }}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 font-medium transition-colors duration-200"
               >
-                Close
+                Hide Notification
               </button>
-              {selectedNotification.serviceDetails?.trackingId && (
-                <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium transition-colors duration-200">
-                  Track Order
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setSelectedNotification(null)}
+                  className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
+                >
+                  Close
                 </button>
-              )}
+                {selectedNotification.serviceDetails?.trackingId && (
+                  <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium transition-colors duration-200">
+                    Track Order
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
