@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Landingpage from "./pages/Landingpage";
 import AuthForm from "./pages/Login";
 import Shops from "./pages/ShopsPage";
@@ -18,33 +18,42 @@ import Admin from "./components/admin/Admin";
 import ServiceInput from "./components/admin/ServiceInput";
 import ScrollToTop from "./components/ScrollToTop";
 import OrdersTab from "./components/user/tabs/OrdersTab";
+import { NotificationProvider } from "./components/NotificationContext";
+import NotificationPopup from "./components/NotificationPopup";
 
 const App = () => {
+  const location = useLocation();
+  const showNotificationPopup =
+    !location.pathname.startsWith("/vendor") &&
+    !location.pathname.startsWith("/admin");
   return (
     <>
-    <ScrollToTop/>
-      <Routes>
-        <Route element={<AuthLayout />}>
-          <Route path="/login" element={<AuthForm />} />
-          {/* <Route path="/user" element={<UserProfile />} /> */}
-          <Route path="/vendor" element={<VendorDashboard />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/serviceinput" element={<ServiceInput />} />
-        </Route>
+      <NotificationProvider>
+        <ScrollToTop />
+        {showNotificationPopup && <NotificationPopup />}{" "}
+        <Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<AuthForm />} />
+            {/* <Route path="/user" element={<UserProfile />} /> */}
+            <Route path="/vendor" element={<VendorDashboard />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/serviceinput" element={<ServiceInput />} />
+          </Route>
 
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Landingpage />} />
-          <Route path="/shops" element={<Shops />} />
-          <Route path="/service" element={<Services />} />
-          <Route path="/request" element={<RequestService />} />
-          <Route path="/track" element={<TrackOrder />} />
-          <Route path="/upload" element={<AboutPage />} />
-          <Route path="/Allservice" element={<Services />} />
-          <Route path="/usernotifi" element={<UserNotificationPanel />} />
-          <Route path="/user" element={<OrdersTab />} />
-          {/* <Route path="/myorders" element={<MyOrders />} /> */}
-        </Route>
-      </Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Landingpage />} />
+            <Route path="/shops" element={<Shops />} />
+            <Route path="/service" element={<Services />} />
+            <Route path="/request" element={<RequestService />} />
+            <Route path="/track" element={<TrackOrder />} />
+            <Route path="/upload" element={<AboutPage />} />
+            <Route path="/Allservice" element={<Services />} />
+            <Route path="/usernotifi" element={<UserNotificationPanel />} />
+            <Route path="/user" element={<OrdersTab />} />
+            {/* <Route path="/myorders" element={<MyOrders />} /> */}
+          </Route>
+        </Routes>
+      </NotificationProvider>
     </>
   );
 };

@@ -8,6 +8,8 @@ import ReviewsTab from "./tabs/ReviewsTab";
 import EarningsTab from "./tabs/EarningsTab";
 import SettingsTab from "./tabs/SettingsTab";
 import NotificationTab from "./tabs/NotificationTab";
+import { VendorNotificationProvider } from "./tabs/notifications/VendorNotificationContext";
+import VendorNotificationPopup from "./tabs/notifications/VendorNotificationPopup";
 
 export default function VendorDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -16,6 +18,7 @@ export default function VendorDashboard() {
     name: localStorage.getItem("shopName"),
     email: localStorage.getItem("shopEmail"),
     phone: localStorage.getItem("shopMobile"),
+    shopId: "69036207c35681ac21a8c400",
     joinedDate: "10 Jan 2024",
     address: localStorage.getItem("shopAddress"),
     rating: 0,
@@ -37,9 +40,7 @@ export default function VendorDashboard() {
       try {
         // Simulate API delay
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Set mock data
-
+        // Mock Data Setup
         setServices([
           {
             id: 1,
@@ -83,35 +84,6 @@ export default function VendorDashboard() {
             estimatedTime: "5-7 days",
           },
         ]);
-
-        // setReviews([
-        //   {
-        //     id: 1,
-        //     customerName: "Rajesh Kumar",
-        //     rating: 5,
-        //     comment: "Excellent service! Quick and professional.",
-        //     date: "20 Feb 2024",
-        //     service: "Passport Application",
-        //   },
-        //   {
-        //     id: 2,
-        //     customerName: "Priya Sharma",
-        //     rating: 4,
-        //     comment:
-        //       "Good quality printing, but delivery was slightly delayed.",
-        //     date: "18 Feb 2024",
-        //     service: "Color Printing",
-        //   },
-        //   {
-        //     id: 3,
-        //     customerName: "Amit Patel",
-        //     rating: 5,
-        //     comment: "Very professional and fast service. Highly recommended!",
-        //     date: "15 Feb 2024",
-        //     service: "Document Scanning",
-        //   },
-        // ]);
-
         setEarnings([
           { month: "Jan", earnings: 0 },
           { month: "Feb", earnings: 0 },
@@ -124,7 +96,6 @@ export default function VendorDashboard() {
         setIsLoading(false);
       }
     };
-
     fetchDashboardData();
   }, []);
 
@@ -210,7 +181,6 @@ export default function VendorDashboard() {
         </div>
       );
     }
-
     switch (activeTab) {
       case "dashboard":
         return (
@@ -227,13 +197,7 @@ export default function VendorDashboard() {
           />
         );
       case "orders":
-        return (
-          <OrdersTab
-            // recentOrders={recentOrders}
-            // onOrderStatusUpdate={handleOrderStatusUpdate}
-            shopId={"69036207c35681ac21a8c400"}
-          />
-        );
+        return <OrdersTab shopId={vendor.shopId} />;
       case "services":
         return (
           <ServicesTab
@@ -273,24 +237,26 @@ export default function VendorDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Uncomment if you want to use VendorHeader */}
-      {/* <VendorHeader vendor={vendor} /> */}
-
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <VendorSidebar
-            vendor={vendor}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            calculateAverageRating={calculateAverageRating}
-            reviews={reviews}
-          />
-
-          {/* Main Content */}
-          <div className="flex-1">{renderActiveTab()}</div>
+    <VendorNotificationProvider
+      shopId={vendor.shopId}
+      onNavigateToNotifications={() => setActiveTab("notifications")}
+    >
+      <VendorNotificationPopup />
+      <div className="min-h-screen bg-gray-50">
+        {/* You can use <VendorHeader vendor={vendor} /> here if needed */}
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex flex-col lg:flex-row gap-8">
+            <VendorSidebar
+              vendor={vendor}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              calculateAverageRating={calculateAverageRating}
+              reviews={reviews}
+            />
+            <div className="flex-1">{renderActiveTab()}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </VendorNotificationProvider>
   );
 }

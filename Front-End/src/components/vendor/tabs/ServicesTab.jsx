@@ -258,7 +258,7 @@ export default function ServicesTab({ services: initialServices }) {
                 >
                   Edit
                 </button>
-                <button
+                {/* <button
                   onClick={() => toggleServiceStatus(service.id)}
                   disabled={isLoading}
                   className={`text-sm font-medium px-3 py-1 rounded-lg transition-colors ${
@@ -268,7 +268,7 @@ export default function ServicesTab({ services: initialServices }) {
                   }`}
                 >
                   {service.active ? "Deactivate" : "Activate"}
-                </button>
+                </button> */}
                 <button
                   onClick={() => deleteService(service.id)}
                   disabled={isLoading}
