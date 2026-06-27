@@ -6,6 +6,7 @@ import Services from "./pages/Services_page";
 
 import AuthLayout from "./layouts/AuthLayout";
 import MainLayout from "./layouts/MainLayout";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 import RequestService from "./components/RequestService";
 import TrackOrder from "./components/TrackOrder";
@@ -39,10 +40,14 @@ const App = () => {
         <Routes>
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<AuthForm />} />
-            {/* <Route path="/user" element={<UserProfile />} /> */}
-            <Route path="/vendor" element={<VendorDashboard />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/serviceinput" element={<ServiceInput />} />
+            
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoute allowedRoles={['vendor', 'admin', 'user']} />}>
+              {/* <Route path="/user" element={<UserProfile />} /> */}
+              <Route path="/vendor" element={<VendorDashboard />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/serviceinput" element={<ServiceInput />} />
+            </Route>
           </Route>
 
           <Route element={<MainLayout />}>

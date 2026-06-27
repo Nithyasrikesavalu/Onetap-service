@@ -1,6 +1,5 @@
-// NotificationContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
-import io from "socket.io-client";
+import { useSocket } from './socket/SocketContext';
 
 const NotificationContext = createContext();
 
@@ -8,11 +7,8 @@ export function useNotifications() {
   return useContext(NotificationContext);
 }
 
-const socket = io(import.meta.env.VITE_SOCKET_URL, {
-  withCredentials: true
-});
-
 export function NotificationProvider({ children }) {
+  const { socket, isConnected } = useSocket();
   const [notifications, setNotifications] = useState([]);
   const [popupNotif, setPopupNotif] = useState(null);
 

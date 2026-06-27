@@ -13,6 +13,9 @@ const api = axios.create({
 // Request Interceptor
 api.interceptors.request.use(
   (config) => {
+    // Add debugging log to identify what triggers API requests
+    console.log(`[Axios Debug] Request sent to: ${config.url} at ${new Date().toISOString()}`);
+    
     // Attach access token from localStorage
     const token = localStorage.getItem("token");
     if (token) {

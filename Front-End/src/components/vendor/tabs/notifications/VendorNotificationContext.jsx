@@ -1,6 +1,6 @@
 // tabs/notifications/VendorNotificationContext.js
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import { useSocket } from '../../socket/SocketContext';
 
 const VendorNotificationContext = createContext();
 
@@ -8,13 +8,12 @@ export function useVendorNotifications() {
   return useContext(VendorNotificationContext);
 }
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
-
 export function VendorNotificationProvider({
   shopId,
   onNavigateToNotifications,
   children,
 }) {
+  const { socket, isConnected } = useSocket();
   const [popupNotif, setPopupNotif] = useState(null);
 
   useEffect(() => {
