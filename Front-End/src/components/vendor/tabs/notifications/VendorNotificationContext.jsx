@@ -1,6 +1,6 @@
 // tabs/notifications/VendorNotificationContext.js
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useSocket } from '../../socket/SocketContext';
+import { useSocket } from '../../../socket/SocketContext';
 
 const VendorNotificationContext = createContext();
 
