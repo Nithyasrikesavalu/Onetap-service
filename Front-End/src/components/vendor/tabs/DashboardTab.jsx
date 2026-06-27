@@ -4,7 +4,7 @@ import StatusBadge from "../common/StatusBadge";
 
 import { io } from "socket.io-client";
 import NotificationsPanel from "./notifications/NotificationsPanel";
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 export default function DashboardTab({
   vendor,
@@ -88,7 +88,7 @@ export default function DashboardTab({
       try {
         // Fetch all, then slice, or adjust the API to accept a limit param
         const res = await fetch(
-          `http://localhost:3000/api/orders?shopId=${shopId}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/orders?shopId=${shopId}`
         );
         const data = await res.json();
         // Calculate stats
@@ -121,7 +121,7 @@ export default function DashboardTab({
       set_IsLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/api/servicebookings?shopId=${shopId}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/servicebookings?shopId=${shopId}`
         );
         const data = await res.json();
         // Transform or map data if needed for your UI

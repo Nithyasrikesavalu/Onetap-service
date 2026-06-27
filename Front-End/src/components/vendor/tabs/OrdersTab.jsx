@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import StatusBadge from "../common/StatusBadge";
 
 // Utility API functions (put in utils/api.js or inside this file if preferred)
-const API_BASE = "http://localhost:3000/api";
+const API_BASE = "${import.meta.env.VITE_API_BASE_URL}/api";
 
 const fetchOrders = async (shopId) => {
   const response = await fetch(`${API_BASE}/orders?shopId=${shopId}`);

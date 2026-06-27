@@ -8,7 +8,7 @@ export function useNotifications() {
   return useContext(NotificationContext);
 }
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 export function NotificationProvider({ children }) {
   const [notifications, setNotifications] = useState([]);

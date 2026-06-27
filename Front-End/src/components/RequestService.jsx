@@ -154,7 +154,7 @@ const RequestService = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/shops/getshop/${shopId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/shops/getshop/${shopId}`,
         {
           method: "GET",
         }
@@ -170,7 +170,7 @@ const RequestService = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/servicebookings",
+        "${import.meta.env.VITE_API_BASE_URL}/api/servicebookings",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

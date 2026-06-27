@@ -579,7 +579,7 @@ export default function OrdersTab() {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/api/orders?customerEmail=${customerEmail}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/orders?customerEmail=${customerEmail}`
         );
 
         if (!res.ok) throw new Error("Failed to fetch orders");

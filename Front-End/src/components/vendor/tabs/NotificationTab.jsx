@@ -130,7 +130,7 @@ export default function NotificationTab() {
       setIsLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/api/servicebookings?shopId=${shopId}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/servicebookings?shopId=${shopId}`
         );
         const data = await res.json();
         // Transform or map data if needed for your UI

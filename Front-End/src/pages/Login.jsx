@@ -55,7 +55,7 @@ export default function AuthForm() {
     try {
       // Register new user
       const registerRes = await fetch(
-        "http://localhost:3000/api/users/register",
+        "${import.meta.env.VITE_API_BASE_URL}/api/users/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -78,7 +78,7 @@ export default function AuthForm() {
       }
 
       // Send OTP email
-      const otpRes = await fetch("http://localhost:3000/api/users/send-otp", {
+      const otpRes = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/users/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, mobile }),
@@ -104,7 +104,7 @@ export default function AuthForm() {
     setMessage("Signing in...");
 
     try {
-      const res = await fetch("http://localhost:3000/api/users/login", {
+      const res = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, role: loginRole }),
@@ -165,7 +165,7 @@ export default function AuthForm() {
     setMessage("Verifying OTP...");
 
     try {
-      const res = await fetch("http://localhost:3000/api/users/verify-otp", {
+      const res = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/users/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),

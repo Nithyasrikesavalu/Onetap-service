@@ -15,7 +15,7 @@ const TrackOrder = () => {
     setIsTracking(true);
     try {
       // The user inputs their Order ID (which is the MongoDB _id string)
-      const res = await fetch(`http://localhost:3000/api/orders/${orderId.trim()}`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/orders/${orderId.trim()}`);
       if (!res.ok) {
         setStatus("Order not found");
         setTrackingData(null);
