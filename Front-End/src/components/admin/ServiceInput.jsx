@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const API_URL = "${import.meta.env.VITE_API_BASE_URL}/api/service-master";
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/service-master`;
 
 // Use your merged/enriched master service data here!
 const PRE_DEFINED_SERVICES = [

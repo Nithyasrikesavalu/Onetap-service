@@ -170,7 +170,7 @@ const RequestService = () => {
 
     try {
       const response = await fetch(
-        "${import.meta.env.VITE_API_BASE_URL}/api/servicebookings",
+        `${import.meta.env.VITE_API_BASE_URL}/api/servicebookings`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

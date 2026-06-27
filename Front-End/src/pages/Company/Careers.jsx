@@ -43,7 +43,7 @@ export default function Careers() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/careers/apply", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/careers/apply`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

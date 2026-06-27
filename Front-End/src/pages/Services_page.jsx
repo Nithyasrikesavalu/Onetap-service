@@ -722,7 +722,7 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
     formData.append("timestamp", new Date().toISOString());
 
     try {
-      await fetch("${import.meta.env.VITE_API_BASE_URL}/api/servicebookings", {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/servicebookings`, {
         method: "POST",
         body: formData,
       });
