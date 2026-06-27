@@ -3,7 +3,7 @@ import axios from "axios";
 // Create a centralized Axios instance
 const api = axios.create({
   // Use Vite environment variables, fallback to local if undefined
-  baseURL: import.meta.env.VITE_API_BASE_URL || "${import.meta.env.VITE_API_BASE_URL}",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000",
   withCredentials: true, // Necessary if you use cookies for JWT
   headers: {
     "Content-Type": "application/json",

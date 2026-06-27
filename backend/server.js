@@ -10,7 +10,7 @@ import app from "./app.js";
 dotenv.config();
 
 // Validate required environment variables
-const requiredEnvVars = ["PORT", "MONGO_URI"];
+const requiredEnvVars = ["PORT", "MONGO_URI", "JWT_SECRET", "EMAIL_USER", "EMAIL_PASS"];
 requiredEnvVars.forEach((envVar) => {
   if (!process.env[envVar]) {
     console.error(`❌ Missing required environment variable: ${envVar}`);

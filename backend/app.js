@@ -23,6 +23,9 @@ const app = express();
 // ==========================
 // 🛡️ Security & Middlewares
 // ==========================
+// Trust the proxy (Render load balancer) so express-rate-limit gets the correct client IP
+app.set("trust proxy", 1);
+
 app.use(helmet()); // Sets security HTTP headers
 app.use(compression()); // Compresses response bodies
 app.use(cookieParser()); // Parses cookies for JWT

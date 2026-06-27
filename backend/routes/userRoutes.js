@@ -1,22 +1,3 @@
-// import express from "express";
-// import {
-//   registerUser,
-//   verifyOtp,
-//   sendOtp,
-//   loginUser,
-//   getUserProfile,
-// } from "../controllers/userController.js";
-
-// const router = express.Router();
-
-// router.post("/register", registerUser);
-// router.post("/send-otp", sendOtp);
-// router.post("/verify-otp", verifyOtp);
-// router.post("/login", loginUser);
-// router.get("/profile", getUserProfile);
-
-// export default router;
-
 import { Router } from "express";
 import {
   register,
@@ -24,12 +5,13 @@ import {
   verifyOtp,
   login,
 } from "../controllers/userController.js";
+import asyncWrapper from "../utils/asyncWrapper.js";
 
 const router = Router();
 
-router.post("/register", register);
-router.post("/login", login);
-router.post("/send-otp", sendOtp);
-router.post("/verify-otp", verifyOtp);
+router.post("/register", asyncWrapper(register));
+router.post("/login", asyncWrapper(login));
+router.post("/send-otp", asyncWrapper(sendOtp));
+router.post("/verify-otp", asyncWrapper(verifyOtp));
 
 export default router;
