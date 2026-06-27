@@ -17,6 +17,8 @@ import shopRoutes from "./routes/shopRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import serviceMasterRoutes from "./routes/serviceMasterRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import careerRoutes from "./routes/careerRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
 
 // ==========================
 // ⚙️ Configuration
@@ -65,6 +67,8 @@ app.use("/api/shops", shopRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/service-master", serviceMasterRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/careers", careerRoutes);
+app.use("/api/contact", contactRoutes);
 
 // ==========================
 // 🚀 Start Server

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import StatusBadge from "../common/StatusBadge";
 
 // Utility API functions (put in utils/api.js or inside this file if preferred)
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "http://localhost:3000/api";
 
 const fetchOrders = async (shopId) => {
   const response = await fetch(`${API_BASE}/orders?shopId=${shopId}`);
@@ -160,9 +160,10 @@ export default function OrdersTab({ shopId }) {
   // Options for status transitions
   const getAvailableStatusOptions = (currentStatus) => {
     const statusFlow = {
-      pending: ["in-progress", "cancelled"],
-      "in-progress": ["completed", "cancelled"],
-      completed: [],
+      pending: ["in-progress", "completed", "delivered", "cancelled"],
+      "in-progress": ["completed", "delivered", "cancelled"],
+      completed: ["delivered"],
+      delivered: [],
       cancelled: ["pending"],
     };
     return statusFlow[currentStatus] || [];
@@ -252,6 +253,7 @@ export default function OrdersTab({ shopId }) {
               <option value="pending">Pending</option>
               <option value="in-progress">In Progress</option>
               <option value="completed">Completed</option>
+              <option value="delivered">Delivered</option>
               <option value="cancelled">Cancelled</option>
             </select>
           </div>

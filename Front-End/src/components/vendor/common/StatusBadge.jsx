@@ -5,6 +5,8 @@ export default function StatusBadge({ status }) {
     switch (status) {
       case "completed":
         return "bg-green-100 text-green-800";
+      case "delivered":
+        return "bg-teal-100 text-teal-800";
       case "in-progress":
         return "bg-blue-100 text-blue-800";
       case "pending":
@@ -20,6 +22,8 @@ export default function StatusBadge({ status }) {
     switch (status) {
       case "completed":
         return "Completed";
+      case "delivered":
+        return "Delivered";
       case "in-progress":
         return "In Progress";
       case "pending":

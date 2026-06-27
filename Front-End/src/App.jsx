@@ -21,6 +21,11 @@ import OrdersTab from "./components/user/tabs/OrdersTab";
 import { NotificationProvider } from "./components/NotificationContext";
 import NotificationPopup from "./components/NotificationPopup";
 
+import AboutUs from "./pages/Company/AboutUs";
+import Careers from "./pages/Company/Careers";
+import Partners from "./pages/Company/Partners";
+import Contact from "./pages/Company/Contact";
+
 const App = () => {
   const location = useLocation();
   const showNotificationPopup =
@@ -51,6 +56,10 @@ const App = () => {
             <Route path="/usernotifi" element={<UserNotificationPanel />} />
             <Route path="/user" element={<OrdersTab />} />
             {/* <Route path="/myorders" element={<MyOrders />} /> */}
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/partners" element={<Partners />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
         </Routes>
       </NotificationProvider>

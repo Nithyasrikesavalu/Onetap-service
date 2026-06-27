@@ -6,231 +6,86 @@ const TrackOrder = () => {
   const [status, setStatus] = useState(null);
   const [trackingData, setTrackingData] = useState(null);
 
-  const handleTrack = (e) => {
+  const [isTracking, setIsTracking] = useState(false);
+
+  const handleTrack = async (e) => {
     e.preventDefault();
+    if (!orderId) return;
+    
+    setIsTracking(true);
+    try {
+      // The user inputs their Order ID (which is the MongoDB _id string)
+      const res = await fetch(`http://localhost:3000/api/orders/${orderId.trim()}`);
+      if (!res.ok) {
+        setStatus("Order not found");
+        setTrackingData(null);
+        setIsTracking(false);
+        return;
+      }
+      
+      const data = await res.json();
+      const order = data.order;
+      
+      const statusMap = {
+        "pending": "Order Placed",
+        "in-progress": "In Transit",
+        "completed": "Completed",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled"
+      };
 
-    // Mock tracking data with detailed information including delivery agents
-    const mockTrackingData = {
-      ORD123: {
-        status: "Order Placed",
-        statusIcon: "📝",
-        progress: 25,
+      const mappedStatus = statusMap[order.status] || "Order Placed";
+      const progressValue = order.progress || (order.status === "delivered" ? 100 : order.status === "completed" ? 75 : order.status === "in-progress" ? 50 : 25);
+
+      const mappedData = {
+        status: mappedStatus,
+        statusIcon: (order.status === "delivered" || order.status === "completed") ? "✅" : order.status === "in-progress" ? "🚚" : "📝",
+        progress: progressValue,
         steps: [
           {
             stage: "Order Confirmed",
             completed: true,
-            timestamp: "2024-01-15 10:30 AM",
+            timestamp: new Date(order.date || order.createdAt).toLocaleString(),
             icon: "✅",
           },
           {
             stage: "Processing",
-            completed: true,
-            timestamp: "2024-01-15 11:45 AM",
+            completed: ["in-progress", "completed", "delivered"].includes(order.status),
+            timestamp: ["in-progress", "completed", "delivered"].includes(order.status) ? "In Progress" : "Expected soon",
             icon: "⚙️",
           },
           {
-            stage: "Quality Check",
-            completed: false,
-            timestamp: "Expected: 2024-01-16",
-            icon: "🔍",
-          },
-          {
-            stage: "Dispatched",
-            completed: false,
-            timestamp: "Expected: 2024-01-17",
-            icon: "🚚",
+            stage: "Completed",
+            completed: ["completed", "delivered"].includes(order.status),
+            timestamp: ["completed", "delivered"].includes(order.status) ? "Completed" : "Pending",
+            icon: "✅",
           },
           {
             stage: "Delivered",
-            completed: false,
-            timestamp: "Expected: 2024-01-18",
+            completed: order.status === "delivered",
+            timestamp: order.status === "delivered" ? new Date(order.updatedAt).toLocaleString() : "Pending",
             icon: "📦",
           },
         ],
         customer: {
-          name: "John Doe",
-          phone: "+91 98765 43210",
-          address: "123 Main Street, Chennai, Tamil Nadu - 600001",
+          name: order.customerName || "Customer",
+          phone: order.customerPhone || "N/A",
+          address: order.shopAddress || "N/A",
         },
-        service: "Documentation - Bulk Xerox & Print",
-        estimatedDelivery: "2024-01-18",
-        orderDate: "2024-01-15",
+        service: order.service || order.serviceType || "Unknown Service",
+        estimatedDelivery: order.deadline ? new Date(order.deadline).toLocaleDateString() : "To be updated",
+        orderDate: new Date(order.date || order.createdAt).toLocaleDateString(),
         deliveryAgent: null,
-      },
-      ORD456: {
-        status: "In Transit",
-        statusIcon: "🚚",
-        progress: 60,
-        steps: [
-          {
-            stage: "Order Confirmed",
-            completed: true,
-            timestamp: "2024-01-14 09:15 AM",
-            icon: "✅",
-          },
-          {
-            stage: "Processing",
-            completed: true,
-            timestamp: "2024-01-14 10:30 AM",
-            icon: "⚙️",
-          },
-          {
-            stage: "Quality Check",
-            completed: true,
-            timestamp: "2024-01-14 02:15 PM",
-            icon: "✅",
-          },
-          {
-            stage: "Dispatched",
-            completed: true,
-            timestamp: "2024-01-15 11:00 AM",
-            icon: "🚚",
-          },
-          {
-            stage: "Delivered",
-            completed: false,
-            timestamp: "Expected: 2024-01-16",
-            icon: "📦",
-          },
-        ],
-        customer: {
-          name: "Sarah Wilson",
-          phone: "+91 87654 32109",
-          address: "456 Park Avenue, Coimbatore, Tamil Nadu - 641001",
-        },
-        service: "Government - Driving License",
-        estimatedDelivery: "2024-01-16",
-        orderDate: "2024-01-14",
-        deliveryAgent: {
-          name: "Raj Kumar",
-          phone: "+91 91234 56789",
-          vehicle: "TN 07 AB 1234",
-          rating: "4.8 ★",
-          photo: "👨‍💼",
-          currentLocation: "Near Gandhipuram",
-          eta: "30-45 mins",
-          liveTracking: true,
-        },
-      },
-      ORD789: {
-        status: "Delivered",
-        statusIcon: "✅",
-        progress: 100,
-        steps: [
-          {
-            stage: "Order Confirmed",
-            completed: true,
-            timestamp: "2024-01-12 03:20 PM",
-            icon: "✅",
-          },
-          {
-            stage: "Processing",
-            completed: true,
-            timestamp: "2024-01-12 04:45 PM",
-            icon: "⚙️",
-          },
-          {
-            stage: "Quality Check",
-            completed: true,
-            timestamp: "2024-01-13 10:30 AM",
-            icon: "✅",
-          },
-          {
-            stage: "Dispatched",
-            completed: true,
-            timestamp: "2024-01-13 02:15 PM",
-            icon: "🚚",
-          },
-          {
-            stage: "Delivered",
-            completed: true,
-            timestamp: "2024-01-14 11:30 AM",
-            icon: "📦",
-          },
-        ],
-        customer: {
-          name: "Michael Raj",
-          phone: "+91 76543 21098",
-          address: "789 Gandhi Road, Madurai, Tamil Nadu - 625001",
-        },
-        service: "International - Passport Services",
-        estimatedDelivery: "2024-01-14",
-        orderDate: "2024-01-12",
-        deliveryAgent: {
-          name: "Suresh Babu",
-          phone: "+91 92345 67890",
-          vehicle: "TN 09 CD 5678",
-          rating: "4.9 ★",
-          photo: "👨‍💻",
-          currentLocation: "Delivered",
-          eta: "Delivered",
-          liveTracking: false,
-        },
-      },
-      ORD999: {
-        status: "Out for Delivery",
-        statusIcon: "🛵",
-        progress: 80,
-        steps: [
-          {
-            stage: "Order Confirmed",
-            completed: true,
-            timestamp: "2024-01-16 09:00 AM",
-            icon: "✅",
-          },
-          {
-            stage: "Processing",
-            completed: true,
-            timestamp: "2024-01-16 10:15 AM",
-            icon: "⚙️",
-          },
-          {
-            stage: "Quality Check",
-            completed: true,
-            timestamp: "2024-01-16 01:30 PM",
-            icon: "✅",
-          },
-          {
-            stage: "Dispatched",
-            completed: true,
-            timestamp: "2024-01-16 03:45 PM",
-            icon: "🚚",
-          },
-          {
-            stage: "Delivered",
-            completed: false,
-            timestamp: "Expected: Today",
-            icon: "📦",
-          },
-        ],
-        customer: {
-          name: "Priya Sharma",
-          phone: "+91 83456 78901",
-          address: "321 Lake View Road, Ooty, Tamil Nadu - 643001",
-        },
-        service: "Healthcare - Health Insurance",
-        estimatedDelivery: "2024-01-16",
-        orderDate: "2024-01-16",
-        deliveryAgent: {
-          name: "Arun Patel",
-          phone: "+91 94567 89012",
-          vehicle: "TN 33 EF 9012",
-          rating: "4.7 ★",
-          photo: "👨‍🚀",
-          currentLocation: "2 km away",
-          eta: "15-20 mins",
-          liveTracking: true,
-        },
-      },
-    };
+      };
 
-    const data = mockTrackingData[orderId];
-    if (data) {
-      setStatus(data.status);
-      setTrackingData(data);
-    } else {
+      setStatus(mappedStatus);
+      setTrackingData(mappedData);
+    } catch (err) {
+      console.error(err);
       setStatus("Order not found");
       setTrackingData(null);
+    } finally {
+      setIsTracking(false);
     }
   };
 
@@ -311,9 +166,9 @@ const TrackOrder = () => {
                 <div className="flex-1 relative">
                   <input
                     type="text"
-                    placeholder="Enter Order ID (e.g., ORD123, ORD456...)"
+                    placeholder="Enter Order ID (e.g., 60d5ec49c...)"
                     value={orderId}
-                    onChange={(e) => setOrderId(e.target.value.toUpperCase())}
+                    onChange={(e) => setOrderId(e.target.value)}
                     className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                     required
                   />
@@ -325,9 +180,10 @@ const TrackOrder = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   type="submit"
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-semibold text-white shadow-lg hover:shadow-blue-500/30 transition-all duration-300 whitespace-nowrap text-sm sm:text-base"
+                  disabled={isTracking}
+                  className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-semibold text-white shadow-lg hover:shadow-blue-500/30 transition-all duration-300 whitespace-nowrap text-sm sm:text-base disabled:opacity-75"
                 >
-                  Track Order
+                  {isTracking ? "Tracking..." : "Track Order"}
                 </motion.button>
               </div>
             </form>
@@ -673,8 +529,7 @@ const TrackOrder = () => {
                     Order Not Found
                   </div>
                   <p className="text-red-600 text-xs sm:text-sm">
-                    Please check your Order ID and try again. Valid IDs: ORD123,
-                    ORD456, ORD789, ORD999
+                    Please check your 24-character Order ID and try again.
                   </p>
                 </motion.div>
               )}

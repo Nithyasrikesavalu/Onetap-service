@@ -8,7 +8,7 @@ export function useNotifications() {
   return useContext(NotificationContext);
 }
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:3000");
 
 export function NotificationProvider({ children }) {
   const [notifications, setNotifications] = useState([]);
@@ -25,19 +25,38 @@ export function NotificationProvider({ children }) {
   }, [notifications]);
 
   useEffect(() => {
-    const userEmail = localStorage.getItem("userEmail");
-    if (!userEmail) return;
+    let currentChannel = null;
+    let currentHandler = null;
 
-    const channel = `user_${userEmail}_notification`;
-
-    const handler = (notif) => {
-      setNotifications((prev) => [{ ...notif, isRead: false }, ...prev]);
-      setPopupNotif({ ...notif });
-      setTimeout(() => setPopupNotif(null), 5000); // Hide popup after 5s
+    const setupListener = () => {
+      const userEmail = localStorage.getItem("userEmail");
+      if (!userEmail) return;
+      
+      const channel = `user_${userEmail}_notification`;
+      if (currentChannel !== channel) {
+        if (currentChannel && currentHandler) {
+          socket.off(currentChannel, currentHandler);
+        }
+        currentChannel = channel;
+        currentHandler = (notif) => {
+          setNotifications((prev) => [{ ...notif, isRead: false }, ...prev]);
+          setPopupNotif({ ...notif });
+          setTimeout(() => setPopupNotif(null), 5000); // Hide popup after 5s
+        };
+        socket.on(channel, currentHandler);
+      }
     };
 
-    socket.on(channel, handler);
-    return () => socket.off(channel, handler);
+    setupListener();
+    // Periodically check in case user logs in (since React Router doesn't reload the page)
+    const interval = setInterval(setupListener, 2000); 
+
+    return () => {
+      clearInterval(interval);
+      if (currentChannel && currentHandler) {
+        socket.off(currentChannel, currentHandler);
+      }
+    };
   }, []);
 
   // Mark as read helper

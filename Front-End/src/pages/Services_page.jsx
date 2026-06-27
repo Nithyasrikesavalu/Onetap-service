@@ -691,7 +691,7 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/shops/getshop/${shopId}`,
+        `http://localhost:3000/api/shops/getshop/${shopId}`,
         {
           method: "GET",
         }
@@ -722,7 +722,7 @@ function DocumentModal({ isOpen, onClose, service, extraItem }) {
     formData.append("timestamp", new Date().toISOString());
 
     try {
-      await fetch("http://localhost:5000/api/servicebookings", {
+      await fetch("http://localhost:3000/api/servicebookings", {
         method: "POST",
         body: formData,
       });

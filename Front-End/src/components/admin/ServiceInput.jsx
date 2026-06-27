@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const API_URL = "http://localhost:5000/api/service-master";
+const API_URL = "http://localhost:3000/api/service-master";
 
 // Use your merged/enriched master service data here!
 const PRE_DEFINED_SERVICES = [

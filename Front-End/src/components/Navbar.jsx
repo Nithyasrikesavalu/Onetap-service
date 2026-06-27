@@ -140,6 +140,31 @@ export default function Navbar() {
               </div>
               About
             </Link>
+
+            {userName && (
+              <Link
+                to="/user"
+                className="group flex items-center gap-2 text-gray-700 hover:text-blue-600 font-medium transition-all duration-300"
+              >
+                <div className="p-2 rounded-xl bg-blue-50 group-hover:bg-blue-100 transition-colors duration-300">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                    />
+                  </svg>
+                </div>
+                My Orders
+              </Link>
+            )}
           </nav>
 
           {/* RIGHT SIDE */}
@@ -288,12 +313,21 @@ export default function Navbar() {
             >
               Track Order
             </Link>
+
             <Link
               to="/upload"
               className="block text-gray-700 hover:text-blue-600"
             >
               About
             </Link>
+            {userName && (
+              <Link
+                to="/user"
+                className="block text-gray-700 hover:text-blue-600"
+              >
+                My Orders
+              </Link>
+            )}
           </div>
         )}
       </div>

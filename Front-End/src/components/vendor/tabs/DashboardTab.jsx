@@ -4,7 +4,7 @@ import StatusBadge from "../common/StatusBadge";
 
 import { io } from "socket.io-client";
 import NotificationsPanel from "./notifications/NotificationsPanel";
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:3000");
 
 export default function DashboardTab({
   vendor,
@@ -16,25 +16,27 @@ export default function DashboardTab({
   onViewAllReviews,
   onViewAllNotifications,
 }) {
+  const [orderStats, setOrderStats] = useState({ active: 0, completed: 0, pending: 0, totalEarnings: 0 });
+
   const stats = [
     {
       label: "Total Earnings",
-      value: "₹0",
+      value: `₹${orderStats.totalEarnings}`,
       icon: "💰",
     },
     {
       label: "Active Orders",
-      value: vendor.activeOrders,
+      value: orderStats.active,
       icon: "📦",
     },
     {
       label: "Completed Orders",
-      value: vendor.completedOrders,
+      value: orderStats.completed,
       icon: "✅",
     },
     {
       label: "Pending Requests",
-      value: vendor.pendingRequests,
+      value: orderStats.pending,
       icon: "⏳",
     },
   ];
@@ -86,17 +88,29 @@ export default function DashboardTab({
       try {
         // Fetch all, then slice, or adjust the API to accept a limit param
         const res = await fetch(
-          `http://localhost:5000/api/orders?shopId=${shopId}`
+          `http://localhost:3000/api/orders?shopId=${shopId}`
         );
         const data = await res.json();
+        // Calculate stats
+        const allOrders = data.orders ?? [];
+        const activeCount = allOrders.filter(o => o.status === "in-progress" || o.status === "pending").length;
+        const completedCount = allOrders.filter(o => o.status === "completed" || o.status === "delivered").length;
+        const pendingCount = allOrders.filter(o => o.status === "pending").length;
+        const earnings = allOrders
+          .filter(o => o.status === "completed" || o.status === "delivered")
+          .reduce((sum, o) => sum + (Number(o.amount) || 0), 0);
+          
+        setOrderStats({ active: activeCount, completed: completedCount, pending: pendingCount, totalEarnings: earnings });
+
         // Newest first by default, otherwise, sort by createdAt/date
-        const sorted = (data.orders ?? []).sort(
+        const sorted = allOrders.sort(
           (a, b) =>
             new Date(b.date || b.createdAt) - new Date(a.date || a.createdAt)
         );
         setRecentOrders(sorted.slice(0, 3)); // Just top 3
       } catch (err) {
         setRecentOrders([]);
+        setOrderStats({ active: 0, completed: 0, pending: 0, totalEarnings: 0 });
       }
     }
     fetchRecentOrders();
@@ -107,7 +121,7 @@ export default function DashboardTab({
       set_IsLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:5000/api/servicebookings?shopId=${shopId}`
+          `http://localhost:3000/api/servicebookings?shopId=${shopId}`
         );
         const data = await res.json();
         // Transform or map data if needed for your UI

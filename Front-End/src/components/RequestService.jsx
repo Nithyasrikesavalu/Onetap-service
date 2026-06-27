@@ -19,6 +19,7 @@ const RequestService = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [bookingId, setBookingId] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [errors, setErrors] = useState({});
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -153,7 +154,7 @@ const RequestService = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/shops/getshop/${shopId}`,
+        `http://localhost:3000/api/shops/getshop/${shopId}`,
         {
           method: "GET",
         }
@@ -169,7 +170,7 @@ const RequestService = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/servicebookings",
+        "http://localhost:3000/api/servicebookings",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -178,6 +179,7 @@ const RequestService = () => {
       );
       const result = await response.json();
       if (response.ok && result.success) {
+        setBookingId(result.booking._id);
         setSubmitted(true);
       } else {
         setErrors({ ...errors, api: result.message || "Submission failed!" });
@@ -1658,6 +1660,12 @@ const RequestService = () => {
                       )}
                       <br />
                       <br />
+                      <div className="mt-4 p-3 bg-white/50 rounded-lg border border-gray-100 inline-block">
+                        <span className="text-gray-500 text-sm">Order ID: </span>
+                        <span className="font-mono font-bold text-gray-800">{bookingId}</span>
+                      </div>
+                      <br />
+                      <br />
                       Confirmation has been sent to{" "}
                       <span className="text-blue-600">
                         {form.userEmail}
@@ -1691,6 +1699,7 @@ const RequestService = () => {
                           userLocation: "",
                         });
                         setErrors({});
+                        setBookingId(null);
                       }}
                       className="w-full px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-semibold text-white shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
                       whileHover={{ scale: 1.02 }}

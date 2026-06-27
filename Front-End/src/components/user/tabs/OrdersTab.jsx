@@ -579,7 +579,7 @@ export default function OrdersTab() {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/api/orders?customerEmail=${customerEmail}`
+          `http://localhost:3000/api/orders?customerEmail=${customerEmail}`
         );
 
         if (!res.ok) throw new Error("Failed to fetch orders");
@@ -589,7 +589,7 @@ export default function OrdersTab() {
         // Map backend order fields to UI-friendly structure
         const mappedOrders = data.orders.map((order) => ({
           id: order._id,
-          orderId: order.orderId || `ORD${order._id.slice(-3).toUpperCase()}`,
+          orderId: order._id,
           serviceType: order.serviceType || order.service || "Unknown Service",
           serviceDescription:
             order.serviceDescription || "No description available",

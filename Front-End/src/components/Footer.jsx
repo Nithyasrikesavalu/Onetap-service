@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Truck, Shield, Star, Clock, Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
@@ -64,15 +65,25 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Services</h3>
             <ul className="space-y-2 text-slate-300">
-              <li className="hover:text-white cursor-pointer">
-                Xerox & Printing
+              <li>
+                <Link to="/Allservice" className="hover:text-white cursor-pointer transition-colors">
+                  Xerox & Printing
+                </Link>
               </li>
-              <li className="hover:text-white cursor-pointer">
-                Govt Documents
+              <li>
+                <Link to="/Allservice" className="hover:text-white cursor-pointer transition-colors">
+                  Govt Documents
+                </Link>
               </li>
-              <li className="hover:text-white cursor-pointer">Lamination</li>
-              <li className="hover:text-white cursor-pointer">
-                Photo Printing
+              <li>
+                <Link to="/Allservice" className="hover:text-white cursor-pointer transition-colors">
+                  Lamination
+                </Link>
+              </li>
+              <li>
+                <Link to="/Allservice" className="hover:text-white cursor-pointer transition-colors">
+                  Photo Printing
+                </Link>
               </li>
             </ul>
           </div>
@@ -81,10 +92,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Company</h3>
             <ul className="space-y-2 text-slate-300">
-              <li className="hover:text-white cursor-pointer">About Us</li>
-              <li className="hover:text-white cursor-pointer">Careers</li>
-              <li className="hover:text-white cursor-pointer">Partners</li>
-              <li className="hover:text-white cursor-pointer">Contact</li>
+              <li><Link to="/about" className="hover:text-white cursor-pointer transition-colors">About Us</Link></li>
+              <li><Link to="/careers" className="hover:text-white cursor-pointer transition-colors">Careers</Link></li>
+              <li><Link to="/partners" className="hover:text-white cursor-pointer transition-colors">Partners</Link></li>
+              <li><Link to="/contact" className="hover:text-white cursor-pointer transition-colors">Contact</Link></li>
             </ul>
           </div>
 

@@ -8,7 +8,7 @@ export function useVendorNotifications() {
   return useContext(VendorNotificationContext);
 }
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:3000");
 
 export function VendorNotificationProvider({
   shopId,

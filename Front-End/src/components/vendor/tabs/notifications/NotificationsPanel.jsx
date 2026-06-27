@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import NotificationItem from "./NotificationItem";
 import { NotificationSound } from "../../../../utility/NotificationSound";
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:3000");
 
 const NotificationsPanel = ({
   shopId,
@@ -39,7 +39,7 @@ const NotificationsPanel = ({
       setIsLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:5000/api/servicebookings?shopId=${shopId}`
+          `http://localhost:3000/api/servicebookings?shopId=${shopId}`
         );
         const data = await res.json();
 
