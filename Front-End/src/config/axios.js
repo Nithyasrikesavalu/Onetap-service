@@ -13,11 +13,11 @@ const api = axios.create({
 // Request Interceptor
 api.interceptors.request.use(
   (config) => {
-    // You can attach tokens here if you store them in localStorage
-    // const token = localStorage.getItem("token");
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    // Attach access token from localStorage
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -30,14 +30,29 @@ api.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
-    // Global Error Handling
-    if (error.response) {
-      // Handle 401 Unauthorized globally
-      if (error.response.status === 401) {
-        // e.g., trigger a logout or token refresh
-        console.warn("Unauthorized! Redirecting to login...");
-        // window.location.href = "/login";
+  async (error) => {
+    const originalRequest = error.config;
+    
+    // If error is 401 and we haven't retried yet
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      
+      try {
+        // Attempt to refresh token using secure cookie
+        const res = await axios.post(`${api.defaults.baseURL}/api/users/refresh`, {}, { withCredentials: true });
+        
+        if (res.data.token) {
+          // Save new token
+          localStorage.setItem("token", res.data.token);
+          // Update header and retry original request
+          originalRequest.headers.Authorization = `Bearer ${res.data.token}`;
+          return api(originalRequest);
+        }
+      } catch (refreshError) {
+        console.warn("Session expired! Redirecting to login...");
+        // Clear local storage and redirect to login
+        localStorage.removeItem("token");
+        // window.location.href = "/login"; // Uncomment to enable forced redirect
       }
     }
     return Promise.reject(error);

@@ -338,12 +338,28 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "15m" } // Access token lives for 15 minutes
     );
+
+    // Generate Refresh Token
+    const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET;
+    const refreshToken = jwt.sign(
+      { userId: user._id },
+      refreshTokenSecret,
+      { expiresIn: "7d" } // Refresh token lives for 7 days
+    );
+
+    // Set secure cookie
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true, // Prevents XSS
+      secure: process.env.NODE_ENV === "production", // Requires HTTPS in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cross-site cookies in production
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
 
     res.json({
       message: "Login successful",
-      token,
+      token, // Send access token in payload
       user: {
         _id: user._id,
         name: user.name,
@@ -358,4 +374,51 @@ export const login = async (req, res) => {
     console.error("Login error", err);
     res.status(500).json({ message: "Login error", error: err.message });
   }
+};
+
+// Refresh Token
+export const refreshToken = async (req, res) => {
+  try {
+    const cookies = req.cookies;
+    
+    if (!cookies?.jwt) {
+      return res.status(401).json({ message: "Unauthorized, no refresh token" });
+    }
+
+    const refreshToken = cookies.jwt;
+    const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET;
+
+    jwt.verify(refreshToken, refreshTokenSecret, async (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ message: "Forbidden, invalid refresh token" });
+      }
+
+      const user = await User.findById(decoded.userId);
+      
+      if (!user) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      const newAccessToken = jwt.sign(
+        { userId: user._id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "15m" }
+      );
+
+      res.json({ token: newAccessToken });
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Refresh error", error: err.message });
+  }
+};
+
+// Logout
+export const logout = (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  });
+  res.status(200).json({ message: "Logged out successfully" });
 };

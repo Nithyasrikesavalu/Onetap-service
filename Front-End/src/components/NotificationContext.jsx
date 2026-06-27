@@ -8,7 +8,9 @@ export function useNotifications() {
   return useContext(NotificationContext);
 }
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io(import.meta.env.VITE_SOCKET_URL, {
+  withCredentials: true
+});
 
 export function NotificationProvider({ children }) {
   const [notifications, setNotifications] = useState([]);

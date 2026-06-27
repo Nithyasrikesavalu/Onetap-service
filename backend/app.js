@@ -26,7 +26,7 @@ const app = express();
 // Trust the proxy (Render load balancer) so express-rate-limit gets the correct client IP
 app.set("trust proxy", 1);
 
-app.use(helmet()); // Sets security HTTP headers
+app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } })); // Fixes CORS blocks from modern Helmet versions
 app.use(compression()); // Compresses response bodies
 app.use(cookieParser()); // Parses cookies for JWT
 app.use(express.json({ limit: "5mb" })); // Parses incoming JSON payloads
